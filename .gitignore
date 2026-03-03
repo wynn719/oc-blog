@@ -1,1 +1,3 @@
-themes/console
+themes/
+public/
+.DS_Store

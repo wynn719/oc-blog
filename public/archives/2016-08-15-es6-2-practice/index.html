@@ -1,0 +1,333 @@
+<!doctype html><html class="not-ready lg:text-base" style=--bg:#faf8f1 lang=zh-CN dir=ltr><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>ES6实践（二） - 伟神的博客</title>
+<meta name=theme-color><meta name=description content="函数的扩展 ES6 对函数进行了扩展，新的函数支持定义默认值、扩展运算符、写法更加简洁的箭头函数等。
+函数参数的默认值（3 种形式） 1.函数默认值
+let fn = function (x = 1, y = 2) { return x + y; }; fn(); // 3 // 代替函数体内判断的写法 let fn = function (x, y) { x = x || 1; y = y || 2; return x + y; }; fn(); // 3 2.函数默认值——解构参数
+可以通过解构变量来定义函数参数的默认值，减少参数的个数
+let fn = function ({ x = 1, y = 2 }) { return x + y; }; fn(); // 3 3."><meta name=author content="伟神的博客"><link rel="preload stylesheet" as=style href=https://kaorz.com/blog/main.min.55f67b3b9482b33ca2648823a61f5e76f43181837316a5e844e85db17499eb47.css integrity="sha256-VfZ7O5SCszyiZIgjph9edvQxgYNzFqXoROhdsXSZ60c="><link rel=preload as=image href=https://kaorz.com/blog/theme.png><script defer src=https://kaorz.com/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=https://kaorz.com/blog/favicon.ico><link rel=apple-touch-icon href=https://kaorz.com/blog/apple-touch-icon.png><meta name=generator content="Hugo 0.123.0"><meta itemprop=name content="ES6实践（二）"><meta itemprop=description content="函数的扩展 ES6 对函数进行了扩展，新的函数支持定义默认值、扩展运算符、写法更加简洁的箭头函数等。
+函数参数的默认值（3 种形式） 1.函数默认值
+let fn = function (x = 1, y = 2) { return x + y; }; fn(); // 3 // 代替函数体内判断的写法 let fn = function (x, y) { x = x || 1; y = y || 2; return x + y; }; fn(); // 3 2.函数默认值——解构参数
+可以通过解构变量来定义函数参数的默认值，减少参数的个数
+let fn = function ({ x = 1, y = 2 }) { return x + y; }; fn(); // 3 3."><meta itemprop=datePublished content="2016-08-15T00:00:00+08:00"><meta itemprop=dateModified content="2016-08-15T00:00:00+08:00"><meta itemprop=wordCount content="920"><meta itemprop=keywords content><meta property="og:title" content="ES6实践（二）"><meta property="og:description" content="函数的扩展 ES6 对函数进行了扩展，新的函数支持定义默认值、扩展运算符、写法更加简洁的箭头函数等。
+函数参数的默认值（3 种形式） 1.函数默认值
+let fn = function (x = 1, y = 2) { return x + y; }; fn(); // 3 // 代替函数体内判断的写法 let fn = function (x, y) { x = x || 1; y = y || 2; return x + y; }; fn(); // 3 2.函数默认值——解构参数
+可以通过解构变量来定义函数参数的默认值，减少参数的个数
+let fn = function ({ x = 1, y = 2 }) { return x + y; }; fn(); // 3 3."><meta property="og:type" content="article"><meta property="og:url" content="https://kaorz.com/blog/archives/2016-08-15-es6-2-practice/"><meta property="article:section" content="archives"><meta property="article:published_time" content="2016-08-15T00:00:00+08:00"><meta property="article:modified_time" content="2016-08-15T00:00:00+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="ES6实践（二）"><meta name=twitter:description content="函数的扩展 ES6 对函数进行了扩展，新的函数支持定义默认值、扩展运算符、写法更加简洁的箭头函数等。
+函数参数的默认值（3 种形式） 1.函数默认值
+let fn = function (x = 1, y = 2) { return x + y; }; fn(); // 3 // 代替函数体内判断的写法 let fn = function (x, y) { x = x || 1; y = y || 2; return x + y; }; fn(); // 3 2.函数默认值——解构参数
+可以通过解构变量来定义函数参数的默认值，减少参数的个数
+let fn = function ({ x = 1, y = 2 }) { return x + y; }; fn(); // 3 3."><link rel=canonical href=https://kaorz.com/blog/archives/2016-08-15-es6-2-practice/></head><body class="bg-(--bg) text-black antialiased duration-200 ease-out [-webkit-tap-highlight-color:transparent] dark:text-white"><header class="mx-auto flex h-[4.5rem] max-w-(--w) px-8 whitespace-nowrap lg:justify-center"><div class="relative z-50 flex items-center ltr:mr-auto rtl:ml-auto"><a class="-translate-y-[1px] text-2xl font-medium" href=https://kaorz.com/blog/>伟神的博客</a><div class="btn-dark text-[0px] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]" role=button aria-label=Dark></div></div><div class="btn-menu relative z-50 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden ltr:-mr-8 rtl:-ml-8" role=button aria-label=Menu></div><script>const htmlClass=document.documentElement.classList;setTimeout(()=>{htmlClass.remove("not-ready")},10);const btnMenu=document.querySelector(".btn-menu");btnMenu.addEventListener("click",()=>{htmlClass.toggle("open")});const metaTheme=document.querySelector('meta[name="theme-color"]'),lightBg="#faf8f1".replace(/"/g,""),setDark=e=>{metaTheme.setAttribute("content",e?"rgb(0 0 0 / 85%)":lightBg),htmlClass[e?"add":"remove"]("dark"),localStorage.setItem("dark",e)},darkScheme=window.matchMedia("(prefers-color-scheme: dark)");if(htmlClass.contains("dark"))setDark(!0);else{const e=localStorage.getItem("dark");setDark(e?e==="true":darkScheme.matches)}darkScheme.addEventListener("change",e=>{setDark(e.matches)});const btnDark=document.querySelector(".btn-dark");btnDark.addEventListener("click",()=>{setDark(localStorage.getItem("dark")!=="true")})</script><div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full flex-col justify-center bg-(--bg) pb-16 duration-200 select-none lg:static lg:h-auto lg:flex-row lg:bg-transparent! lg:pb-0 lg:transition-none"></div></header><main class="prose prose-neutral dark:prose-invert relative mx-auto min-h-[calc(100vh-9rem)] max-w-(--w) px-8 pt-14 pb-16"><article><header class=mb-14><h1 class="my-0! pb-2.5">ES6实践（二）</h1><div class="text-xs antialiased opacity-60"><time>Aug 15, 2016</time></div></header><section><h2 id=函数的扩展>函数的扩展</h2><p>ES6 对函数进行了扩展，新的函数支持定义默认值、扩展运算符、写法更加简洁的箭头函数等。</p><h3 id=函数参数的默认值3-种形式>函数参数的默认值（3 种形式）</h3><p><strong>1.函数默认值</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>y</span>;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fn</span>(); <span style=color:#75715e>// 3
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 代替函数体内判断的写法
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>x</span>, <span style=color:#a6e22e>y</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>||</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>||</span> <span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>y</span>;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fn</span>(); <span style=color:#75715e>// 3
+</span></span></span></code></pre></div><p><strong>2.函数默认值——解构参数</strong></p><p>可以通过解构变量来定义函数参数的默认值，减少参数的个数</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> ({ <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span> }) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>y</span>;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fn</span>(); <span style=color:#75715e>// 3
+</span></span></span></code></pre></div><p><strong>3.函数默认值与解构赋值结合</strong></p><p>注意：前面这两种方法都存在一个问题，如果只使用第二个参数，就必须给第一个参数传入<code>undefined</code>来指示第一个参数的默认值，通过解构赋值和函数默认值结合的形式可以避免这样的问题。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// 既可以不传入参数，也可以指定参数调用
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> ({ <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span> } <span style=color:#f92672>=</span> {}) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>y</span>;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fn</span>({ <span style=color:#a6e22e>y</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span> }); <span style=color:#75715e>// 3
+</span></span></span></code></pre></div><p>实例：默认参数与解构赋值混合使用</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, { <span style=color:#a6e22e>y</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>, <span style=color:#a6e22e>z</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span> } <span style=color:#f92672>=</span> {}) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>y</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>z</span>;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fn</span>(<span style=color:#ae81ff>5</span>); <span style=color:#75715e>// 10
+</span></span></span></code></pre></div><h2 id=rest-参数与拓展符>rest 参数与拓展符</h2><p>ES6 也支持了函数 rest 形式的参数（使用者不需要考虑参数的个数），rest 参数必须跟在函数最后面，实例如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> (...<span style=color:#a6e22e>values</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>values</span>.<span style=color:#a6e22e>join</span>(<span style=color:#e6db74>&#34; &#34;</span>);
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fn</span>(<span style=color:#e6db74>&#34;hello&#34;</span>, <span style=color:#e6db74>&#34;i&#39;m&#34;</span>, <span style=color:#e6db74>&#34;waynezheng&#34;</span>); <span style=color:#75715e>// hello i&#39;m waynezheng
+</span></span></span></code></pre></div><h3 id=扩展运算符的灵活运用>扩展运算符的灵活运用</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// 数组合并
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>arr</span> <span style=color:#f92672>=</span> [...[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>], ...[<span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>]]; <span style=color:#75715e>// [1, 2, 3, 4, 5, 6]
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 拆分字符串
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>str</span> <span style=color:#f92672>=</span> [...<span style=color:#e6db74>&#34;hello&#34;</span>]; <span style=color:#75715e>// [&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;]
+</span></span></span></code></pre></div><p>注意：实现了<code>iterator</code>接口的对象，都可以实用扩展运算符进行解构。</p><h2 id=箭头函数>箭头函数</h2><p>ES6 引入的箭头函数，使函数的定义方式更加简洁，同时也解决了<code>this</code>绑定的问题。</p><h3 id=基本用法>基本用法</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>x</span>) =&gt; <span style=color:#a6e22e>x</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 等价于
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>x</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>x</span>;
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=解决this指向的问题>解决<code>this</code>指向的问题</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> () {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;fn&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>setTimeout</span>(() =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span>); <span style=color:#75715e>// fn
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  }, <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fn</span>();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 代替用that赋值this
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> () {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>that</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>setTimeout</span>(<span style=color:#66d9ef>function</span> () {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;fn&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span>); <span style=color:#75715e>// undefined
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>that</span>.<span style=color:#a6e22e>name</span>); <span style=color:#75715e>// fn
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  }, <span style=color:#ae81ff>1000</span>);
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fn</span>();
+</span></span></code></pre></div><h2 id=对象的扩展>对象的扩展</h2><p>ES6 让对象的定义更加简洁，同时引入了一些常见的第三方框架的功能，实例如下：</p><h3 id=简洁的写法>简洁的写法</h3><p><strong>1.返回对象简写</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> () {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span>, <span style=color:#a6e22e>y</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> { <span style=color:#a6e22e>x</span>, <span style=color:#a6e22e>y</span> };
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 等价于
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> () {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>x</span>, <span style=color:#a6e22e>y</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>x</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>x</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>y</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>y</span>,
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p><strong>2.方法简写</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>obj</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sayName</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#34;Yip Man&#34;</span>;
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p><strong>3.配合 import，export 的模块化输出简写</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>foo</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sayName</span>() {},
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>bar</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sayName</span>() {},
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>exports</span> <span style=color:#f92672>=</span> { <span style=color:#a6e22e>foo</span>, <span style=color:#a6e22e>bar</span> };
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 等价于
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>exports</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>foo</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>foo</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>bar</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>bar</span>,
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=object-上的扩展函数>Object 上的扩展函数</h3><p><strong>1.严谨的值比较</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>a</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>NaN</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>b</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>NaN</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 旧的比较
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>a</span> <span style=color:#f92672>===</span> <span style=color:#a6e22e>b</span>; <span style=color:#75715e>// false
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#ae81ff>0</span> <span style=color:#f92672>===</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>0</span>; <span style=color:#75715e>// true
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>Object.<span style=color:#a6e22e>is</span>(<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>); <span style=color:#75715e>// true
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>Object.<span style=color:#a6e22e>is</span>(<span style=color:#ae81ff>0</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>0</span>); <span style=color:#75715e>// false
+</span></span></span></code></pre></div><p><strong>2.对象的浅复制</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// 克隆一个对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>obj</span> <span style=color:#f92672>=</span> { <span style=color:#a6e22e>a</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span> };
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>clone</span> <span style=color:#f92672>=</span> Object.<span style=color:#a6e22e>assign</span>({}, <span style=color:#a6e22e>obj</span>);
+</span></span></code></pre></div><p><strong>3.扩展默认属性（代替 jQuery 的 extend 功能）</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>DEFAULT_PARAM</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>url</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;localhost&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>method</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;get&#34;</span>,
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>getBooks</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>options</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>param</span> <span style=color:#f92672>=</span> Object.<span style=color:#a6e22e>assign</span>({}, <span style=color:#a6e22e>DEFAULT_PARAM</span>, <span style=color:#a6e22e>options</span>);
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>getBooks</span>({ <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> { <span style=color:#a6e22e>a</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>, <span style=color:#a6e22e>b</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span> } }); <span style=color:#75715e>// { url: &#39;localhost&#39;, method: &#39;get&#39;, data: {a: 1, b: 2} }
+</span></span></span></code></pre></div><p><strong>4.拓展已有对象</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// 假设原有代码存在这样一个对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>oldObj</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    ... <span style=color:#75715e>// 几乎不可维护的代码
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>oldObj</span>.<span style=color:#a6e22e>prototype</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>method</span>() {
+</span></span><span style=display:flex><span>        ...
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Object.<span style=color:#a6e22e>assign</span>(<span style=color:#a6e22e>oldObj</span>.<span style=color:#a6e22e>prototype</span>, {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>newMethod</span>() {
+</span></span><span style=display:flex><span>        ...
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>})
+</span></span></code></pre></div><h2 id=promise-对象>Promise 对象</h2><p>Promise 是异步编程的解决方案，很简单的说，使用场景就是解决多层嵌套回调函数的问题（简称回调地狱），下面是一些实例：</p><h3 id=解决回调地狱问题>解决回调地狱问题</h3><p>有时候可能会遇到这么些需求，第三个请求的参数依赖于第二个请求的结果，第二个请求的参数依赖于第一个请求的结果，而这一过程只能在前端发起，那么可能会写出这样的代码：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>$</span>.<span style=color:#a6e22e>get</span>(<span style=color:#a6e22e>url1</span>, <span style=color:#a6e22e>param</span>, <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>res</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>param</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>$</span>.<span style=color:#a6e22e>get</span>(<span style=color:#a6e22e>url2</span>, <span style=color:#a6e22e>param</span>, <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>res</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>param</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>$</span>.<span style=color:#a6e22e>get</span>(<span style=color:#a6e22e>url3</span>, <span style=color:#a6e22e>param</span>, <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>res</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// 到了第三层才是在编写业务逻辑
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    });
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>});
+</span></span></code></pre></div><p>试想，如果其中一个函数错误，程序就会中断，因此还需要给每个请求加上 error 的回调函数，写出来的代码嵌套了一层又一层。看看用 Promise 来书写这段代码是怎么样的：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// 假设get函数内部实现了promise
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>$</span>.<span style=color:#a6e22e>get</span>(<span style=color:#a6e22e>url1</span>, <span style=color:#a6e22e>param</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>res</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>param</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>$</span>.<span style=color:#a6e22e>get</span>(<span style=color:#a6e22e>url2</span>, <span style=color:#a6e22e>param</span>); <span style=color:#75715e>// 返回promise对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  })
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>res</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>param</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>value</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>$</span>.<span style=color:#a6e22e>get</span>(<span style=color:#a6e22e>url3</span>, <span style=color:#a6e22e>param</span>); <span style=color:#75715e>// 返回promise对象
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  })
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>(<span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>res</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 业务逻辑编写
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  })
+</span></span><span style=display:flex><span>  .<span style=color:#66d9ef>catch</span>(<span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 统一处理回调发生的错误
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  });
+</span></span></code></pre></div><h3 id=封装函数支持-promise>封装函数支持 promise</h3><p>编写一个 promise 的方法也很简单，下面上实例：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// 以$.ajax为例
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>ajaxGet</span>(<span style=color:#a6e22e>url</span>, <span style=color:#a6e22e>param</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Promise((<span style=color:#a6e22e>resolve</span>, <span style=color:#a6e22e>reject</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>$</span>.<span style=color:#a6e22e>ajax</span>(
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>url</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>param</span>,
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>res</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>res</span>.<span style=color:#a6e22e>state</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>200</span>) {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>resolve</span>(<span style=color:#a6e22e>res</span>);
+</span></span><span style=display:flex><span>        } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>reject</span>(<span style=color:#e6db74>&#34;请求不成功！&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>reject</span>(<span style=color:#a6e22e>error</span>);
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 使用
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>ajaxGet</span>(<span style=color:#a6e22e>url</span>, <span style=color:#a6e22e>param</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>((<span style=color:#a6e22e>res</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 业务逻辑，处理resolve
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  })
+</span></span><span style=display:flex><span>  .<span style=color:#66d9ef>catch</span>((<span style=color:#a6e22e>err</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 处理reject
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>err</span>);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span><span style=color:#75715e>// 这样也可以
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>ajaxGet</span>(<span style=color:#a6e22e>url</span>, <span style=color:#a6e22e>param</span>).<span style=color:#a6e22e>then</span>(
+</span></span><span style=display:flex><span>  (<span style=color:#a6e22e>res</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 业务逻辑，处理resolve
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  },
+</span></span><span style=display:flex><span>  (<span style=color:#a6e22e>err</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 处理reject
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  }
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 只要返回的是promise对象，则可以做链式调用
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>ajaxGet</span>(<span style=color:#a6e22e>url</span>, <span style=color:#a6e22e>param</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>((<span style=color:#a6e22e>res</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 业务逻辑，处理resolve
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>ajaxGet</span>(<span style=color:#a6e22e>url2</span>, <span style=color:#a6e22e>res</span>);
+</span></span><span style=display:flex><span>  })
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>((<span style=color:#a6e22e>res</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 上面的ajaxGet函数的处理
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  })
+</span></span><span style=display:flex><span>  .<span style=color:#66d9ef>catch</span>((<span style=color:#a6e22e>err</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 处理reject
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>err</span>);
+</span></span><span style=display:flex><span>  });
+</span></span></code></pre></div><h3 id=包装多个-promise>包装多个 promise</h3><p><code>Promise.all()</code>支持将多个<code>Promise</code>实例，包装成一个新的<code>Promise</code>，使用场景也很广泛。比如需要多个异步操作返回数据后进行处理时：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>promises</span> <span style=color:#f92672>=</span> [<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>].<span style=color:#a6e22e>map</span>((<span style=color:#a6e22e>post_id</span>) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>ajaxGet</span>(<span style=color:#e6db74>&#34;post/&#34;</span>, { <span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>post_id</span> });
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Promise.<span style=color:#a6e22e>all</span>(<span style=color:#a6e22e>promises</span>)
+</span></span><span style=display:flex><span>  .<span style=color:#a6e22e>then</span>((<span style=color:#a6e22e>resultArray</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 对所有数据做处理
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  })
+</span></span><span style=display:flex><span>  .<span style=color:#66d9ef>catch</span>((<span style=color:#a6e22e>error</span>) =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 处理第一个出现reject的情况
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  });
+</span></span></code></pre></div><h3 id=数据降级>数据降级</h3><p>合理的利用<code>catch</code>方法，可以使数据有更好的处理方式。比如说，某一个模块数据的加载，由于第一次请求服务器抖动了，请求失败，这时可以降级从缓存中取得数据；要是缓存不小心也挂了，可以从<code>localStorage</code>中获取缓存的数据，例子如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getDataFromlocalStorage</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (window.<span style=color:#a6e22e>localStorage</span> <span style=color:#f92672>&amp;&amp;</span> window.<span style=color:#a6e22e>localStorage</span>[<span style=color:#e6db74>&#34;DATA&#34;</span>]) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Promise.<span style=color:#a6e22e>resolve</span>(window.<span style=color:#a6e22e>localStorage</span>[<span style=color:#e6db74>&#34;DATA&#34;</span>]);
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>new</span> Promise.<span style=color:#a6e22e>reject</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getDataFromCache</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>getDataCache</span>(<span style=color:#a6e22e>url</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>parseData</span>(<span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>parse</span>(<span style=color:#a6e22e>data</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getData</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>promise</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>getDataFromServer</span>(<span style=color:#a6e22e>url</span>)
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>parseData</span>) <span style=color:#75715e>// 正常业务逻辑
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    .<span style=color:#66d9ef>catch</span>(<span style=color:#66d9ef>function</span> () {
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// 请求失败，从服务器缓存取数据
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>getDataFromCache</span>().<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>parseData</span>);
+</span></span><span style=display:flex><span>    })
+</span></span><span style=display:flex><span>    .<span style=color:#66d9ef>catch</span>(<span style=color:#66d9ef>function</span> () {
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// 服务器缓存取数据失败，从localstorage取数据
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>getDataFromlocalStorage</span>().<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>parseData</span>);
+</span></span><span style=display:flex><span>    })
+</span></span><span style=display:flex><span>    .<span style=color:#66d9ef>catch</span>(<span style=color:#66d9ef>function</span> () {
+</span></span><span style=display:flex><span>      <span style=color:#75715e>// 没办法了，什么数据都没有，只能处理异常了
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    });
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=class>Class</h2><p>ES6 的<code>Class</code>可以视为创建类的语法糖（但本质上实现方式是不一样的），<code>Class</code>的使用会比以往的<code>prototype</code>直观得多：</p><p><strong>1.类的基本使用方法</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Person</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>static</span> <span style=color:#a6e22e>is_live</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>; <span style=color:#75715e>// 静态属性
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>constructor</span>(<span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>name</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>age</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>get</span> <span style=color:#a6e22e>name</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>set</span> <span style=color:#a6e22e>name</span>(<span style=color:#a6e22e>name</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>name</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sayName</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>alert</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>static</span> <span style=color:#a6e22e>eat</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>alert</span>(<span style=color:#e6db74>&#34;eat done&#34;</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>person</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Person</span>(<span style=color:#e6db74>&#34;Yip Man&#34;</span>, <span style=color:#ae81ff>23</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>person</span>.<span style=color:#a6e22e>sayName</span>(); <span style=color:#75715e>// Yip Man
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>Person</span>.<span style=color:#a6e22e>eat</span>(); <span style=color:#75715e>// eat done
+</span></span></span></code></pre></div><p><strong>2.类的继承</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Man</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>Person</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>constructor</span>(<span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>, <span style=color:#a6e22e>sex</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>super</span>(<span style=color:#a6e22e>name</span>, <span style=color:#a6e22e>age</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>sex</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>sex</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>get</span> <span style=color:#a6e22e>name</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>set</span> <span style=color:#a6e22e>name</span>(<span style=color:#a6e22e>name</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>name</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>sayName</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>alert</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>name</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=模块化>模块化</h2><p>在 ES6 还没有标准化之前，模块化有 AMD 和 CMD 两种方式，AMD 使用于浏览器端，CMD 使用于服务端，相对应的类库有 requirejs 和 common.js，但是有了 ES6 的模块，当然是使用 ES6 的。</p><h3 id=export-命令>export 命令</h3><p><code>export</code>可以输出常量，变量，函数，对象，使用方式很简单：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>firstName</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Michael&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>A</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>multiply</span>(<span style=color:#a6e22e>x</span>, <span style=color:#a6e22e>y</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>y</span>;
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>name</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Yip Man&#39;</span>
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>q</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>constructor</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>es6</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;hello&#39;</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=import-命令>import 命令</h3><p><code>import</code>可以将上面的<code>export</code>输出的导入到指定文件中使用，方式也很简单：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>es6</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#34;./someModule&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>lastName</span> <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>surname</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#34;./profile&#34;</span>; <span style=color:#75715e>// 取别名
+</span></span></span></code></pre></div><blockquote><p>该系列完结啦!（如有变动会更新）
+如有错误请帮我指出下，感激不尽~</p></blockquote></section><nav class="mt-24 flex overflow-hidden rounded-xl bg-black/[3%] text-lg leading-[1.2]! *:flex *:w-1/2 *:items-center *:p-5 *:font-medium *:no-underline dark:bg-white/[8%] [&>*:hover]:bg-black/[2%] dark:[&>*:hover]:bg-white/[3%]"><a class="ltr:pr-3 rtl:pl-3" href=https://kaorz.com/blog/archives/2016-09-24-probation-summary-in-tencent/><span class="ltr:mr-1.5 rtl:ml-1.5">←</span><span>腾讯试用期总结（2016年07月10日~2016年09月24日）</span></a><a class="justify-end pl-3 ltr:ml-auto rtl:mr-auto" href=https://kaorz.com/blog/archives/2016-08-07-es6-practice/><span>ES6实践（一）</span><span class="ltr:ml-1.5 rtl:mr-1.5">→</span></a></nav></article></main><footer class="mx-auto flex h-[4.5rem] max-w-(--w) items-center px-8 text-xs tracking-wider uppercase opacity-60"><div class=mr-auto>&copy;2026
+<a class=link href=https://kaorz.com/blog/>伟神的博客</a></div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>powered by hugo️️</a>️
+<a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>hugo-paper</a></footer></body></html>
