@@ -2,6 +2,7 @@ baseURL = 'https://wynn719.github.io/oc-blog/'
 languageCode = 'zh-CN'
 title = '伟神的博客'
 theme = 'console'
+publishDir = 'docs'
 
 [params]
   description = '记录生活，分享美好'

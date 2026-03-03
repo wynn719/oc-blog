@@ -1,0 +1,148 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>伟神的博客/oc-blog/posts/2015-06-18-javascript-scope-note/</title>
+<meta name=description content="记录生活，分享美好"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="all,follow"><meta name=googlebot content="index,follow,snippet,archive"><link rel=stylesheet href=https://wynn719.github.io/oc-blog/hugo-theme-console/css/terminal-0.7.4.min.css><link rel=stylesheet href=https://wynn719.github.io/oc-blog/hugo-theme-console/css/animate-4.1.1.min.css><link rel=stylesheet href=https://wynn719.github.io/oc-blog/hugo-theme-console/css/console.css><!--[if lt IE 9]><script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script><script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script><![endif]--><meta property="og:title" content="百度ife-javascript作用域学习笔记"><meta property="og:description" content="记录生活，分享美好"><meta property="og:type" content="article"><meta property="og:url" content="https://wynn719.github.io/oc-blog/posts/2015-06-18-javascript-scope-note/"><meta name=twitter:title content="百度ife-javascript作用域学习笔记"><meta name=twitter:description content="学习任务来自：百度ife前端技术学院
+学习资料参考自：
+28 May 09 Javascript作用域原理
+JavaScript 开发进阶：理解 JavaScript 作用域和作用域链
+javascript的作用域链 javascript中的函数运行在她们被定义的作用域里，而不是它们被执行的作用域里 &ndash; 《javascript权威指南》
+注意：在JS中，作用域的概念和其他语言差不多， 在每次调用一个函数的时候 ，就会进入一个函数内的作用域，当从函数返回以后，就返回调用前的作用域.
+javascript中作用域的实现方式与C/C++不同，不是使用“堆栈”的方式，而是使用列表，实现过程如下（ECMA262）：
+javascript高级程序设计3中，指出函数的执行环境是保存在环境栈中的，执行完函数后，会把函数环境弹出栈
+……为何不一样的说法啊（高程中没有探讨到[[scope]]上）
+作用域链（scope chain）：保证对执行环境有权访问的所有变量和函数的有序访问。
+任何执行上下文时刻（context）的作用域，都是由作用域链（scope chain）来实现的。 在一个函数被定义的时候，会将它定义时刻的scope chain链接到这个函数对象的[[scope]]属性。 在一个函数对象被调用的时候，会创建一个活动对象（object），然后对每一个函数的形参（arguments），都命名为该活动对象的命名属性，然后将这个活动对象做为此时的作用域链（scope chain）最前端，并将这个函数对象的[[scope]]加入到scope chain中。 解析这个例子：
+var func = function(lps, rps){ var name = 'laruence'; ........ } func(); 它的解析过程是这样的：
+定义name 定义func时： func的[[scope]]创建，[[scope]]指向window对象 [[scope]]链接到scope chain上 执行func时： 创建活动对象funcObj（预编译时创建，假设是这个名字） 创建arguments对象，添加lps和rps属性 定义局部变量name=&lsquo;laruence&rsquo; 定义其他&mldr; 运行函数，发生标识符解析时，逆向（从作用域链最前端）开始查找funcObj的每一个属性，找到返回，找不到，返回undefined 下一个例子：
+var name = 'laruence'; function echo() { alert(name); } function env() { var name = 'eve'; echo(); } env(); 运行结果："></head><body class=terminal><div class=container><div class=terminal-nav><header class=terminal-logo><div class="logo terminal-prompt"><a href=https://wynn719.github.io/oc-blog/ class=no-style>伟神的博客</a>:~#
+<a href=https://wynn719.github.io/oc-blog/posts>posts</a>/<a href=https://wynn719.github.io/oc-blog/posts/2015-06-18-javascript-scope-note>2015-06-18-javascript-scope-note</a>/</div></header><nav class=terminal-menu><ul vocab="https://schema.org/" typeof="BreadcrumbList"></ul></nav></div></div><div class=container><h1>百度ife-javascript作用域学习笔记</h1>Jan 1, 1<br><br><blockquote><p>学习任务来自：百度ife前端技术学院</p><p>学习资料参考自：</p><p>28 May 09 Javascript作用域原理</p><p>JavaScript 开发进阶：理解 JavaScript 作用域和作用域链</p></blockquote><h2 id=javascript的作用域链>javascript的作用域链</h2><blockquote><p>javascript中的函数运行在她们被定义的作用域里，而不是它们被执行的作用域里
+&ndash; 《javascript权威指南》</p></blockquote><p>注意：在JS中，作用域的概念和其他语言差不多， 在每次调用一个函数的时候 ，就会进入一个函数内的作用域，当从函数返回以后，就<strong>返回调用前的作用域</strong>.</p><p>javascript中作用域的实现方式与C/C++不同，不是使用“堆栈”的方式，而是使用<strong>列表</strong>，实现过程如下（ECMA262）：</p><blockquote><p>javascript高级程序设计3中，指出函数的执行环境是保存在环境栈中的，执行完函数后，会把函数环境弹出栈</p><p>……为何不一样的说法啊（高程中没有探讨到[[scope]]上）</p></blockquote><p>作用域链（scope chain）：保证对执行环境有权访问的所有变量和函数的有序访问。</p><ul><li>任何执行上下文时刻（context）的作用域，都是由作用域链（scope chain）来实现的。</li><li>在一个函数被定义的时候，会将它定义时刻的scope chain链接到这个函数对象的[[scope]]属性。</li><li>在一个函数对象被调用的时候，会创建一个活动对象（object），然后对每一个函数的形参（arguments），都命名为该活动对象的命名属性，然后将这个活动对象做为此时的作用域链（scope chain）最前端，并将这个函数对象的[[scope]]加入到scope chain中。</li></ul><hr><p>解析这个例子：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>func</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>lps</span>, <span style=color:#a6e22e>rps</span>){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;laruence&#39;</span>;
+</span></span><span style=display:flex><span>  ........
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#a6e22e>func</span>();
+</span></span></code></pre></div><p>它的解析过程是这样的：</p><ul><li>定义name</li><li>定义func时：</li><li><ul><li>func的[[scope]]创建，[[scope]]指向window对象</li></ul></li><li><ul><li>[[scope]]链接到scope chain上</li></ul></li><li>执行func时：</li><li><ul><li>创建活动对象funcObj（预编译时创建，假设是这个名字）</li></ul></li><li><ul><li>创建arguments对象，添加lps和rps属性</li></ul></li><li><ul><li>定义局部变量name=&lsquo;laruence&rsquo;</li></ul></li><li><ul><li>定义其他&mldr;</li></ul></li><li><ul><li>运行函数，发生标识符解析时，逆向（从作用域链最前端）开始查找funcObj的每一个属性，找到返回，找不到，返回undefined</li></ul></li></ul><hr><p>下一个例子：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;laruence&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>echo</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>alert</span>(<span style=color:#a6e22e>name</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>env</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;eve&#39;</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>echo</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span><span style=color:#a6e22e>env</span>();
+</span></span></code></pre></div><p>运行结果：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>laruence</span>
+</span></span></code></pre></div><p>解析过程是这样的：</p><ul><li>定义name</li><li>定义echo时：</li><li><ul><li>echo的[[scope]]创建，[[scope]]指向window对象</li></ul></li><li><ul><li>[[scope]]链接到scope chain上</li></ul></li><li>定义env时：</li><li><ul><li>env的[[scope]]创建，[[scope]]指向window对象</li></ul></li><li><ul><li>[[scope]]链接到scope chain上，在echo的[[scope]]后面</li></ul></li><li>执行env时：</li><li><ul><li>创建活动对象envObj（预编译时创建，假设是这个名字）</li></ul></li><li><ul><li>创建arguments对象</li></ul></li><li><ul><li>定义局部变量name=&lsquo;eve&rsquo;</li></ul></li><li><ul><li>执行echo函数，从echo的[[scope]]开始逆向查找作用域链，找到定义在window上的name，返回<code>laruence</code>，结束查找</li></ul></li><li><ul><li>结束！</li></ul></li></ul><p>作用域链如该图：</p><hr><p>第三个例子：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>factory</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;laruence&#39;</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>intro</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>(){
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>alert</span>(<span style=color:#e6db74>&#39;I am &#39;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>name</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>intro</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>app</span>(<span style=color:#a6e22e>para</span>){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>para</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>func</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>factory</span>();
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>func</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span> 
+</span></span><span style=display:flex><span><span style=color:#a6e22e>app</span>(<span style=color:#e6db74>&#39;eve&#39;</span>);
+</span></span></code></pre></div><p>结果为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>I</span> <span style=color:#a6e22e>am</span> <span style=color:#a6e22e>laruence</span>
+</span></span></code></pre></div><p>在刚进入app函数体时, app的活动对象有一个arguments属性, 俩个值为undefined的属性: name和func. 和一个值为&rsquo;eve&rsquo;的属性para;</p><p>此时的scope chain如下:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span>[[<span style=color:#a6e22e>scope</span> <span style=color:#a6e22e>chain</span>]] <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>para</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;eve&#39;</span>,
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>name</span> <span style=color:#f92672>:</span> <span style=color:#66d9ef>undefined</span>,
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>func</span> <span style=color:#f92672>:</span> <span style=color:#66d9ef>undefined</span>,
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>arguments</span> <span style=color:#f92672>:</span> []
+</span></span><span style=display:flex><span>}, {
+</span></span><span style=display:flex><span>     window <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>object</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>]
+</span></span></code></pre></div><p>当调用进入factory的函数体的时候, 此时的factory的scope chain为:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span>[[<span style=color:#a6e22e>scope</span> <span style=color:#a6e22e>chain</span>]] <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>name</span> <span style=color:#f92672>:</span> <span style=color:#66d9ef>undefined</span>,
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>intor</span> <span style=color:#f92672>:</span> <span style=color:#66d9ef>undefined</span>
+</span></span><span style=display:flex><span>}, {
+</span></span><span style=display:flex><span>     window <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>object</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>]
+</span></span></code></pre></div><p>注意到, 此时的作用域链中, 并不包含app的活动对象.</p><p>在定义intro函数的时候, intro函数的[[scope]]为:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span>[[<span style=color:#a6e22e>scope</span> <span style=color:#a6e22e>chain</span>]] <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>name</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;laruence&#39;</span>,
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>intor</span> <span style=color:#f92672>:</span> <span style=color:#66d9ef>undefined</span>
+</span></span><span style=display:flex><span>}, {
+</span></span><span style=display:flex><span>     window <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>object</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>]
+</span></span></code></pre></div><p>从factory函数返回以后,在app体内调用intro的时候, 发生了标识符解析, 而此时的scope chain是:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span>[[<span style=color:#a6e22e>scope</span> <span style=color:#a6e22e>chain</span>]] <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>intro</span> <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>object</span>
+</span></span><span style=display:flex><span>}, {
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>name</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;laruence&#39;</span>,
+</span></span><span style=display:flex><span>     <span style=color:#a6e22e>intor</span> <span style=color:#f92672>:</span> <span style=color:#66d9ef>undefined</span>
+</span></span><span style=display:flex><span>}, {
+</span></span><span style=display:flex><span>     window <span style=color:#a6e22e>call</span> <span style=color:#a6e22e>object</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>]
+</span></span></code></pre></div><p>因为scope chain中,并不包含factory活动对象. 所以, name标识符解析的结果应该是factory活动对象中的name属性, 也就是&rsquo;laruence'.</p><hr><h2 id=javascript的预编译>Javascript的预编译</h2><p>例子：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>alert</span>(<span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>eve</span>); <span style=color:#75715e>//function
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>eve</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>alert</span>(<span style=color:#e6db74>&#39;I am Laruence&#39;</span>);
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>由于在js中存在着预编译的过程（JS在执行每一段JS代码之前，都会首先处理var关键字和function关键字）。</p><p>所以结果会是<code>function</code></p><p>在调用函数执行之前，会首先创建一个活动对象，然后搜寻这个函数中的局部变量定义,和函数定义，将变量名和函数名都做为这个活动对象的同名属性，对于局部变量定义，<strong>变量的值会在真正执行的时候才计算</strong>，此时只是简单的赋为undefined.</p><p>而对于函数的定义,是一个要注意的地方:</p><p>函数表达式（var声明的function在预编译中跟变量做一样的处理），如下例子，对于函数定义式，会将函数定义提前而函数表达式，会在执行过程中才计算.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>alert</span>(<span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>eve</span>); <span style=color:#75715e>//结果:function
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>alert</span>(<span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>walle</span>); <span style=color:#75715e>//结果:undefined
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>eve</span>() { <span style=color:#75715e>//函数定义式
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#a6e22e>alert</span>(<span style=color:#e6db74>&#39;I am Laruence&#39;</span>);
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>walle</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>() { <span style=color:#75715e>//函数表达式
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>};
+</span></span><span style=display:flex><span><span style=color:#a6e22e>alert</span>(<span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>walle</span>); <span style=color:#75715e>//结果:function
+</span></span></span></code></pre></div><p>而对于<strong>反编译模式</strong>创建的变量，如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;laruence&#39;</span>;
+</span></span><span style=display:flex><span><span style=color:#a6e22e>age</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>26</span>;
+</span></span></code></pre></div><p>变量<code>age</code>会被定义在顶级作用域中。</p><p>当然，JS是对每一段的JS代码进行预编译的</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>alert</span>(<span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>eve</span>); <span style=color:#75715e>//结果:undefined
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>script</span>&gt;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>eve</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>alert</span>(<span style=color:#e6db74>&#39;I am Laruence&#39;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>script</span>&gt;
+</span></span></code></pre></div><hr><h2 id=作用域在实际运用中要注意的>作用域在实际运用中要注意的：</h2><p>在调用DOM节点时，把要使用的全局变量先存储在引用变量中，减少往scope chain最低层window全局变量查找，提高程序的效率（当然，在小型的项目中体现不出来，但是当项目越大时，过多的全局变量的查找无疑会加大程勋运行的开销）。</p><p>减少查找的例子如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>showTips</span>(){
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;btn&#39;</span>).<span style=color:#a6e22e>onclick</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>(){
+</span></span><span style=display:flex><span>        document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;tip&#39;</span>).<span style=color:#a6e22e>style</span>.<span style=color:#a6e22e>display</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;block&#39;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>将两次全局查找，优化成：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>showTips</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>doc</span> <span style=color:#f92672>=</span> document;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>doc</span>.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;btn&#39;</span>).<span style=color:#a6e22e>onclick</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>(){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>doc</span>.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;tip&#39;</span>).<span style=color:#a6e22e>style</span>.<span style=color:#a6e22e>display</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;block&#39;</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>在jquery的源码中，开头就把会频繁使用的变量存储起来了：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span>(<span style=color:#66d9ef>function</span>( window, <span style=color:#66d9ef>undefined</span> ) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// A central reference to the root jQuery(document)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>rootjQuery</span>,
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// The deferred used on DOM ready
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>readyList</span>,
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Support: IE9
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// For `typeof xmlNode.method` instead of `xmlNode.method !== undefined`
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>core_strundefined</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>typeof</span> <span style=color:#66d9ef>undefined</span>,
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Use the correct document accordingly with window argument (sandbox)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// 看这里！我们都被存起来了~
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>location</span> <span style=color:#f92672>=</span> window.<span style=color:#a6e22e>location</span>,
+</span></span><span style=display:flex><span>    document <span style=color:#f92672>=</span> window.document,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>docElem</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>documentElement</span>,
+</span></span><span style=display:flex><span>    ......
+</span></span></code></pre></div><hr><h2 id=延长作用域链>延长作用域链</h2><p>有两种情况会发生作用域延长的情况</p><ul><li>with语句</li><li>try-catch语句的catch块</li></ul><p>注：虽然with语句确实可以延长作用域链，但是在很多书中都明确警告了使用with会带来一些难以预料的问题（至于是什么问题就不细究了，反正就是不要使用with&mldr;）。</p><p>所以，还是不学习with了&mldr;</p><p>关于try-catch语句的catch块：</p><p>当try代码块中发生错误时，执行过程会跳转到catch语句，然后把异常对象推入一个可变对象并置于作用域的头部。在catch代码块内部，函数的所有局部变量将会被放在第二个作用域链对象中。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>try</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>doSomething</span>();
+</span></span><span style=display:flex><span>}<span style=color:#66d9ef>catch</span>(<span style=color:#a6e22e>ex</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>alert</span>(<span style=color:#a6e22e>ex</span>.<span style=color:#a6e22e>message</span>); <span style=color:#75715e>//作用域链在此处改变
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div><p>一旦catch语句执行完毕，作用域链机会返回到之前的状态。try-catch语句在代码调试和异常处理中非常有用，因此不建议完全避免。你可以通过优化代码来减少catch语句对性能的影响。**一个很好的模式是将错误委托给一个函数处理，**例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>try</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>doSomething</span>();
+</span></span><span style=display:flex><span>}<span style=color:#66d9ef>catch</span>(<span style=color:#a6e22e>ex</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>handleError</span>(<span style=color:#a6e22e>ex</span>); <span style=color:#75715e>//委托给处理器方法
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
+</span></span></code></pre></div><p>优化后的代码，handleError方法是catch子句中唯一执行的代码。该函数接收异常对象作为参数，这样你可以更加灵活和统一的处理错误。<strong>由于只执行一条语句，且没有局部变量的访问，作用域链的临时改变就不会影响代码性能了。</strong></p><div class=footer>Powered by <a href=https://gohugo.io/>Hugo</a> with
+<a href=https://github.com/mrmierzejewski/hugo-theme-console/>Console Theme</a>.</div></div></body></html>
