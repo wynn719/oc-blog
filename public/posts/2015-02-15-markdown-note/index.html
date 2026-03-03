@@ -1,0 +1,99 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>伟神的博客/oc-blog/posts/2015-02-15-markdown-note/</title>
+<meta name=description content="记录生活，分享美好"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="all,follow"><meta name=googlebot content="index,follow,snippet,archive"><link rel=stylesheet href=https://wynn719.github.io/oc-blog/hugo-theme-console/css/terminal-0.7.4.min.css><link rel=stylesheet href=https://wynn719.github.io/oc-blog/hugo-theme-console/css/animate-4.1.1.min.css><link rel=stylesheet href=https://wynn719.github.io/oc-blog/hugo-theme-console/css/console.css><!--[if lt IE 9]><script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script><script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script><![endif]--><meta property="og:title" content="Markdown的语法学习总结"><meta property="og:description" content="记录生活，分享美好"><meta property="og:type" content="article"><meta property="og:url" content="https://wynn719.github.io/oc-blog/posts/2015-02-15-markdown-note/"><meta name=twitter:title content="Markdown的语法学习总结"><meta name=twitter:description content="Markdown只是一种适用于网络的书写语言，而不是编程语言
+兼容 在HTML区块标签间的Markdown格式语法将不会被处理，而在Markdown格式语法里的HTML区段标签是有效的
+区块元素 段落 普通段落：
+这是一个普通的段落 啦啦啦，将会被转换为p标签 连续的 不连续的\(^o^)/~ 标题 # h1 ## h2 ### h3 ... ###### h6 区块引用 blockquote > Proin eget tortor risus. > Curabitur aliquet quam id dui posuere blandit. 连续区块引用：
+> Proin eget tortor risus. > Curabitur aliquet quam id dui posuere blandit. > Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. > Donec sollicitudin molestie malesuada. > Praesent sapien massa, convallis a pellentesque nec, egestas non nisi."></head><body class=terminal><div class=container><div class=terminal-nav><header class=terminal-logo><div class="logo terminal-prompt"><a href=https://wynn719.github.io/oc-blog/ class=no-style>伟神的博客</a>:~#
+<a href=https://wynn719.github.io/oc-blog/posts>posts</a>/<a href=https://wynn719.github.io/oc-blog/posts/2015-02-15-markdown-note>2015-02-15-markdown-note</a>/</div></header><nav class=terminal-menu><ul vocab="https://schema.org/" typeof="BreadcrumbList"></ul></nav></div></div><div class=container><h1>Markdown的语法学习总结</h1>Jan 1, 1<br><br><blockquote><p>Markdown只是一种适用于网络的书写语言，而不是编程语言</p></blockquote><h1 id=兼容>兼容</h1><p>在HTML区块标签间的Markdown格式语法将不会被处理，而在Markdown格式语法里的HTML区段标签是有效的</p><h1 id=区块元素>区块元素</h1><h2 id=段落>段落</h2><p>普通段落：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>这是一个普通的段落
+</span></span><span style=display:flex><span>啦啦啦，将会被转换为p标签
+</span></span><span style=display:flex><span>连续的
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>不连续的\(^o^)/~
+</span></span></code></pre></div><h2 id=标题>标题</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span># h1
+</span></span><span style=display:flex><span>## h2
+</span></span><span style=display:flex><span>### h3
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>###### h6
+</span></span></code></pre></div><h2 id=区块引用-blockquote>区块引用 blockquote</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&gt; Proin eget tortor risus.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>&gt; Curabitur aliquet quam id dui posuere blandit.
+</span></span></code></pre></div><p>连续区块引用：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&gt; Proin eget tortor risus.
+</span></span><span style=display:flex><span>&gt; Curabitur aliquet quam id dui posuere blandit.
+</span></span><span style=display:flex><span>&gt; Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
+</span></span><span style=display:flex><span>&gt; Donec sollicitudin molestie malesuada.
+</span></span><span style=display:flex><span>&gt; Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
+</span></span></code></pre></div><p>嵌套：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&gt; &gt; Proin eget tortor risus. Curabitur aliquet quam id dui posuere blandit.
+</span></span></code></pre></div><p>在区块中引用其他Markdown语法:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&gt; #### h4
+</span></span><span style=display:flex><span>&gt; 
+</span></span><span style=display:flex><span>&gt; * list 1
+</span></span><span style=display:flex><span>&gt; * list 2
+</span></span><span style=display:flex><span>&gt; * list 3
+</span></span></code></pre></div><h2 id=列表>列表</h2><p>无序列表：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>* list1
+</span></span><span style=display:flex><span>* list2
+</span></span><span style=display:flex><span>* list3
+</span></span></code></pre></div><p>有序列表：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>1. list 1 
+</span></span><span style=display:flex><span>2. list 2
+</span></span><span style=display:flex><span>3. list 3
+</span></span></code></pre></div><p>将列表用p标签分隔开：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>* list 1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>* list 2
+</span></span></code></pre></div><p>多段落列表：</p><p>(单个列中多段落以段前4个空格符或者间隔符来区分，段落间空行使p标签包裹文本)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>1.   Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.Proin eget tortor risus. Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>2.   Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.Proin eget tortor risus. Proin eget tortor risus.Crasultricies ligula sed magna dictum porta.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>3.   Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.Proin eget tortor risus. Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta.
+</span></span></code></pre></div><p>在列表中加入引用blockquote：</p><p>（需要缩进）</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>*   Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    &gt; This is a blockquote
+</span></span><span style=display:flex><span>    &gt; inside a list item.
+</span></span></code></pre></div><p>用反斜线来防止列表的生成：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>1\.this blockquote looks pretty good.
+</span></span></code></pre></div><h2 id=分隔线>分隔线</h2><p>（三个以上的星号、减号、底线）</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>* * *
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>***
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>- - -
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>---------------------------------------
+</span></span></code></pre></div><h1 id=区段元素>区段元素</h1><h2 id=链接>链接</h2><p>行内链接：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>it links to [google](http://www.google.com/ &#34;the title of this link&#34;) , click it!
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[yahoo](http:www.yahoo.com) has no title attr.
+</span></span></code></pre></div><p>参考链接：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>This is [an example] [id] reference-style link.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!-- 然后在任意的地方把链接定义出来，不区分大小写，有点像书本的脚标 --&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[id]: &lt;<span style=color:#f92672>http:</span><span style=color:#960050;background-color:#1e0010>//</span><span style=color:#a6e22e>example</span><span style=color:#960050;background-color:#1e0010>.</span><span style=color:#a6e22e>com</span>/&gt;  &#34;Optional Title Here&#34;
+</span></span></code></pre></div><p>e.g.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>I get 10 times more traffic from [Google] [1] than from
+</span></span><span style=display:flex><span>[Yahoo] [2] or [MSN] [3].
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  [1]: http://google.com/        &#34;Google&#34;
+</span></span><span style=display:flex><span>  [2]: http://search.yahoo.com/  &#34;Yahoo Search&#34;
+</span></span><span style=display:flex><span>  [3]: http://search.msn.com/    &#34;MSN Search&#34;
+</span></span></code></pre></div><h2 id=强调>强调</h2><p>一个星号包裹是em，两个是strong，同样反斜线输出正常的星号</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>*single asterisks*
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>_single underscores_
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>**double asterisks**
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>__double underscores__
+</span></span></code></pre></div><h2 id=代码>代码</h2><p>用反引号包裹形成code代码</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>`printf()`
+</span></span></code></pre></div><h2 id=图片>图片</h2><p>行内图片：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>![Alt text](/path/to/img.jpg)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>![Alt text](/path/to/img.jpg &#34;Optional title&#34;)
+</span></span></code></pre></div><p>参考图片：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>![Alt text][id]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[id]: url/to/image  &#34;Optional title attribute&#34;
+</span></span></code></pre></div><h1 id=其他>其他</h1><h2 id=自动连接>自动连接</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>&lt;address@example.com&gt;
+</span></span></code></pre></div><h2 id=反斜杠>反斜杠</h2><p>Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>\   反斜线
+</span></span><span style=display:flex><span>`   反引号
+</span></span><span style=display:flex><span>*   星号
+</span></span><span style=display:flex><span>_   底线
+</span></span><span style=display:flex><span>{}  花括号
+</span></span><span style=display:flex><span>[]  方括号
+</span></span><span style=display:flex><span>()  括弧
+</span></span><span style=display:flex><span>#   井字号
+</span></span><span style=display:flex><span>+   加号
+</span></span><span style=display:flex><span>-   减号
+</span></span><span style=display:flex><span>.   英文句点
+</span></span><span style=display:flex><span>!   惊叹号
+</span></span></code></pre></div><blockquote><p>以上仅方便个人使用，一些自己觉得不需要的就没有加入了。</p><p>强大的Markdown肯定有一些更好的语法，请自行google哈！</p></blockquote><div class=footer>Powered by <a href=https://gohugo.io/>Hugo</a> with
+<a href=https://github.com/mrmierzejewski/hugo-theme-console/>Console Theme</a>.</div></div></body></html>

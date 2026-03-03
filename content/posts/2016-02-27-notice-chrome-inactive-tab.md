@@ -1,0 +1,34 @@
+---
+title: "chrome网页切换时，js定时器的问题"
+date: 2016-02-2718:25:32T00:00:00+08:00
+tags:
+categories:
+---
+
+
+原生 js 轮播组件的代码在这：[https://github.com/wynn719/study-baidu-ife/tree/master/task0002/task0002_3](https://github.com/wynn719/study-baidu-ife/tree/master/task0002/task0002_3)
+
+之前做的时候，会发现轮播在浏览器可见的情况下（没有缩小，没有切换标签），轮播是正常运行的；而当浏览器不可见的情况下（缩小, 切换标签），重新打开页面，轮播会出现几秒钟抽搐（真的很像）的现象，然后又恢复正常运行。
+
+排除了动画逻辑，定时器泄露的问题，偶然情况下，发现 IE 下居然没问题！
+
+看来崇拜的 chrome 也有抽筋的时候，**即 chrome 在浏览器不可见的情况下（缩小, 切换标签），会把定时器挂起（不会在后台运行），因此重新打开时，挂起的 n 个定时器突然运行，**所以 chrome 就抽风了！
+
+说了这么多，解决方法很简单，只要监听这个事件 `visibilitychange` ：
+
+```javascript
+// fix chrome下的bug，定时器切换选项卡时被挂起
+document.addEventListener("visibilitychange", function () {
+  if (document.visibilityState == "visible") {
+    slide(); // 未挂起时执行轮播
+  } else if (document.visibilityState == "hidden") {
+    clearInterval(timer); // 挂起时清除定时器
+  }
+});
+```
+
+问题就解决了~
+
+demo 展示在这：[http://wynn719.github.io/study-baidu-ife/task0002/task0002_3/task0002_3.html](http://wynn719.github.io/study-baidu-ife/task0002/task0002_3/task0002_3.html)
+
+（可恶，这个问题居然困惑了我好久，气煞我也，所以要记录下来……）

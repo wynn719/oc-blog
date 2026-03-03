@@ -1,0 +1,142 @@
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>伟神的博客/oc-blog/posts/2015-06-22-javascript-closure-note/</title>
+<meta name=description content="记录生活，分享美好"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="all,follow"><meta name=googlebot content="index,follow,snippet,archive"><link rel=stylesheet href=https://wynn719.github.io/oc-blog/hugo-theme-console/css/terminal-0.7.4.min.css><link rel=stylesheet href=https://wynn719.github.io/oc-blog/hugo-theme-console/css/animate-4.1.1.min.css><link rel=stylesheet href=https://wynn719.github.io/oc-blog/hugo-theme-console/css/console.css><!--[if lt IE 9]><script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script><script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script><![endif]--><meta property="og:title" content="百度ife-javascript闭包学习笔记"><meta property="og:description" content="记录生活，分享美好"><meta property="og:type" content="article"><meta property="og:url" content="https://wynn719.github.io/oc-blog/posts/2015-06-22-javascript-closure-note/"><meta name=twitter:title content="百度ife-javascript闭包学习笔记"><meta name=twitter:description content="学习任务来自：百度ife前端技术学院
+学习资料参考自：
+闭包
+深入理解javascript原型和闭包
+在经过前面作用域和原型、原型链的学习，感觉遇到闭包也不怕啦&mldr; 准备被虐杀！
+先补全一些作用域上的知识：
+自由变量 在A作用域中使用的变量x，却没有在A作用域中声明（即在其他作用域中声明的），对于A作用域来说，x就是一个自由变量。
+例如：
+var x = 10; function fn(){ var b = 20; // x不在fn的作用域中声明，但却调用了 // 因此x叫做自由变量 console.log(b + x); } 一个经常容易犯错的例子：
+var x = 10; function fn() { console.log(x); } function show(f) { var x = 20; fn(); } show(); // 10 这个例子中，输出的不是20，而是10，因为在函数定义的时候就已经决定了函数的上下文执行环境，故，fn的作用域链上，只能找到window执行环境下的变量x
+另一个例子：
+var x = 10; function fn(){ console.log(x); } function show(f){ var x = 20; (function(){ f(); })() } show(fn); // 10 很抱歉，还是10，原理同上~"></head><body class=terminal><div class=container><div class=terminal-nav><header class=terminal-logo><div class="logo terminal-prompt"><a href=https://wynn719.github.io/oc-blog/ class=no-style>伟神的博客</a>:~#
+<a href=https://wynn719.github.io/oc-blog/posts>posts</a>/<a href=https://wynn719.github.io/oc-blog/posts/2015-06-22-javascript-closure-note>2015-06-22-javascript-closure-note</a>/</div></header><nav class=terminal-menu><ul vocab="https://schema.org/" typeof="BreadcrumbList"></ul></nav></div></div><div class=container><h1>百度ife-javascript闭包学习笔记</h1>Jan 1, 1<br><br><blockquote><p>学习任务来自：百度ife前端技术学院</p><p>学习资料参考自：</p><p>闭包</p><p>深入理解javascript原型和闭包</p></blockquote><p>在经过前面作用域和原型、原型链的学习，感觉遇到闭包也不怕啦&mldr; 准备被虐杀！</p><p>先补全一些作用域上的知识：</p><h3 id=自由变量>自由变量</h3><p>在A作用域中使用的变量x，却没有在A作用域中声明（即在其他作用域中声明的），对于A作用域来说，x就是一个自由变量。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>; 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>fn</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>b</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// x不在fn的作用域中声明，但却调用了
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// 因此x叫做自由变量
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>b</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>x</span>); 
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>一个经常容易犯错的例子：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>fn</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>x</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>show</span>(<span style=color:#a6e22e>f</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>fn</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>show</span>(); <span style=color:#75715e>// 10
+</span></span></span></code></pre></div><p>这个例子中，输出的不是20，而是10，因为在函数定义的时候就已经决定了函数的上下文执行环境，故，fn的作用域链上，只能找到window执行环境下的变量x</p><hr><p>另一个例子：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>fn</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>x</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>show</span>(<span style=color:#a6e22e>f</span>){
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>x</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span>;
+</span></span><span style=display:flex><span>    (<span style=color:#66d9ef>function</span>(){
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>f</span>(); 
+</span></span><span style=display:flex><span>    })()
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>show</span>(<span style=color:#a6e22e>fn</span>); <span style=color:#75715e>// 10
+</span></span></span></code></pre></div><p>很抱歉，还是10，原理同上~</p><h2 id=闭包>闭包</h2><p>闭包就是能够读取其他函数内部变量的函数。可以简单的理解成“定义在一个函数内部的函数”，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p><h3 id=闭包应用的两种情况>闭包应用的两种情况</h3><h4 id=函数作为返回值>函数作为返回值</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>fn</span>(){
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>max</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>bar</span>(<span style=color:#a6e22e>x</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>x</span> <span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>max</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>x</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>f1</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>fn</span>();
+</span></span><span style=display:flex><span><span style=color:#a6e22e>f1</span>(<span style=color:#ae81ff>15</span>);
+</span></span></code></pre></div><p>bar函数作为返回值，赋值给f1变量，执行f1(15)时，用到了fn作用域下的max变量的值（此时fn在执行后作用域应该是销毁了，但是由于闭包的作用，变量max依旧存在）</p><hr><p>注意：内部函数定义在引用的变量之前，内部函数依旧可以访问闭包中的变量</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>sayAlice</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>sayAlert</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>() { <span style=color:#a6e22e>alert</span>(<span style=color:#a6e22e>alice</span>); }
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Local variable that ends up within closure
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>alice</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;Hello Alice&#39;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>sayAlert</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>helloAlice</span><span style=color:#f92672>=</span><span style=color:#a6e22e>sayAlice</span>();
+</span></span><span style=display:flex><span><span style=color:#a6e22e>helloAlice</span>(); <span style=color:#75715e>// Hello Alice
+</span></span></span></code></pre></div><h4 id=函数作为参数被传递>函数作为参数被传递</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>max</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>10</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>fn</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>x</span>) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>x</span> <span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>max</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>x</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// 模拟块级域
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// f(15)成功访问到了max = 10
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>(<span style=color:#66d9ef>function</span>(<span style=color:#a6e22e>f</span>)) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>max</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>100</span>;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>f</span>(<span style=color:#ae81ff>15</span>);
+</span></span><span style=display:flex><span>})(<span style=color:#a6e22e>fn</span>);
+</span></span></code></pre></div><p>fn函数作为一个参数被传递到另一个函数，赋值给f参数，执行f(15)，f的作用域中，max = 10，而不是100；</p><h4 id=闭包原理>闭包原理</h4><p>创建函数A本身也就创建了一个新的，独立的作用域A-context，而由于执行A函数时，由于正好要引用到A函数上下文环境中存在的一个变量（或者几个变量）(该变量恰好存在于包裹该A函数的B函数的作用域中)，因此在销毁B函数后，因为该独立的A函数被返回的同时需要B函数的变量，所以该变量不会销毁，而接收该返回的A函数就是闭包</p><h4 id=闭包的问题>闭包的问题</h4><ul><li>因为存在于闭包中的变量不会销毁，一直保存在内存中，因此在运行程序时就 <strong>增加了内容开销</strong>，在IE中可能导致内存泄露。</li></ul><p>解决方法是：在退出函数之前，将不使用的局部变量全部删除（尽管javascript中有垃圾回收机制）</p><ul><li><p>在用闭包模拟javascript中所不含有的私有变量和共有变量时，把闭包当做公有方法要切记不要用闭包修改了私有变量</p></li><li><p>在循环中引用闭包也容易出现问题</p></li></ul><p>错误的代码：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>showHelp</span>(<span style=color:#a6e22e>help</span>) {
+</span></span><span style=display:flex><span>  document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;help&#39;</span>).<span style=color:#a6e22e>innerHTML</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>help</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setupHelp</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>helpText</span> <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>      {<span style=color:#e6db74>&#39;id&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;email&#39;</span>, <span style=color:#e6db74>&#39;help&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Your e-mail address&#39;</span>},
+</span></span><span style=display:flex><span>      {<span style=color:#e6db74>&#39;id&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;name&#39;</span>, <span style=color:#e6db74>&#39;help&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Your full name&#39;</span>},
+</span></span><span style=display:flex><span>      {<span style=color:#e6db74>&#39;id&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;age&#39;</span>, <span style=color:#e6db74>&#39;help&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Your age (you must be over 16)&#39;</span>}
+</span></span><span style=display:flex><span>    ];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>helpText</span>.<span style=color:#a6e22e>length</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>item</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>helpText</span>[<span style=color:#a6e22e>i</span>];
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#a6e22e>item</span>.<span style=color:#a6e22e>id</span>).<span style=color:#a6e22e>onfocus</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>showHelp</span>(<span style=color:#a6e22e>item</span>.<span style=color:#a6e22e>help</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>setupHelp</span>();
+</span></span></code></pre></div><p>我们希望的理想结果是指定哪个显示哪个，可是事实不是这样的，该问题的原因在于赋给 onfocus 是闭包（showHelp）中的匿名函数而不是闭包对象；在闭包（showHelp）中一共创建了三个匿名函数，但是它们都共享同一个环境（item）。在 onfocus 的回调被执行时，循环早已经完成，且此时 item 变量（由所有三个闭包所共享）已经指向了 helpText 列表中的最后一项。</p><hr><p>正确的做法是使onfocus指向一个新的闭包对象：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>Your</span> <span style=color:#a6e22e>age</span> (<span style=color:#a6e22e>you</span> <span style=color:#a6e22e>must</span> <span style=color:#a6e22e>be</span> <span style=color:#a6e22e>over</span> <span style=color:#ae81ff>16</span>)
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>showHelp</span>(<span style=color:#a6e22e>help</span>) {
+</span></span><span style=display:flex><span>  document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;help&#39;</span>).<span style=color:#a6e22e>innerHTML</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>help</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>makeHelpCallback</span>(<span style=color:#a6e22e>help</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>function</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>showHelp</span>(<span style=color:#a6e22e>help</span>);
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setupHelp</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>helpText</span> <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>      {<span style=color:#e6db74>&#39;id&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;email&#39;</span>, <span style=color:#e6db74>&#39;help&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Your e-mail address&#39;</span>},
+</span></span><span style=display:flex><span>      {<span style=color:#e6db74>&#39;id&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;name&#39;</span>, <span style=color:#e6db74>&#39;help&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Your full name&#39;</span>},
+</span></span><span style=display:flex><span>      {<span style=color:#e6db74>&#39;id&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;age&#39;</span>, <span style=color:#e6db74>&#39;help&#39;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;Your age (you must be over 16)&#39;</span>}
+</span></span><span style=display:flex><span>    ];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>helpText</span>.<span style=color:#a6e22e>length</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>item</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>helpText</span>[<span style=color:#a6e22e>i</span>];
+</span></span><span style=display:flex><span>    document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#a6e22e>item</span>.<span style=color:#a6e22e>id</span>).<span style=color:#a6e22e>onfocus</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>makeHelpCallback</span>(<span style=color:#a6e22e>item</span>.<span style=color:#a6e22e>help</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>setupHelp</span>();
+</span></span></code></pre></div><h3 id=设计模式中的单例模式>设计模式中的单例模式</h3><p>单例模式singleton就是闭包的典型应用</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>singleton</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> () {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>privateVariable</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>privateFunction</span>(<span style=color:#a6e22e>x</span>) {
+</span></span><span style=display:flex><span>        ...<span style=color:#a6e22e>privateVariable</span>...
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>firstMethod</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>a</span>, <span style=color:#a6e22e>b</span>) {
+</span></span><span style=display:flex><span>            ...<span style=color:#a6e22e>privateVariable</span>...
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>secondMethod</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>c</span>) {
+</span></span><span style=display:flex><span>            ...<span style=color:#a6e22e>privateFunction</span>()...
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>}();
+</span></span></code></pre></div><p>此时， privateVariable和privateVariable都是私有变量，通过闭包完成了私有的成员和方法的封装。只返回了两个接口~</p><div class=footer>Powered by <a href=https://gohugo.io/>Hugo</a> with
+<a href=https://github.com/mrmierzejewski/hugo-theme-console/>Console Theme</a>.</div></div></body></html>

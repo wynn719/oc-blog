@@ -1,0 +1,60 @@
+---
+title: "sticky footer"
+date: 2015-9-510:19:38T00:00:00+08:00
+tags:
+categories:
+---
+
+
+开发中经常会碰到的一种情况是：由于页面的内容不够长，无法撑开页面，导致底部的模块下面留下一大块空白，实在不雅，sticky footer 技术解决了这个问题
+
+1.页面结构：
+
+```html
+<div class="page-wrap">
+  <div class="header">header</div>
+  <div class="content">
+    <button id="add">Add Content</button>
+  </div>
+</div>
+
+<div class="site-footer">footer is!</div>
+```
+
+2.css：**因为此处使用到了 after 伪元素，所以也就意味着 IE7 以下是无法使用该方法的**
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%; /* 注意，这是必须的 */
+}
+.header {
+  height: 100px;
+  background-color: #ffff80;
+}
+.page-wrap {
+  min-height: 100%;
+  margin-bottom: -150px; /* 必须与footer高度相等 */
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+  height: 150px;
+}
+.site-footer {
+  height: 150px;
+}
+.site-footer {
+  background-color: #0080ff;
+}
+```
+
+3.原理：
+
+- `margin-bottom` 将 footer 向上拉动
+- `:after`用于当页面长度超过屏幕时占位把 footer 向下挤
+- footer 必须位于最外层，这也 DOM 结构有所不规范
