@@ -1,8 +1,7 @@
 baseURL = 'https://kaorz.com/blog/'
 languageCode = 'zh-CN'
 title = '伟神的博客'
-theme = 'hugo-paper'
-publishDir = 'public'
+theme = 'minimal'
 
 [params]
   description = '记录生活，分享美好'

@@ -1,5 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 伟神的博客</title><link>https://kaorz.com/blog/posts/</link><description>Recent content in Posts on 伟神的博客</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 02 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://kaorz.com/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>你好，世界</title><link>https://kaorz.com/blog/posts/hello-world/</link><pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate><guid>https://kaorz.com/blog/posts/hello-world/</guid><description>欢迎来到我的博客 这是我的第一篇博客文章。
-以后我会在这里记录：
-生活感悟 有趣的事情 学习笔记 感谢访问！😊</description></item><item><title>这个 blog 又回来了</title><link>https://kaorz.com/blog/posts/2023-08-09-the-new-blog/</link><pubDate>Wed, 09 Aug 2023 00:00:00 +0800</pubDate><guid>https://kaorz.com/blog/posts/2023-08-09-the-new-blog/</guid><description>时隔 7 年，重新捡起了自己当年的 blog，好感叹。还记得之前搞 blog 的目的是记录一些技术日常，以及作为面试进入腾讯的其中一个亮点。果然，一进入腾讯后，就没再更新过了，自己也一直不是一个很纯粹的技术人。
-这次重新捡起，也是因为最近开始尝试了之前自己毫无兴趣的摄影，以前觉得摄影给到的感觉不够真实，因为很多摄影作品确实存在大量的图片美化，以至于现实似乎是不存在的，所以自己一直觉得很嗤之以鼻。疫情三年悄然过去，好像三年突然就没了，才想起来自己从来没有去认真记录过什么，于是心血来潮，开始接触摄影，也就有了这个网站重新诞生。
-写了一些文字，但又不知道写了啥，也算是一个开篇吧。之后会悄悄的在这里更新自己的博文、摄影等，也算是对自己生涯的一个记录。</description></item><item><title>typescript 类型挑战</title><link>https://kaorz.com/blog/posts/2024-08-15-typescript-type-challenge/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://kaorz.com/blog/posts/2024-08-15-typescript-type-challenge/</guid><description>post content</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 伟神的博客</title>
+    <link>https://kaorz.com/blog/posts/</link>
+    <description>Recent content in Posts on 伟神的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 02 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://kaorz.com/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>你好，世界</title>
+      <link>https://kaorz.com/blog/posts/hello-world/</link>
+      <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://kaorz.com/blog/posts/hello-world/</guid>
+      <description>欢迎来到我的博客 这是我的第一篇博客文章。&#xA;以后我会在这里记录：&#xA;生活感悟 有趣的事情 学习笔记 感谢访问！😊</description>
+    </item>
+    <item>
+      <title>这个 blog 又回来了</title>
+      <link>https://kaorz.com/blog/posts/2023-08-09-the-new-blog/</link>
+      <pubDate>Wed, 09 Aug 2023 00:00:00 +0800</pubDate>
+      <guid>https://kaorz.com/blog/posts/2023-08-09-the-new-blog/</guid>
+      <description>时隔 7 年，重新捡起了自己当年的 blog，好感叹。还记得之前搞 blog 的目的是记录一些技术日常，以及作为面试进入腾讯的其中一个亮点。果然，一进入腾讯后，就没再更新过了，自己也一直不是一个很纯粹的技术人。&#xA;这次重新捡起，也是因为最近开始尝试了之前自己毫无兴趣的摄影，以前觉得摄影给到的感觉不够真实，因为很多摄影作品确实存在大量的图片美化，以至于现实似乎是不存在的，所以自己一直觉得很嗤之以鼻。疫情三年悄然过去，好像三年突然就没了，才想起来自己从来没有去认真记录过什么，于是心血来潮，开始接触摄影，也就有了这个网站重新诞生。&#xA;写了一些文字，但又不知道写了啥，也算是一个开篇吧。之后会悄悄的在这里更新自己的博文、摄影等，也算是对自己生涯的一个记录。</description>
+    </item>
+    <item>
+      <title>typescript 类型挑战</title>
+      <link>https://kaorz.com/blog/posts/2024-08-15-typescript-type-challenge/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://kaorz.com/blog/posts/2024-08-15-typescript-type-challenge/</guid>
+      <description>post content</description>
+    </item>
+  </channel>
+</rss>

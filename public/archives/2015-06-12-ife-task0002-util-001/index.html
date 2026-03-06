@@ -1,96 +1,122 @@
-<!doctype html><html class="not-ready lg:text-base" style=--bg:#faf8f1 lang=zh-CN dir=ltr><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>百度ife-util.js - 伟神的博客</title>
-<meta name=theme-color><meta name=description content="学习任务来自：百度ife前端技术学院
-任务二 trim 正确的实现：
-问题：应该用字符来代替 ，chrome下\s可以匹配全角空格，但是考虑兼容的话，需要加上\uFEFF\xA0，去掉BOM头和全角空格。
-function trim(str) { // 此处 \\s 等是为了去除带转义字符的字符串，如 ' \s 19 ' var re = new RegExp('(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)', 'g'); return String.prototype.trim ? str.trim() : str.replace(re, ''); // MDN 的做法 // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim // return String.prototype.trim ? str.trim() : str.replace(/^\s+|\s+$/g,''); } 注意：
-\xa0 表示不换行的空格 \u3000 表示中文全角空格 \x24 表示$ isEmail 我的实现：
-function isEmail(emailStr) { if (typeof emailStr ==='string') { var re = /^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i; return re.test(emailStr); } } 问题：无法识别lj.meng@s.baidu.com这种类型的邮箱"><meta name=author content="伟神的博客"><link rel="preload stylesheet" as=style href=https://kaorz.com/blog/main.min.55f67b3b9482b33ca2648823a61f5e76f43181837316a5e844e85db17499eb47.css integrity="sha256-VfZ7O5SCszyiZIgjph9edvQxgYNzFqXoROhdsXSZ60c="><link rel=preload as=image href=https://kaorz.com/blog/theme.png><script defer src=https://kaorz.com/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=https://kaorz.com/blog/favicon.ico><link rel=apple-touch-icon href=https://kaorz.com/blog/apple-touch-icon.png><meta name=generator content="Hugo 0.123.0"><meta itemprop=name content="百度ife-util.js"><meta itemprop=description content="学习任务来自：百度ife前端技术学院
-任务二 trim 正确的实现：
-问题：应该用字符来代替 ，chrome下\s可以匹配全角空格，但是考虑兼容的话，需要加上\uFEFF\xA0，去掉BOM头和全角空格。
-function trim(str) { // 此处 \\s 等是为了去除带转义字符的字符串，如 ' \s 19 ' var re = new RegExp('(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)', 'g'); return String.prototype.trim ? str.trim() : str.replace(re, ''); // MDN 的做法 // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim // return String.prototype.trim ? str.trim() : str.replace(/^\s+|\s+$/g,''); } 注意：
-\xa0 表示不换行的空格 \u3000 表示中文全角空格 \x24 表示$ isEmail 我的实现：
-function isEmail(emailStr) { if (typeof emailStr ==='string') { var re = /^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i; return re.test(emailStr); } } 问题：无法识别lj.meng@s.baidu.com这种类型的邮箱"><meta itemprop=wordCount content="220"><meta itemprop=keywords content><meta property="og:title" content="百度ife-util.js"><meta property="og:description" content="学习任务来自：百度ife前端技术学院
-任务二 trim 正确的实现：
-问题：应该用字符来代替 ，chrome下\s可以匹配全角空格，但是考虑兼容的话，需要加上\uFEFF\xA0，去掉BOM头和全角空格。
-function trim(str) { // 此处 \\s 等是为了去除带转义字符的字符串，如 ' \s 19 ' var re = new RegExp('(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)', 'g'); return String.prototype.trim ? str.trim() : str.replace(re, ''); // MDN 的做法 // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim // return String.prototype.trim ? str.trim() : str.replace(/^\s+|\s+$/g,''); } 注意：
-\xa0 表示不换行的空格 \u3000 表示中文全角空格 \x24 表示$ isEmail 我的实现：
-function isEmail(emailStr) { if (typeof emailStr ==='string') { var re = /^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i; return re.test(emailStr); } } 问题：无法识别lj.meng@s.baidu.com这种类型的邮箱"><meta property="og:type" content="article"><meta property="og:url" content="https://kaorz.com/blog/archives/2015-06-12-ife-task0002-util-001/"><meta property="article:section" content="archives"><meta name=twitter:card content="summary"><meta name=twitter:title content="百度ife-util.js"><meta name=twitter:description content="学习任务来自：百度ife前端技术学院
-任务二 trim 正确的实现：
-问题：应该用字符来代替 ，chrome下\s可以匹配全角空格，但是考虑兼容的话，需要加上\uFEFF\xA0，去掉BOM头和全角空格。
-function trim(str) { // 此处 \\s 等是为了去除带转义字符的字符串，如 ' \s 19 ' var re = new RegExp('(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)', 'g'); return String.prototype.trim ? str.trim() : str.replace(re, ''); // MDN 的做法 // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim // return String.prototype.trim ? str.trim() : str.replace(/^\s+|\s+$/g,''); } 注意：
-\xa0 表示不换行的空格 \u3000 表示中文全角空格 \x24 表示$ isEmail 我的实现：
-function isEmail(emailStr) { if (typeof emailStr ==='string') { var re = /^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i; return re.test(emailStr); } } 问题：无法识别lj.meng@s.baidu.com这种类型的邮箱"><link rel=canonical href=https://kaorz.com/blog/archives/2015-06-12-ife-task0002-util-001/></head><body class="bg-(--bg) text-black antialiased duration-200 ease-out [-webkit-tap-highlight-color:transparent] dark:text-white"><header class="mx-auto flex h-[4.5rem] max-w-(--w) px-8 whitespace-nowrap lg:justify-center"><div class="relative z-50 flex items-center ltr:mr-auto rtl:ml-auto"><a class="-translate-y-[1px] text-2xl font-medium" href=https://kaorz.com/blog/>伟神的博客</a><div class="btn-dark text-[0px] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]" role=button aria-label=Dark></div></div><div class="btn-menu relative z-50 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden ltr:-mr-8 rtl:-ml-8" role=button aria-label=Menu></div><script>const htmlClass=document.documentElement.classList;setTimeout(()=>{htmlClass.remove("not-ready")},10);const btnMenu=document.querySelector(".btn-menu");btnMenu.addEventListener("click",()=>{htmlClass.toggle("open")});const metaTheme=document.querySelector('meta[name="theme-color"]'),lightBg="#faf8f1".replace(/"/g,""),setDark=e=>{metaTheme.setAttribute("content",e?"rgb(0 0 0 / 85%)":lightBg),htmlClass[e?"add":"remove"]("dark"),localStorage.setItem("dark",e)},darkScheme=window.matchMedia("(prefers-color-scheme: dark)");if(htmlClass.contains("dark"))setDark(!0);else{const e=localStorage.getItem("dark");setDark(e?e==="true":darkScheme.matches)}darkScheme.addEventListener("change",e=>{setDark(e.matches)});const btnDark=document.querySelector(".btn-dark");btnDark.addEventListener("click",()=>{setDark(localStorage.getItem("dark")!=="true")})</script><div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full flex-col justify-center bg-(--bg) pb-16 duration-200 select-none lg:static lg:h-auto lg:flex-row lg:bg-transparent! lg:pb-0 lg:transition-none"></div></header><main class="prose prose-neutral dark:prose-invert relative mx-auto min-h-[calc(100vh-9rem)] max-w-(--w) px-8 pt-14 pb-16"><article><header class=mb-14><h1 class="my-0! pb-2.5">百度ife-util.js</h1><div class="text-xs antialiased opacity-60"></div></header><section><blockquote><p>学习任务来自：百度ife前端技术学院</p></blockquote><h2 id=任务二>任务二</h2><h3 id=trim>trim</h3><p>正确的实现：</p><p>问题：应该用<strong>字符</strong>来代替<code> </code>，chrome下<code>\s</code>可以匹配全角空格，但是考虑兼容的话，需要加上<code>\uFEFF\xA0</code>，去掉BOM头和全角空格。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>trim</span>(<span style=color:#a6e22e>str</span>) {
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// 此处 \\s 等是为了去除带转义字符的字符串，如 &#39;  \s 19   &#39;
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>re</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> RegExp(<span style=color:#e6db74>&#39;(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)&#39;</span>, <span style=color:#e6db74>&#39;g&#39;</span>);
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> String.<span style=color:#a6e22e>prototype</span>.<span style=color:#a6e22e>trim</span> <span style=color:#f92672>?</span> <span style=color:#a6e22e>str</span>.<span style=color:#a6e22e>trim</span>() <span style=color:#f92672>:</span> <span style=color:#a6e22e>str</span>.<span style=color:#a6e22e>replace</span>(<span style=color:#a6e22e>re</span>, <span style=color:#e6db74>&#39;&#39;</span>);
-</span></span><span style=display:flex><span>  
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// MDN 的做法
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>// https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>// return String.prototype.trim ? str.trim() : str.replace(/^\s+|\s+$/g,&#39;&#39;);
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>}
-</span></span></code></pre></div><p><strong>注意</strong>：</p><ul><li>\xa0 表示不换行的空格</li><li>\u3000 表示中文全角空格</li><li>\x24 表示$</li></ul><h3 id=isemail>isEmail</h3><p>我的实现：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>isEmail</span>(<span style=color:#a6e22e>emailStr</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>emailStr</span> <span style=color:#f92672>===</span><span style=color:#e6db74>&#39;string&#39;</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>re</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>/^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>re</span>.<span style=color:#a6e22e>test</span>(<span style=color:#a6e22e>emailStr</span>);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>问题：无法识别lj.meng@s.baidu.com这种类型的邮箱</p><p>更好的实现：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>isEmail</span>(<span style=color:#a6e22e>emailStr</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>emailStr</span> <span style=color:#f92672>===</span><span style=color:#e6db74>&#39;string&#39;</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>re</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>/^([\w_\.\-\+])+\@([\w\-]+\.)+([\w]{2,10})+$/</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>re</span>.<span style=color:#a6e22e>test</span>(<span style=color:#a6e22e>emailStr</span>);
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>问题：邮箱因为格式太多，并不是单单一个正则表达式就可以搞定的</p><h3 id=isplain-判断对象是否为字面量对象>isPlain 判断对象是否为字面量对象</h3><p>字面量对象：简单来说，就是该对象由 {} 或者 new Objcet 形式创建</p><p>实现方法：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>/**
-</span></span></span><span style=display:flex><span><span style=color:#75715e> * 判断一个对象是不是字面量对象，即判断这个对象是不是由{}或者new Object类似方式创建
-</span></span></span><span style=display:flex><span><span style=color:#75715e> *
-</span></span></span><span style=display:flex><span><span style=color:#75715e> * 事实上来说，在Javascript语言中，任何判断都一定会有漏洞，因此本方法只针对一些最常用的情况进行了判断
-</span></span></span><span style=display:flex><span><span style=color:#75715e> * 
-</span></span></span><span style=display:flex><span><span style=color:#75715e> * @return {Boolean}
-</span></span></span><span style=display:flex><span><span style=color:#75715e> */</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>isPlain</span>(<span style=color:#a6e22e>obj</span>){
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>hasOwnProperty</span> <span style=color:#f92672>=</span> Object.<span style=color:#a6e22e>prototype</span>.<span style=color:#a6e22e>hasOwnProperty</span>,
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>key</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// 排除IE下的COM对象返回Object的问题
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>// 所有字面量对象都有 isPrototypeOf 这个属性
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>obj</span> 
-</span></span><span style=display:flex><span>    <span style=color:#f92672>||</span> Object.<span style=color:#a6e22e>prototype</span>.<span style=color:#a6e22e>toString</span>.<span style=color:#a6e22e>call</span>(<span style=color:#a6e22e>obj</span>) <span style=color:#f92672>!==</span> <span style=color:#e6db74>&#39;[object Object]&#39;</span> 
-</span></span><span style=display:flex><span>    <span style=color:#f92672>||</span> <span style=color:#f92672>!</span><span style=color:#a6e22e>obj</span>.<span style=color:#a6e22e>nodeType</span>
-</span></span><span style=display:flex><span>    <span style=color:#f92672>||</span> <span style=color:#f92672>!</span>(<span style=color:#e6db74>&#39;isPrototypeOf&#39;</span> <span style=color:#66d9ef>in</span> <span style=color:#a6e22e>obj</span>)
-</span></span><span style=display:flex><span>    ) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>false</span>;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e>// 判断new fun()自定义对象的情况
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>// constructor不是继承自原型链的
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>// 并且原型中有isPrototypeOf方法才是Object
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>obj</span>.<span style=color:#a6e22e>constructor</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>!</span><span style=color:#a6e22e>hasOwnProperty</span>.<span style=color:#a6e22e>call</span>(<span style=color:#a6e22e>obj</span>, <span style=color:#e6db74>&#39;constructor&#39;</span>) <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>!</span><span style=color:#a6e22e>hasOwnProperty</span>.<span style=color:#a6e22e>call</span>(<span style=color:#a6e22e>obj</span>.<span style=color:#a6e22e>constructor</span>.<span style=color:#a6e22e>prototype</span>, <span style=color:#e6db74>&#39;isPrototypeOf&#39;</span>)) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>false</span>;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#75715e>//判断有继承的情况
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>//如果有一项是继承过来的，那么一定不是字面量Object
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>//OwnProperty会首先被遍历，为了加速遍历过程，直接看最后一项
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#66d9ef>for</span>(<span style=color:#a6e22e>key</span> <span style=color:#66d9ef>in</span> <span style=color:#a6e22e>obj</span>){}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>key</span> <span style=color:#f92672>===</span> <span style=color:#66d9ef>undefined</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>hasOwnProperty</span>.<span style=color:#a6e22e>call</span>(<span style=color:#a6e22e>obj</span>, <span style=color:#a6e22e>key</span>);
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=任务三>任务三</h2><h3 id=on>$.on</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>$</span>.<span style=color:#a6e22e>on</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>function</span> (<span style=color:#a6e22e>element</span>, <span style=color:#a6e22e>event</span>, <span style=color:#a6e22e>listener</span>) {
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>element</span>.<span style=color:#a6e22e>nodeType</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>event</span>) {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>element</span>.<span style=color:#a6e22e>addEventListener</span>) {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>element</span>.<span style=color:#a6e22e>addEventListener</span>(<span style=color:#a6e22e>event</span>, <span style=color:#a6e22e>listener</span>, <span style=color:#66d9ef>false</span>);
-</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>element</span>.<span style=color:#a6e22e>attachEvent</span>) {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>element</span>.<span style=color:#a6e22e>attachEvent</span>(<span style=color:#e6db74>&#39;on&#39;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>event</span>, <span style=color:#66d9ef>function</span>() {
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>listener</span>.<span style=color:#a6e22e>call</span>(<span style=color:#a6e22e>element</span>);
-</span></span><span style=display:flex><span>      });
-</span></span><span style=display:flex><span>    } 
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// 几乎不存在不支持标准的浏览器了
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// else {
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>//   element[&#39;on&#39; + event] = listener;
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#75715e>// }
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div></section><nav class="mt-24 flex overflow-hidden rounded-xl bg-black/[3%] text-lg leading-[1.2]! *:flex *:w-1/2 *:items-center *:p-5 *:font-medium *:no-underline dark:bg-white/[8%] [&>*:hover]:bg-black/[2%] dark:[&>*:hover]:bg-white/[3%]"><a class="ltr:pr-3 rtl:pl-3" href=https://kaorz.com/blog/archives/2015-06-24-javascript-oo-note/><span class="ltr:mr-1.5 rtl:ml-1.5">←</span><span>百度ife-javascript面向对象学习笔记</span></a><a class="justify-end pl-3 ltr:ml-auto rtl:mr-auto" href=https://kaorz.com/blog/archives/2015-02-13-my-blog-version1.0-description/><span>终于完成一个很简易的博客了！</span><span class="ltr:ml-1.5 rtl:mr-1.5">→</span></a></nav></article></main><footer class="mx-auto flex h-[4.5rem] max-w-(--w) items-center px-8 text-xs tracking-wider uppercase opacity-60"><div class=mr-auto>&copy;2026
-<a class=link href=https://kaorz.com/blog/>伟神的博客</a></div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>powered by hugo️️</a>️
-<a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>hugo-paper</a></footer></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>百度ife-util.js - 伟神的博客</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/blog/">首页</a> | <a href="/blog/posts/">文章</a> | <a href="/blog/archives/">归档</a>
+    </nav>
+  </header>
+  <main>
+    
+<article>
+  <h1>百度ife-util.js</h1>
+  <time>0001-01-01</time>
+  <blockquote>
+<p>学习任务来自：<!-- raw HTML omitted -->百度ife前端技术学院<!-- raw HTML omitted --></p>
+</blockquote>
+<h2 id="任务二">任务二</h2>
+<h3 id="trim">trim</h3>
+<p>正确的实现：</p>
+<p>问题：应该用<strong>字符</strong>来代替<code> </code>，chrome下<code>\s</code>可以匹配全角空格，但是考虑兼容的话，需要加上<code>\uFEFF\xA0</code>，去掉BOM头和全角空格。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">trim</span>(<span style="color:#a6e22e">str</span>) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 此处 \\s 等是为了去除带转义字符的字符串，如 &#39;  \s 19   &#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">re</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RegExp(<span style="color:#e6db74">&#39;(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)&#39;</span>, <span style="color:#e6db74">&#39;g&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> String.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">trim</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">str</span>.<span style="color:#a6e22e">trim</span>() <span style="color:#f92672">:</span> <span style="color:#a6e22e">str</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#a6e22e">re</span>, <span style="color:#e6db74">&#39;&#39;</span>);
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// MDN 的做法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// return String.prototype.trim ? str.trim() : str.replace(/^\s+|\s+$/g,&#39;&#39;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p><strong>注意</strong>：</p>
+<ul>
+<li>\xa0 表示不换行的空格</li>
+<li>\u3000 表示中文全角空格</li>
+<li>\x24 表示$</li>
+</ul>
+<h3 id="isemail">isEmail</h3>
+<p>我的实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">isEmail</span>(<span style="color:#a6e22e">emailStr</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">emailStr</span> <span style="color:#f92672">===</span><span style="color:#e6db74">&#39;string&#39;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">re</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/^[a-z]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{2,3}([\.][a-z]{2})?$/i</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">re</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">emailStr</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>问题：无法识别lj.meng@s.baidu.com这种类型的邮箱</p>
+<p>更好的实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">isEmail</span>(<span style="color:#a6e22e">emailStr</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">emailStr</span> <span style="color:#f92672">===</span><span style="color:#e6db74">&#39;string&#39;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">re</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/^([\w_\.\-\+])+\@([\w\-]+\.)+([\w]{2,10})+$/</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">re</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">emailStr</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>问题：邮箱因为格式太多，并不是单单一个正则表达式就可以搞定的</p>
+<h3 id="isplain-判断对象是否为字面量对象">isPlain 判断对象是否为字面量对象</h3>
+<p>字面量对象：简单来说，就是该对象由 {} 或者 new Objcet 形式创建</p>
+<p>实现方法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 判断一个对象是不是字面量对象，即判断这个对象是不是由{}或者new Object类似方式创建
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 事实上来说，在Javascript语言中，任何判断都一定会有漏洞，因此本方法只针对一些最常用的情况进行了判断
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @return {Boolean}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">isPlain</span>(<span style="color:#a6e22e">obj</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">hasOwnProperty</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">hasOwnProperty</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">key</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 排除IE下的COM对象返回Object的问题
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// 所有字面量对象都有 isPrototypeOf 这个属性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">obj</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">||</span> Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">obj</span>) <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;[object Object]&#39;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">nodeType</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">||</span> <span style="color:#f92672">!</span>(<span style="color:#e6db74">&#39;isPrototypeOf&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>)
+</span></span><span style="display:flex;"><span>    ) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 判断new fun()自定义对象的情况
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// constructor不是继承自原型链的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// 并且原型中有isPrototypeOf方法才是Object
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">hasOwnProperty</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">obj</span>, <span style="color:#e6db74">&#39;constructor&#39;</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">hasOwnProperty</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">constructor</span>.<span style="color:#a6e22e">prototype</span>, <span style="color:#e6db74">&#39;isPrototypeOf&#39;</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//判断有继承的情况
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//如果有一项是继承过来的，那么一定不是字面量Object
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//OwnProperty会首先被遍历，为了加速遍历过程，直接看最后一项
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>){}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">hasOwnProperty</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">key</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="任务三">任务三</h2>
+<h3 id="on">$.on</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">on</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">element</span>, <span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">listener</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">nodeType</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">addEventListener</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">listener</span>, <span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">attachEvent</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">element</span>.<span style="color:#a6e22e">attachEvent</span>(<span style="color:#e6db74">&#39;on&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">event</span>, <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">listener</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">element</span>);
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>    } 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 几乎不存在不支持标准的浏览器了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// else {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//   element[&#39;on&#39; + event] = listener;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+</article>
+
+  </main>
+  <footer>
+    <p>© 2026 伟神的博客</p>
+  </footer>
+</body>
+</html>

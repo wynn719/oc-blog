@@ -1,102 +1,121 @@
-<!doctype html><html class="not-ready lg:text-base" style=--bg:#faf8f1 lang=zh-CN dir=ltr><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>HTML-CSS的细节与注意事项 - 伟神的博客</title>
-<meta name=theme-color><meta name=description content="1. border-style : dotted的&rsquo;dotted&rsquo;属性不兼容ie6
-2. 不同元素的上下外边距margin会叠压，父子级包含的时候子级的margin-top会传递给父级；（内边距替代外边距）
-3. word-spacing : 30px 单词间距（以空格为解析单位）
-4. 样式优先级 tag(1) < class(10) < id(100) < style行间样式(1000) < js
-5. IE6不支持a以外其它任何标签的伪类；IE6以上的浏览器支持所有标签的hover伪类。
-6. 行内样式 inline 的特点：
-默认同行可以继续跟同类型标签； 内容撑开宽度 不支持宽高 不支持上下的margin和padding 代码换行被解析 7.1 inline-block的特点:
-块在一行显示； 行内属性标签支持宽高； 没有宽度的时候内容撑开宽度 7.2 inline-block存在的问题:
-代码换行被解析；(代码换行的时候样式会有空隙) ie6 ie7 不支持块属性标签的inline-block; 8. img的默认属性为inline-block，img自带边框（经常在css reset中重置边框为 none）
-9. cursor : url(我的鼠标.jpg),pointer;cursor也可以自带图片来模拟鼠标样式，但后面需要附上的默认样式
-10. 谨慎使用通配符*，会影响性能
-11. clear left/right/both/none 是指元素的某个方向不能有浮动元素
-12. 在ie6下高度小于19px的元素，高度会被当做19px来处理,解决办法:给该元素设置overflow:hidden
-13. ie6,7的hasLayout属性使得具有宽度的父级子元素不需要清除浮动
-14. ie6,7下元素浮动，要并在同一行的元素都要加浮动
-15. IE6下的双边距BUG
-在IE6下，块元素有浮动和横向margin的时候，横向的margin值会被放大成两倍 解决办法: display:inline 16. IE6，7下li的间隙"><meta name=author content="伟神的博客"><link rel="preload stylesheet" as=style href=https://kaorz.com/blog/main.min.55f67b3b9482b33ca2648823a61f5e76f43181837316a5e844e85db17499eb47.css integrity="sha256-VfZ7O5SCszyiZIgjph9edvQxgYNzFqXoROhdsXSZ60c="><link rel=preload as=image href=https://kaorz.com/blog/theme.png><script defer src=https://kaorz.com/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=https://kaorz.com/blog/favicon.ico><link rel=apple-touch-icon href=https://kaorz.com/blog/apple-touch-icon.png><meta name=generator content="Hugo 0.123.0"><meta itemprop=name content="HTML-CSS的细节与注意事项"><meta itemprop=description content="1. border-style : dotted的&rsquo;dotted&rsquo;属性不兼容ie6
-2. 不同元素的上下外边距margin会叠压，父子级包含的时候子级的margin-top会传递给父级；（内边距替代外边距）
-3. word-spacing : 30px 单词间距（以空格为解析单位）
-4. 样式优先级 tag(1) < class(10) < id(100) < style行间样式(1000) < js
-5. IE6不支持a以外其它任何标签的伪类；IE6以上的浏览器支持所有标签的hover伪类。
-6. 行内样式 inline 的特点：
-默认同行可以继续跟同类型标签； 内容撑开宽度 不支持宽高 不支持上下的margin和padding 代码换行被解析 7.1 inline-block的特点:
-块在一行显示； 行内属性标签支持宽高； 没有宽度的时候内容撑开宽度 7.2 inline-block存在的问题:
-代码换行被解析；(代码换行的时候样式会有空隙) ie6 ie7 不支持块属性标签的inline-block; 8. img的默认属性为inline-block，img自带边框（经常在css reset中重置边框为 none）
-9. cursor : url(我的鼠标.jpg),pointer;cursor也可以自带图片来模拟鼠标样式，但后面需要附上的默认样式
-10. 谨慎使用通配符*，会影响性能
-11. clear left/right/both/none 是指元素的某个方向不能有浮动元素
-12. 在ie6下高度小于19px的元素，高度会被当做19px来处理,解决办法:给该元素设置overflow:hidden
-13. ie6,7的hasLayout属性使得具有宽度的父级子元素不需要清除浮动
-14. ie6,7下元素浮动，要并在同一行的元素都要加浮动
-15. IE6下的双边距BUG
-在IE6下，块元素有浮动和横向margin的时候，横向的margin值会被放大成两倍 解决办法: display:inline 16. IE6，7下li的间隙"><meta itemprop=wordCount content="179"><meta itemprop=keywords content><meta property="og:title" content="HTML-CSS的细节与注意事项"><meta property="og:description" content="1. border-style : dotted的&rsquo;dotted&rsquo;属性不兼容ie6
-2. 不同元素的上下外边距margin会叠压，父子级包含的时候子级的margin-top会传递给父级；（内边距替代外边距）
-3. word-spacing : 30px 单词间距（以空格为解析单位）
-4. 样式优先级 tag(1) < class(10) < id(100) < style行间样式(1000) < js
-5. IE6不支持a以外其它任何标签的伪类；IE6以上的浏览器支持所有标签的hover伪类。
-6. 行内样式 inline 的特点：
-默认同行可以继续跟同类型标签； 内容撑开宽度 不支持宽高 不支持上下的margin和padding 代码换行被解析 7.1 inline-block的特点:
-块在一行显示； 行内属性标签支持宽高； 没有宽度的时候内容撑开宽度 7.2 inline-block存在的问题:
-代码换行被解析；(代码换行的时候样式会有空隙) ie6 ie7 不支持块属性标签的inline-block; 8. img的默认属性为inline-block，img自带边框（经常在css reset中重置边框为 none）
-9. cursor : url(我的鼠标.jpg),pointer;cursor也可以自带图片来模拟鼠标样式，但后面需要附上的默认样式
-10. 谨慎使用通配符*，会影响性能
-11. clear left/right/both/none 是指元素的某个方向不能有浮动元素
-12. 在ie6下高度小于19px的元素，高度会被当做19px来处理,解决办法:给该元素设置overflow:hidden
-13. ie6,7的hasLayout属性使得具有宽度的父级子元素不需要清除浮动
-14. ie6,7下元素浮动，要并在同一行的元素都要加浮动
-15. IE6下的双边距BUG
-在IE6下，块元素有浮动和横向margin的时候，横向的margin值会被放大成两倍 解决办法: display:inline 16. IE6，7下li的间隙"><meta property="og:type" content="article"><meta property="og:url" content="https://kaorz.com/blog/archives/2015-04-06-html-css2-note/"><meta property="article:section" content="archives"><meta name=twitter:card content="summary"><meta name=twitter:title content="HTML-CSS的细节与注意事项"><meta name=twitter:description content="1. border-style : dotted的&rsquo;dotted&rsquo;属性不兼容ie6
-2. 不同元素的上下外边距margin会叠压，父子级包含的时候子级的margin-top会传递给父级；（内边距替代外边距）
-3. word-spacing : 30px 单词间距（以空格为解析单位）
-4. 样式优先级 tag(1) < class(10) < id(100) < style行间样式(1000) < js
-5. IE6不支持a以外其它任何标签的伪类；IE6以上的浏览器支持所有标签的hover伪类。
-6. 行内样式 inline 的特点：
-默认同行可以继续跟同类型标签； 内容撑开宽度 不支持宽高 不支持上下的margin和padding 代码换行被解析 7.1 inline-block的特点:
-块在一行显示； 行内属性标签支持宽高； 没有宽度的时候内容撑开宽度 7.2 inline-block存在的问题:
-代码换行被解析；(代码换行的时候样式会有空隙) ie6 ie7 不支持块属性标签的inline-block; 8. img的默认属性为inline-block，img自带边框（经常在css reset中重置边框为 none）
-9. cursor : url(我的鼠标.jpg),pointer;cursor也可以自带图片来模拟鼠标样式，但后面需要附上的默认样式
-10. 谨慎使用通配符*，会影响性能
-11. clear left/right/both/none 是指元素的某个方向不能有浮动元素
-12. 在ie6下高度小于19px的元素，高度会被当做19px来处理,解决办法:给该元素设置overflow:hidden
-13. ie6,7的hasLayout属性使得具有宽度的父级子元素不需要清除浮动
-14. ie6,7下元素浮动，要并在同一行的元素都要加浮动
-15. IE6下的双边距BUG
-在IE6下，块元素有浮动和横向margin的时候，横向的margin值会被放大成两倍 解决办法: display:inline 16. IE6，7下li的间隙"><link rel=canonical href=https://kaorz.com/blog/archives/2015-04-06-html-css2-note/></head><body class="bg-(--bg) text-black antialiased duration-200 ease-out [-webkit-tap-highlight-color:transparent] dark:text-white"><header class="mx-auto flex h-[4.5rem] max-w-(--w) px-8 whitespace-nowrap lg:justify-center"><div class="relative z-50 flex items-center ltr:mr-auto rtl:ml-auto"><a class="-translate-y-[1px] text-2xl font-medium" href=https://kaorz.com/blog/>伟神的博客</a><div class="btn-dark text-[0px] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]" role=button aria-label=Dark></div></div><div class="btn-menu relative z-50 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden ltr:-mr-8 rtl:-ml-8" role=button aria-label=Menu></div><script>const htmlClass=document.documentElement.classList;setTimeout(()=>{htmlClass.remove("not-ready")},10);const btnMenu=document.querySelector(".btn-menu");btnMenu.addEventListener("click",()=>{htmlClass.toggle("open")});const metaTheme=document.querySelector('meta[name="theme-color"]'),lightBg="#faf8f1".replace(/"/g,""),setDark=e=>{metaTheme.setAttribute("content",e?"rgb(0 0 0 / 85%)":lightBg),htmlClass[e?"add":"remove"]("dark"),localStorage.setItem("dark",e)},darkScheme=window.matchMedia("(prefers-color-scheme: dark)");if(htmlClass.contains("dark"))setDark(!0);else{const e=localStorage.getItem("dark");setDark(e?e==="true":darkScheme.matches)}darkScheme.addEventListener("change",e=>{setDark(e.matches)});const btnDark=document.querySelector(".btn-dark");btnDark.addEventListener("click",()=>{setDark(localStorage.getItem("dark")!=="true")})</script><div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full flex-col justify-center bg-(--bg) pb-16 duration-200 select-none lg:static lg:h-auto lg:flex-row lg:bg-transparent! lg:pb-0 lg:transition-none"></div></header><main class="prose prose-neutral dark:prose-invert relative mx-auto min-h-[calc(100vh-9rem)] max-w-(--w) px-8 pt-14 pb-16"><article><header class=mb-14><h1 class="my-0! pb-2.5">HTML-CSS的细节与注意事项</h1><div class="text-xs antialiased opacity-60"></div></header><section><p>1. <code>border-style : dotted</code>的&rsquo;dotted&rsquo;属性<strong>不兼容ie6</strong></p><p>2. 不同元素的上下外边距<code>margin</code>会叠压，父子级包含的时候子级的<code>margin-top</code>会传递给父级；（内边距替代外边距）</p><p>3. <code>word-spacing : 30px</code> 单词间距（以空格为解析单位）</p><p>4. 样式优先级 tag(1) &lt; class(10) &lt; id(100) &lt; style行间样式(1000) &lt; js</p><p>5. <strong>IE6不支持</strong>a以外其它任何标签的伪类；IE6以上的浏览器支持所有标签的<code>hover</code>伪类。</p><p>6. 行内样式 <code>inline</code> 的特点：</p><ul><li>默认同行可以继续跟同类型标签；</li><li>内容撑开宽度</li><li>不支持宽高</li><li>不支持上下的<code>margin</code>和<code>padding</code></li><li>代码换行被解析</li></ul><p>7.1 <code>inline-block</code>的特点:</p><ul><li>块在一行显示；</li><li>行内属性标签支持宽高；</li><li>没有宽度的时候内容撑开宽度</li></ul><p>7.2 <code>inline-block</code>存在的问题:</p><ul><li>代码换行被解析；(代码换行的时候样式会有空隙)</li><li><strong>ie6 ie7 不支持</strong>块属性标签的inline-block;</li></ul><p>8. <code>img</code>的默认属性为<code>inline-block</code>，<code>img</code>自带边框（经常在css reset中重置边框为 none）</p><p>9. <code>cursor : url(我的鼠标.jpg),pointer;</code>cursor也可以自带图片来模拟鼠标样式，但后面需要附上的默认样式</p><p>10. 谨慎使用通配符<code>*</code>，会影响性能</p><p>11. clear left/right/both/none 是指元素的某个方向不能有浮动元素</p><p>12. 在<strong>ie6下</strong>高度小于19px的元素，高度会被当做19px来处理,解决办法:给该元素设置<code>overflow:hidden</code></p><p>13. <strong>ie6</strong>,7的hasLayout属性使得具有宽度的父级子元素不需要清除浮动</p><p>14. <strong>ie6</strong>,7下元素浮动，要并在同一行的元素都要加浮动</p><p>15. <strong>IE6下</strong>的双边距BUG</p><ul><li>在IE6下，块元素有浮动和横向margin的时候，横向的margin值会被放大成两倍</li><li>解决办法: <code>display:inline</code></li></ul><p>16. <strong>IE6，7</strong>下li的间隙</p><ul><li>在IE6，7下li本身没浮动,但是li内容有浮动的时候，li下边就会产生几px的间隙</li><li>解决办法: 1.给li加浮动;2.给li加<code>vertical-align:top</code>;</li></ul><p>17. 图片下的空隙问题，<code>vertical-align:top</code>解决</p><p>18. <code>position:absolute;</code>绝对定位的注意事项：</p><ul><li>使内嵌支持宽高；(定义了绝对定位后，不用设置<code>display: block</code>)</li><li>块属性标签内容撑开宽度</li></ul><p>19. <strong>ie6不支持</strong>固定定位 <code>position: fixed;</code>，固定定位与绝对定位的差别是，固定定位始终相对于整个文档进行定位</p><p>20. <strong>ie7以下</strong>父级的<code>overflow:hidden;</code>是包不住子级的相对定位的</p><p>21. 在 ** IE6 下** 定位元素的父级宽高都为奇数那么在 <strong>IE6 下</strong> 定位元素的 right 和 bottom 都有1像素的偏差。</p><p>22. 相对定位和绝对定位也可以用于清除浮动</p><p>23. 英文断句的方式：</p><ul><li><code>word-break:break-all;</code>所有形式的句子都断句，不考虑单词连贯性</li><li><code>word-break:break-word</code>保持英文单词完整性的断句</li></ul><p>24. 文本溢出显示省略号，在相应的显示文本的元素上加上<code>white-space:nowrap; overflow:hidden; text-overflow:ellipsis;</code>样式。</p><p>25. 未知宽高的img如何在容器里水平垂直居中？</p><p>方案一：使用vertical-align属性（多了没用的标签，个人不太推荐使用）</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE HTML&gt;</span>
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>http-equiv</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Content-Type&#34;</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text/html; charset=utf-8&#34;</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>title</span>&gt;无标题文档&lt;/<span style=color:#f92672>title</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>style</span>&gt;
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>box</span>{ <span style=color:#66d9ef>width</span>:<span style=color:#ae81ff>800</span><span style=color:#66d9ef>px</span>;<span style=color:#66d9ef>height</span>:<span style=color:#ae81ff>600</span><span style=color:#66d9ef>px</span>;<span style=color:#66d9ef>border</span>:<span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#ae81ff>#000</span>; <span style=color:#66d9ef>text-align</span>:<span style=color:#66d9ef>center</span>;}
-</span></span><span style=display:flex><span><span style=color:#f92672>span</span>{ <span style=color:#66d9ef>display</span>:<span style=color:#66d9ef>inline-block</span>; <span style=color:#66d9ef>height</span>:<span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span>; <span style=color:#66d9ef>vertical-align</span>:<span style=color:#66d9ef>middle</span>;}
-</span></span><span style=display:flex><span><span style=color:#f92672>img</span>{ <span style=color:#66d9ef>vertical-align</span>:<span style=color:#66d9ef>middle</span>;}
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>style</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;box&#34;</span>&gt;
-</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;bigptr.jpg&#34;</span> /&gt;&lt;<span style=color:#f92672>span</span>&gt;&lt;/<span style=color:#f92672>span</span>&gt;
-</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
-</span></span></code></pre></div><p>方案二：使用表格布局默认居中的特性</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE HTML&gt;</span>
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>http-equiv</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Content-Type&#34;</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text/html; charset=utf-8&#34;</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>title</span>&gt;无标题文档&lt;/<span style=color:#f92672>title</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>style</span>&gt;
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>box</span>{ <span style=color:#66d9ef>width</span>:<span style=color:#ae81ff>800</span><span style=color:#66d9ef>px</span>;<span style=color:#66d9ef>height</span>:<span style=color:#ae81ff>600</span><span style=color:#66d9ef>px</span>;<span style=color:#66d9ef>border</span>:<span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#ae81ff>#000</span>;<span style=color:#66d9ef>display</span>:<span style=color:#66d9ef>table</span>;<span style=color:#66d9ef>position</span>:<span style=color:#66d9ef>relative</span>; <span style=color:#66d9ef>overflow</span>:<span style=color:#66d9ef>hidden</span>;}
-</span></span><span style=display:flex><span><span style=color:#f92672>span</span>{ <span style=color:#66d9ef>display</span>:<span style=color:#66d9ef>table-cell</span>; <span style=color:#66d9ef>text-align</span>:<span style=color:#66d9ef>center</span>; <span style=color:#66d9ef>vertical-align</span>:<span style=color:#66d9ef>middle</span>;<span style=color:#960050;background-color:#1e0010>*</span><span style=color:#66d9ef>position</span>:<span style=color:#66d9ef>absolute</span>;<span style=color:#66d9ef>left</span>:<span style=color:#ae81ff>50</span><span style=color:#66d9ef>%</span>;<span style=color:#66d9ef>top</span>:<span style=color:#ae81ff>50</span><span style=color:#66d9ef>%</span>;}
-</span></span><span style=display:flex><span><span style=color:#f92672>img</span>{ <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#66d9ef>position</span>:<span style=color:#66d9ef>relative</span>; <span style=color:#66d9ef>vertical-align</span>:<span style=color:#66d9ef>top</span>;<span style=color:#66d9ef>left</span>:<span style=color:#ae81ff>-50</span><span style=color:#66d9ef>%</span>;<span style=color:#66d9ef>top</span>:<span style=color:#ae81ff>-50</span><span style=color:#66d9ef>%</span>;}
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>style</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
-</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;box&#34;</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>span</span>&gt;&lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;bigptr.jpg&#34;</span> /&gt;&lt;/<span style=color:#f92672>span</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
-</span></span></code></pre></div></section><nav class="mt-24 flex overflow-hidden rounded-xl bg-black/[3%] text-lg leading-[1.2]! *:flex *:w-1/2 *:items-center *:p-5 *:font-medium *:no-underline dark:bg-white/[8%] [&>*:hover]:bg-black/[2%] dark:[&>*:hover]:bg-white/[3%]"><a class="ltr:pr-3 rtl:pl-3" href=https://kaorz.com/blog/archives/2015-02-16-git-note/><span class="ltr:mr-1.5 rtl:ml-1.5">←</span><span>Git常用语法笔记</span></a><a class="justify-end pl-3 ltr:ml-auto rtl:mr-auto" href=https://kaorz.com/blog/archives/2015-10-07-js-for-array-delete-item/><span>js for循环中删除数组的某一项</span><span class="ltr:ml-1.5 rtl:mr-1.5">→</span></a></nav></article></main><footer class="mx-auto flex h-[4.5rem] max-w-(--w) items-center px-8 text-xs tracking-wider uppercase opacity-60"><div class=mr-auto>&copy;2026
-<a class=link href=https://kaorz.com/blog/>伟神的博客</a></div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>powered by hugo️️</a>️
-<a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>hugo-paper</a></footer></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML-CSS的细节与注意事项 - 伟神的博客</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/blog/">首页</a> | <a href="/blog/posts/">文章</a> | <a href="/blog/archives/">归档</a>
+    </nav>
+  </header>
+  <main>
+    
+<article>
+  <h1>HTML-CSS的细节与注意事项</h1>
+  <time>0001-01-01</time>
+  <p>1. <code>border-style : dotted</code>的&rsquo;dotted&rsquo;属性<strong>不兼容ie6</strong></p>
+<p>2. 不同元素的上下外边距<code>margin</code>会叠压，父子级包含的时候子级的<code>margin-top</code>会传递给父级；（内边距替代外边距）</p>
+<p>3. <code>word-spacing : 30px</code> 单词间距（以空格为解析单位）</p>
+<p>4. 样式优先级  tag(1)  &lt;  class(10)  &lt;  id(100)  &lt;  style行间样式(1000) &lt; js</p>
+<p>5. <strong>IE6不支持</strong>a以外其它任何标签的伪类；IE6以上的浏览器支持所有标签的<code>hover</code>伪类。</p>
+<p>6. 行内样式 <code>inline</code> 的特点：</p>
+<ul>
+<li>默认同行可以继续跟同类型标签；</li>
+<li>内容撑开宽度</li>
+<li>不支持宽高</li>
+<li>不支持上下的<code>margin</code>和<code>padding</code></li>
+<li>代码换行被解析</li>
+</ul>
+<p>7.1 <code>inline-block</code>的特点:</p>
+<ul>
+<li>块在一行显示；</li>
+<li>行内属性标签支持宽高；</li>
+<li>没有宽度的时候内容撑开宽度</li>
+</ul>
+<p>7.2 <code>inline-block</code>存在的问题:</p>
+<ul>
+<li>代码换行被解析；(代码换行的时候样式会有空隙)</li>
+<li><strong>ie6 ie7 不支持</strong>块属性标签的inline-block;</li>
+</ul>
+<p>8. <code>img</code>的默认属性为<code>inline-block</code>，<code>img</code>自带边框（经常在css reset中重置边框为 none）</p>
+<p>9. <code>cursor : url(我的鼠标.jpg),pointer;</code>cursor也可以自带图片来模拟鼠标样式，但后面需要附上的默认样式</p>
+<p>10. 谨慎使用通配符<code>*</code>，会影响性能</p>
+<p>11. clear left/right/both/none 是指元素的某个方向不能有浮动元素</p>
+<p>12. 在<strong>ie6下</strong>高度小于19px的元素，高度会被当做19px来处理,解决办法:给该元素设置<code>overflow:hidden</code></p>
+<p>13. <strong>ie6</strong>,7的hasLayout属性使得具有宽度的父级子元素不需要清除浮动</p>
+<p>14. <strong>ie6</strong>,7下元素浮动，要并在同一行的元素都要加浮动</p>
+<p>15. <strong>IE6下</strong>的双边距BUG</p>
+<ul>
+<li>在IE6下，块元素有浮动和横向margin的时候，横向的margin值会被放大成两倍</li>
+<li>解决办法: <code>display:inline</code></li>
+</ul>
+<p>16. <strong>IE6，7</strong>下li的间隙</p>
+<ul>
+<li>在IE6，7下li本身没浮动,但是li内容有浮动的时候，li下边就会产生几px的间隙</li>
+<li>解决办法: 1.给li加浮动;2.给li加<code>vertical-align:top</code>;</li>
+</ul>
+<p>17. 图片下的空隙问题，<code>vertical-align:top</code>解决</p>
+<p>18. <code>position:absolute;</code>绝对定位的注意事项：</p>
+<ul>
+<li>使内嵌支持宽高；(定义了绝对定位后，不用设置<code>display: block</code>)</li>
+<li>块属性标签内容撑开宽度</li>
+</ul>
+<p>19. <strong>ie6不支持</strong>固定定位 <code>position: fixed;</code>，固定定位与绝对定位的差别是，固定定位始终相对于整个文档进行定位</p>
+<p>20. <strong>ie7以下</strong>父级的<code>overflow:hidden;</code>是包不住子级的相对定位的</p>
+<p>21. 在 ** IE6 下** 定位元素的父级宽高都为奇数那么在 <strong>IE6 下</strong> 定位元素的 right 和 bottom 都有1像素的偏差。</p>
+<p>22. 相对定位和绝对定位也可以用于清除浮动</p>
+<p>23. 英文断句的方式：</p>
+<ul>
+<li><code>word-break:break-all;</code>所有形式的句子都断句，不考虑单词连贯性</li>
+<li><code>word-break:break-word</code>保持英文单词完整性的断句</li>
+</ul>
+<p>24. 文本溢出显示省略号，在相应的显示文本的元素上加上<code>white-space:nowrap; overflow:hidden; text-overflow:ellipsis;</code>样式。</p>
+<p>25. 未知宽高的img如何在容器里水平垂直居中？</p>
+<p>方案一：使用vertical-align属性（多了没用的标签，个人不太推荐使用）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">title</span>&gt;无标题文档&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">box</span>{ <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">800</span><span style="color:#66d9ef">px</span>;<span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">600</span><span style="color:#66d9ef">px</span>;<span style="color:#66d9ef">border</span>:<span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#000</span>; <span style="color:#66d9ef">text-align</span>:<span style="color:#66d9ef">center</span>;}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">span</span>{ <span style="color:#66d9ef">display</span>:<span style="color:#66d9ef">inline-block</span>; <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>; <span style="color:#66d9ef">vertical-align</span>:<span style="color:#66d9ef">middle</span>;}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">img</span>{ <span style="color:#66d9ef">vertical-align</span>:<span style="color:#66d9ef">middle</span>;}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;box&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bigptr.jpg&#34;</span> /&gt;&lt;<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>方案二：使用表格布局默认居中的特性</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE HTML&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Content-Type&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html; charset=utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">title</span>&gt;无标题文档&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">box</span>{ <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">800</span><span style="color:#66d9ef">px</span>;<span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">600</span><span style="color:#66d9ef">px</span>;<span style="color:#66d9ef">border</span>:<span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#000</span>;<span style="color:#66d9ef">display</span>:<span style="color:#66d9ef">table</span>;<span style="color:#66d9ef">position</span>:<span style="color:#66d9ef">relative</span>; <span style="color:#66d9ef">overflow</span>:<span style="color:#66d9ef">hidden</span>;}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">span</span>{ <span style="color:#66d9ef">display</span>:<span style="color:#66d9ef">table-cell</span>; <span style="color:#66d9ef">text-align</span>:<span style="color:#66d9ef">center</span>; <span style="color:#66d9ef">vertical-align</span>:<span style="color:#66d9ef">middle</span>;<span style="color:#960050;background-color:#1e0010">*</span><span style="color:#66d9ef">position</span>:<span style="color:#66d9ef">absolute</span>;<span style="color:#66d9ef">left</span>:<span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>;<span style="color:#66d9ef">top</span>:<span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>;}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">img</span>{ <span style="color:#960050;background-color:#1e0010">*</span><span style="color:#66d9ef">position</span>:<span style="color:#66d9ef">relative</span>; <span style="color:#66d9ef">vertical-align</span>:<span style="color:#66d9ef">top</span>;<span style="color:#66d9ef">left</span>:<span style="color:#ae81ff">-50</span><span style="color:#66d9ef">%</span>;<span style="color:#66d9ef">top</span>:<span style="color:#ae81ff">-50</span><span style="color:#66d9ef">%</span>;}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;box&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">span</span>&gt;&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bigptr.jpg&#34;</span> /&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div>
+</article>
+
+  </main>
+  <footer>
+    <p>© 2026 伟神的博客</p>
+  </footer>
+</body>
+</html>

@@ -1,125 +1,210 @@
-<!doctype html><html class="not-ready lg:text-base" style=--bg:#faf8f1 lang=zh-CN dir=ltr><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>css常用布局总结 - 伟神的博客</title>
-<meta name=theme-color><meta name=description content='等高布局 容器高度随着左右两边的增高而变化 通过padding-bottom: 10000px;和margin-bottom: -10000px;互相挤压，外容器隐藏溢出，形成自适应高度 <div class="wrap"> <div class="left"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> <div class="center"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> <div class="right"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> </div> .wrap { width:100%; margin:0 auto; overflow:hidden; } .wrap:after { content:""; display:block; clear:both; } .left { width:20%; background:Red; float:left; padding-bottom:10000px; margin-bottom:-10000px; } .center { float: left; padding-bottom: 10000px; margin-bottom: -10000px; background-color: yellow; width: 60%; } .right { width:20%; background:blue; float:right; padding-bottom:10000px; margin-bottom:-10000px; } 效果如下：'><meta name=author content="伟神的博客"><link rel="preload stylesheet" as=style href=https://kaorz.com/blog/main.min.55f67b3b9482b33ca2648823a61f5e76f43181837316a5e844e85db17499eb47.css integrity="sha256-VfZ7O5SCszyiZIgjph9edvQxgYNzFqXoROhdsXSZ60c="><link rel=preload as=image href=https://kaorz.com/blog/theme.png><script defer src=https://kaorz.com/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=https://kaorz.com/blog/favicon.ico><link rel=apple-touch-icon href=https://kaorz.com/blog/apple-touch-icon.png><meta name=generator content="Hugo 0.123.0"><meta itemprop=name content="css常用布局总结"><meta itemprop=description content='等高布局 容器高度随着左右两边的增高而变化 通过padding-bottom: 10000px;和margin-bottom: -10000px;互相挤压，外容器隐藏溢出，形成自适应高度 <div class="wrap"> <div class="left"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> <div class="center"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> <div class="right"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> </div> .wrap { width:100%; margin:0 auto; overflow:hidden; } .wrap:after { content:""; display:block; clear:both; } .left { width:20%; background:Red; float:left; padding-bottom:10000px; margin-bottom:-10000px; } .center { float: left; padding-bottom: 10000px; margin-bottom: -10000px; background-color: yellow; width: 60%; } .right { width:20%; background:blue; float:right; padding-bottom:10000px; margin-bottom:-10000px; } 效果如下：'><meta itemprop=wordCount content="227"><meta itemprop=keywords content><meta property="og:title" content="css常用布局总结"><meta property="og:description" content='等高布局 容器高度随着左右两边的增高而变化 通过padding-bottom: 10000px;和margin-bottom: -10000px;互相挤压，外容器隐藏溢出，形成自适应高度 <div class="wrap"> <div class="left"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> <div class="center"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> <div class="right"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> </div> .wrap { width:100%; margin:0 auto; overflow:hidden; } .wrap:after { content:""; display:block; clear:both; } .left { width:20%; background:Red; float:left; padding-bottom:10000px; margin-bottom:-10000px; } .center { float: left; padding-bottom: 10000px; margin-bottom: -10000px; background-color: yellow; width: 60%; } .right { width:20%; background:blue; float:right; padding-bottom:10000px; margin-bottom:-10000px; } 效果如下：'><meta property="og:type" content="article"><meta property="og:url" content="https://kaorz.com/blog/archives/2015-04-26-about-css-layout/"><meta property="article:section" content="archives"><meta name=twitter:card content="summary"><meta name=twitter:title content="css常用布局总结"><meta name=twitter:description content='等高布局 容器高度随着左右两边的增高而变化 通过padding-bottom: 10000px;和margin-bottom: -10000px;互相挤压，外容器隐藏溢出，形成自适应高度 <div class="wrap"> <div class="left"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> <div class="center"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> <div class="right"> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> &amp;nbsp;页面内容<br/> </div> </div> .wrap { width:100%; margin:0 auto; overflow:hidden; } .wrap:after { content:""; display:block; clear:both; } .left { width:20%; background:Red; float:left; padding-bottom:10000px; margin-bottom:-10000px; } .center { float: left; padding-bottom: 10000px; margin-bottom: -10000px; background-color: yellow; width: 60%; } .right { width:20%; background:blue; float:right; padding-bottom:10000px; margin-bottom:-10000px; } 效果如下：'><link rel=canonical href=https://kaorz.com/blog/archives/2015-04-26-about-css-layout/></head><body class="bg-(--bg) text-black antialiased duration-200 ease-out [-webkit-tap-highlight-color:transparent] dark:text-white"><header class="mx-auto flex h-[4.5rem] max-w-(--w) px-8 whitespace-nowrap lg:justify-center"><div class="relative z-50 flex items-center ltr:mr-auto rtl:ml-auto"><a class="-translate-y-[1px] text-2xl font-medium" href=https://kaorz.com/blog/>伟神的博客</a><div class="btn-dark text-[0px] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]" role=button aria-label=Dark></div></div><div class="btn-menu relative z-50 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden ltr:-mr-8 rtl:-ml-8" role=button aria-label=Menu></div><script>const htmlClass=document.documentElement.classList;setTimeout(()=>{htmlClass.remove("not-ready")},10);const btnMenu=document.querySelector(".btn-menu");btnMenu.addEventListener("click",()=>{htmlClass.toggle("open")});const metaTheme=document.querySelector('meta[name="theme-color"]'),lightBg="#faf8f1".replace(/"/g,""),setDark=e=>{metaTheme.setAttribute("content",e?"rgb(0 0 0 / 85%)":lightBg),htmlClass[e?"add":"remove"]("dark"),localStorage.setItem("dark",e)},darkScheme=window.matchMedia("(prefers-color-scheme: dark)");if(htmlClass.contains("dark"))setDark(!0);else{const e=localStorage.getItem("dark");setDark(e?e==="true":darkScheme.matches)}darkScheme.addEventListener("change",e=>{setDark(e.matches)});const btnDark=document.querySelector(".btn-dark");btnDark.addEventListener("click",()=>{setDark(localStorage.getItem("dark")!=="true")})</script><div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full flex-col justify-center bg-(--bg) pb-16 duration-200 select-none lg:static lg:h-auto lg:flex-row lg:bg-transparent! lg:pb-0 lg:transition-none"></div></header><main class="prose prose-neutral dark:prose-invert relative mx-auto min-h-[calc(100vh-9rem)] max-w-(--w) px-8 pt-14 pb-16"><article><header class=mb-14><h1 class="my-0! pb-2.5">css常用布局总结</h1><div class="text-xs antialiased opacity-60"></div></header><section><h2 id=等高布局>等高布局</h2><ol><li>容器高度随着左右两边的增高而变化</li><li>通过<code>padding-bottom: 10000px;</code>和<code>margin-bottom: -10000px;</code>互相挤压，外容器隐藏溢出，形成自适应高度</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;wrap&#34;</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;left&#34;</span>&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;center&#34;</span>&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;right&#34;</span>&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>        &amp;nbsp;页面内容&lt;<span style=color:#f92672>br</span>/&gt;
-</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span>.<span style=color:#a6e22e>wrap</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>:<span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin</span>:<span style=color:#ae81ff>0</span> <span style=color:#66d9ef>auto</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>overflow</span>:<span style=color:#66d9ef>hidden</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>wrap</span>:<span style=color:#a6e22e>after</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>content</span>:<span style=color:#e6db74>&#34;&#34;</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>display</span>:<span style=color:#66d9ef>block</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>clear</span>:<span style=color:#66d9ef>both</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>left</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>:<span style=color:#ae81ff>20</span><span style=color:#66d9ef>%</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>:Red;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span>:<span style=color:#66d9ef>left</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding-bottom</span>:<span style=color:#ae81ff>10000</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-bottom</span>:<span style=color:#ae81ff>-10000</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>center</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span>: <span style=color:#66d9ef>left</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding-bottom</span>: <span style=color:#ae81ff>10000</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>-10000</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background-color</span>: <span style=color:#66d9ef>yellow</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>: <span style=color:#ae81ff>60</span><span style=color:#66d9ef>%</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>right</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>:<span style=color:#ae81ff>20</span><span style=color:#66d9ef>%</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>:<span style=color:#66d9ef>blue</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span>:<span style=color:#66d9ef>right</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>padding-bottom</span>:<span style=color:#ae81ff>10000</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-bottom</span>:<span style=color:#ae81ff>-10000</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>效果如下：</p><blockquote><p>注意：如果要支持ie6，请加上针对ie6的清除浮动hack<code>_zoom: 1;</code></p></blockquote><h2 id=双飞翼布局>双飞翼布局</h2><h3 id=布局原理>布局原理</h3><ol><li>三栏布局</li><li>主要内容块在最前面（优先载入），但布局位于中间</li><li>两侧固定宽度，分别位于中间主要内容块的两侧，中间流式布局（自动调整宽度）</li><li>技术使用：<code>float</code>、<code>margin</code>(负边距)、<code>position</code>(relative)</li></ol><h3 id=优缺点>优缺点</h3><h4 id=优点>优点</h4><ul><li>实现了内容与布局的分离，即Eric提到的Any-Order Columns.</li><li>main部分是自适应宽度的，很容易在定宽布局和流体布局中切换。</li><li>任何一栏都可以是最高栏，不会出问题。</li><li>需要的hack非常少（就一个针对ie6的清除浮动hack:_zoom: 1;）</li><li>在浏览器上的兼容性非常好，IE5.5以上都支持。</li></ul><h4 id=缺点>缺点</h4><ul><li>main需要添加一个额外的包裹层。</li></ul><h3 id=代码实现>代码实现</h3><p>html样式：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;main&#34;</span>&gt;main&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;left&#34;</span>&gt;left&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;right&#34;</span>&gt;right&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span></code></pre></div><p>基本css：呈现三列布局</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span>.<span style=color:#a6e22e>container</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>overflow</span>: <span style=color:#66d9ef>hidden</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>main</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span>: <span style=color:#66d9ef>left</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>: <span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background-color</span>: <span style=color:#ae81ff>#c0c0c0</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>height</span>: <span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>left</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span>: <span style=color:#66d9ef>left</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>: <span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background-color</span>: <span style=color:#ae81ff>#80ffff</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>height</span>: <span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-left</span>: <span style=color:#ae81ff>-100</span><span style=color:#66d9ef>%</span>;<span style=color:#75715e>/*注意此时为100%*/</span>
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>right</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span>: <span style=color:#66d9ef>left</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>: <span style=color:#ae81ff>150</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background-color</span>: <span style=color:#ae81ff>#80ff80</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin-left</span>: <span style=color:#ae81ff>-150</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>height</span>: <span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>处理中间块：解决中间块被掩盖的问题</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
-</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- 添加额外标签来解决 --&gt;</span>
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;main&#34;</span>&gt;
-</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;main-content&#34;</span>&gt;#main&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- 添加额外标签来解决 --&gt;</span>
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;left&#34;</span>&gt;left&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;right&#34;</span>&gt;right&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span><span style=color:#75715e>/*加入一条新的属性*/</span>
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>main-content</span> {  
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin</span>: <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>230</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>190</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>效果如下：</p><blockquote><p>双飞翼布局完成啦！</p><p>同时，还可以给该布局加上登高布局的特性，就形成一个流式的布局</p></blockquote><h3 id=另一种实现方案--absolute比较简单>另一种实现方案 （absolute）(比较简单)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;main&#34;</span>&gt;main&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;left&#34;</span>&gt;left&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;right&#34;</span>&gt;right&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>div</span>&gt;
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span>.<span style=color:#a6e22e>container</span>{
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>position</span>: <span style=color:#66d9ef>relative</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>main</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>height</span>:<span style=color:#ae81ff>600</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>:<span style=color:#ae81ff>#f60</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>margin</span>:<span style=color:#ae81ff>0</span> <span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>left</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>:<span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>:<span style=color:#ae81ff>#fc0</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>height</span>:<span style=color:#ae81ff>600</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>position</span>:<span style=color:#66d9ef>absolute</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>left</span>:<span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>top</span>:<span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>.<span style=color:#a6e22e>right</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>width</span>:<span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>background</span>:<span style=color:#ae81ff>#fcc</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>height</span>:<span style=color:#ae81ff>600</span><span style=color:#66d9ef>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>position</span>:<span style=color:#66d9ef>absolute</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>right</span>:<span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>top</span>:<span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><blockquote><p>也可以加入等高布局的特性！</p></blockquote><blockquote><p>注意：如果要支持ie6，请加上针对ie6的清除浮动hack<code>_zoom: 1;</code></p></blockquote><h2 id=流式栅格布局>（流式）栅格布局</h2><h3 id=原理>原理</h3><ol><li>根据双飞翼布局实现的多套布局方案</li><li>可以根据网站的需求自定义一套自己的布局方案，即支持了流式布局，也有很好的兼容性，ie6只有轻微的hack处理
-（hasLayout）</li></ol><blockquote><p>因为原理上大致相同就不做demo了（懒……）</p></blockquote><h3 id=资料参考>资料参考</h3><ul><li>（转）栅格化系统demo</li><li>bootstrap的栅格系统</li></ul></section><nav class="mt-24 flex overflow-hidden rounded-xl bg-black/[3%] text-lg leading-[1.2]! *:flex *:w-1/2 *:items-center *:p-5 *:font-medium *:no-underline dark:bg-white/[8%] [&>*:hover]:bg-black/[2%] dark:[&>*:hover]:bg-white/[3%]"><a class="ltr:pr-3 rtl:pl-3" href=https://kaorz.com/blog/archives/2015-11-16-pure-css-multiple-lines-truncation/><span class="ltr:mr-1.5 rtl:ml-1.5">←</span><span>CSS多行文字截断（适用移动端）</span></a><a class="justify-end pl-3 ltr:ml-auto rtl:mr-auto" href=https://kaorz.com/blog/archives/2015-02-16-git-note/><span>Git常用语法笔记</span><span class="ltr:ml-1.5 rtl:mr-1.5">→</span></a></nav></article></main><footer class="mx-auto flex h-[4.5rem] max-w-(--w) items-center px-8 text-xs tracking-wider uppercase opacity-60"><div class=mr-auto>&copy;2026
-<a class=link href=https://kaorz.com/blog/>伟神的博客</a></div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>powered by hugo️️</a>️
-<a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>hugo-paper</a></footer></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>css常用布局总结 - 伟神的博客</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/blog/">首页</a> | <a href="/blog/posts/">文章</a> | <a href="/blog/archives/">归档</a>
+    </nav>
+  </header>
+  <main>
+    
+<article>
+  <h1>css常用布局总结</h1>
+  <time>0001-01-01</time>
+  <h2 id="等高布局">等高布局</h2>
+<ol>
+<li>容器高度随着左右两边的增高而变化</li>
+<li>通过<code>padding-bottom: 10000px;</code>和<code>margin-bottom: -10000px;</code>互相挤压，外容器隐藏溢出，形成自适应高度</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wrap&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;left&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>        &amp;nbsp;页面内容&lt;<span style="color:#f92672">br</span>/&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">wrap</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin</span>:<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">overflow</span>:<span style="color:#66d9ef">hidden</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">wrap</span>:<span style="color:#a6e22e">after</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">content</span>:<span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">display</span>:<span style="color:#66d9ef">block</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">clear</span>:<span style="color:#66d9ef">both</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">left</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">20</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>:Red;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span>:<span style="color:#66d9ef">left</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">padding-bottom</span>:<span style="color:#ae81ff">10000</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin-bottom</span>:<span style="color:#ae81ff">-10000</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">center</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span>: <span style="color:#66d9ef">left</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">padding-bottom</span>: <span style="color:#ae81ff">10000</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin-bottom</span>: <span style="color:#ae81ff">-10000</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">yellow</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">60</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">right</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">20</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>:<span style="color:#66d9ef">blue</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span>:<span style="color:#66d9ef">right</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">padding-bottom</span>:<span style="color:#ae81ff">10000</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin-bottom</span>:<span style="color:#ae81ff">-10000</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>效果如下：</p>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>注意：如果要支持ie6，请加上针对ie6的清除浮动hack<code>_zoom: 1;</code></p>
+</blockquote>
+<h2 id="双飞翼布局">双飞翼布局</h2>
+<h3 id="布局原理">布局原理</h3>
+<ol>
+<li>三栏布局</li>
+<li>主要内容块在最前面（优先载入），但布局位于中间</li>
+<li>两侧固定宽度，分别位于中间主要内容块的两侧，中间流式布局（自动调整宽度）</li>
+<li>技术使用：<code>float</code>、<code>margin</code>(负边距)、<code>position</code>(relative)</li>
+</ol>
+<h3 id="优缺点">优缺点</h3>
+<h4 id="优点">优点</h4>
+<ul>
+<li>实现了内容与布局的分离，即Eric提到的Any-Order Columns.</li>
+<li>main部分是自适应宽度的，很容易在定宽布局和流体布局中切换。</li>
+<li>任何一栏都可以是最高栏，不会出问题。</li>
+<li>需要的hack非常少（就一个针对ie6的清除浮动hack:_zoom: 1;）</li>
+<li>在浏览器上的兼容性非常好，IE5.5以上都支持。</li>
+</ul>
+<h4 id="缺点">缺点</h4>
+<ul>
+<li>main需要添加一个额外的包裹层。</li>
+</ul>
+<h3 id="代码实现">代码实现</h3>
+<p>html样式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;main&#34;</span>&gt;main&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;left&#34;</span>&gt;left&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right&#34;</span>&gt;right&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>基本css：呈现三列布局</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">container</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">overflow</span>: <span style="color:#66d9ef">hidden</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">main</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span>: <span style="color:#66d9ef">left</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#c0c0c0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">left</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span>: <span style="color:#66d9ef">left</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#80ffff</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin-left</span>: <span style="color:#ae81ff">-100</span><span style="color:#66d9ef">%</span>;<span style="color:#75715e">/*注意此时为100%*/</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">right</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span>: <span style="color:#66d9ef">left</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">150</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#80ff80</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin-left</span>: <span style="color:#ae81ff">-150</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>处理中间块：解决中间块被掩盖的问题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- 添加额外标签来解决 --&gt;</span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;main&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;main-content&#34;</span>&gt;#main&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- 添加额外标签来解决 --&gt;</span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;left&#34;</span>&gt;left&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right&#34;</span>&gt;right&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#75715e">/*加入一条新的属性*/</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">main-content</span> {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">230</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">190</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>效果如下：</p>
+<!-- raw HTML omitted -->
+<blockquote>
+<p>双飞翼布局完成啦！</p>
+<p>同时，还可以给该布局加上登高布局的特性，就形成一个流式的布局</p>
+</blockquote>
+<h3 id="另一种实现方案--absolute比较简单">另一种实现方案  （absolute）(比较简单)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;main&#34;</span>&gt;main&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;left&#34;</span>&gt;left&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right&#34;</span>&gt;right&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">container</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">relative</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">main</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">600</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>:<span style="color:#ae81ff">#f60</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin</span>:<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">left</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>:<span style="color:#ae81ff">#fc0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">600</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">position</span>:<span style="color:#66d9ef">absolute</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">left</span>:<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">top</span>:<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">right</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>:<span style="color:#ae81ff">#fcc</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">600</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">position</span>:<span style="color:#66d9ef">absolute</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">right</span>:<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">top</span>:<span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>也可以加入等高布局的特性！</p>
+</blockquote>
+<blockquote>
+<p>注意：如果要支持ie6，请加上针对ie6的清除浮动hack<code>_zoom: 1;</code></p>
+</blockquote>
+<h2 id="流式栅格布局">（流式）栅格布局</h2>
+<h3 id="原理">原理</h3>
+<ol>
+<li>根据双飞翼布局实现的多套布局方案</li>
+<li>可以根据网站的需求自定义一套自己的布局方案，即支持了流式布局，也有很好的兼容性，ie6只有轻微的hack处理
+（hasLayout）</li>
+</ol>
+<blockquote>
+<p>因为原理上大致相同就不做demo了（懒……）</p>
+</blockquote>
+<h3 id="资料参考">资料参考</h3>
+<ul>
+<li><!-- raw HTML omitted -->（转）栅格化系统demo<!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted -->bootstrap的栅格系统<!-- raw HTML omitted --></li>
+</ul>
+
+</article>
+
+  </main>
+  <footer>
+    <p>© 2026 伟神的博客</p>
+  </footer>
+</body>
+</html>
