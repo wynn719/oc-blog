@@ -1,22 +1,140 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>chrome网页切换时，js定时器的问题 - 伟神的博客</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <header>
-    <nav>
-      <a href="/blog/">首页</a> | <a href="/blog/posts/">文章</a> | <a href="/blog/archives/">归档</a>
-    </nav>
-  </header>
-  <main>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="原生 js 轮播组件的代码在这：https://github.com/wynn719/study-baidu-ife/tree/master/task0002/task0002_3
+之前做的时候，会发现轮播在浏览器可见的情况下（没有缩小，没有切换标签），轮播是正常运行的；而当浏览器不可见的情况下（缩小, 切换标签），重新打开页面，轮播会出现几秒钟抽搐（真的很像）的现象，然后又恢复正常运行。
+排除了动画逻辑，定时器泄露的问题，偶然情况下，发现 IE 下居然没问题！
+看来崇拜的 chrome 也有抽筋的时候，**即 chrome 在浏览器不可见的情况下（缩小, 切换标签），会把定时器挂起（不会在后台运行），因此重新打开时，挂起的 n 个定时器突然运行，**所以 chrome 就抽风了！
+说了这么多，解决方法很简单，只要监听这个事件 visibilitychange ：
+// fix chrome下的bug，定时器切换选项卡时被挂起 document.addEventListener(&amp;#34;visibilitychange&amp;#34;, function () { if (document.visibilityState == &amp;#34;visible&amp;#34;) { slide(); // 未挂起时执行轮播 } else if (document.visibilityState == &amp;#34;hidden&amp;#34;) { clearInterval(timer); // 挂起时清除定时器 } }); 问题就解决了~
+demo 展示在这：http://wynn719.github.io/study-baidu-ife/task0002/task0002_3/task0002_3.html
+（可恶，这个问题居然困惑了我好久，气煞我也，所以要记录下来……）" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://kaorz.com/blog/archives/2016-02-27-notice-chrome-inactive-tab/" />
+
+
+    <title>
+        
+            chrome网页切换时，js定时器的问题 :: 伟神的博客 
+        
+    </title>
+
+
+
+
+
+  <link rel="stylesheet" href="/blog/main.min.ebe3824dfa5345ef854f8b255c278f701966e9be3892354b588fb1650ecd358e.css" integrity="sha256-6&#43;OCTfpTRe&#43;FT4slXCePcBlm6b44kjVLWI&#43;xZQ7NNY4=" crossorigin="anonymous">
+
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+    <link rel="manifest" href="/blog/site.webmanifest">
+    <link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="chrome网页切换时，js定时器的问题">
+<meta itemprop="description" content="原生 js 轮播组件的代码在这：https://github.com/wynn719/study-baidu-ife/tree/master/task0002/task0002_3
+之前做的时候，会发现轮播在浏览器可见的情况下（没有缩小，没有切换标签），轮播是正常运行的；而当浏览器不可见的情况下（缩小, 切换标签），重新打开页面，轮播会出现几秒钟抽搐（真的很像）的现象，然后又恢复正常运行。
+排除了动画逻辑，定时器泄露的问题，偶然情况下，发现 IE 下居然没问题！
+看来崇拜的 chrome 也有抽筋的时候，**即 chrome 在浏览器不可见的情况下（缩小, 切换标签），会把定时器挂起（不会在后台运行），因此重新打开时，挂起的 n 个定时器突然运行，**所以 chrome 就抽风了！
+说了这么多，解决方法很简单，只要监听这个事件 visibilitychange ：
+// fix chrome下的bug，定时器切换选项卡时被挂起 document.addEventListener(&#34;visibilitychange&#34;, function () { if (document.visibilityState == &#34;visible&#34;) { slide(); // 未挂起时执行轮播 } else if (document.visibilityState == &#34;hidden&#34;) { clearInterval(timer); // 挂起时清除定时器 } }); 问题就解决了~
+demo 展示在这：http://wynn719.github.io/study-baidu-ife/task0002/task0002_3/task0002_3.html
+（可恶，这个问题居然困惑了我好久，气煞我也，所以要记录下来……）">
+
+<meta itemprop="wordCount" content="52">
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="chrome网页切换时，js定时器的问题"/>
+<meta name="twitter:description" content="原生 js 轮播组件的代码在这：https://github.com/wynn719/study-baidu-ife/tree/master/task0002/task0002_3
+之前做的时候，会发现轮播在浏览器可见的情况下（没有缩小，没有切换标签），轮播是正常运行的；而当浏览器不可见的情况下（缩小, 切换标签），重新打开页面，轮播会出现几秒钟抽搐（真的很像）的现象，然后又恢复正常运行。
+排除了动画逻辑，定时器泄露的问题，偶然情况下，发现 IE 下居然没问题！
+看来崇拜的 chrome 也有抽筋的时候，**即 chrome 在浏览器不可见的情况下（缩小, 切换标签），会把定时器挂起（不会在后台运行），因此重新打开时，挂起的 n 个定时器突然运行，**所以 chrome 就抽风了！
+说了这么多，解决方法很简单，只要监听这个事件 visibilitychange ：
+// fix chrome下的bug，定时器切换选项卡时被挂起 document.addEventListener(&#34;visibilitychange&#34;, function () { if (document.visibilityState == &#34;visible&#34;) { slide(); // 未挂起时执行轮播 } else if (document.visibilityState == &#34;hidden&#34;) { clearInterval(timer); // 挂起时清除定时器 } }); 问题就解决了~
+demo 展示在这：http://wynn719.github.io/study-baidu-ife/task0002/task0002_3/task0002_3.html
+（可恶，这个问题居然困惑了我好久，气煞我也，所以要记录下来……）"/>
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="0001-01-01 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
     
-<article>
-  <h1>chrome网页切换时，js定时器的问题</h1>
-  <time>0001-01-01</time>
-  <p>原生 js 轮播组件的代码在这：<a href="https://github.com/wynn719/study-baidu-ife/tree/master/task0002/task0002_3">https://github.com/wynn719/study-baidu-ife/tree/master/task0002/task0002_3</a></p>
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/blog" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                hello</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+        </span>
+    </span>
+</header>
+
+
+            
+    <div class="content">
+        <main class="post">
+
+            <div class="post-info">
+                
+                </p>
+            </div>
+
+            <article>
+                <h2 class="post-title"><a href="https://kaorz.com/blog/archives/2016-02-27-notice-chrome-inactive-tab/">chrome网页切换时，js定时器的问题</a></h2>
+
+                
+                
+                
+
+                <div class="post-content">
+                    <p>原生 js 轮播组件的代码在这：<a href="https://github.com/wynn719/study-baidu-ife/tree/master/task0002/task0002_3">https://github.com/wynn719/study-baidu-ife/tree/master/task0002/task0002_3</a></p>
 <p>之前做的时候，会发现轮播在浏览器可见的情况下（没有缩小，没有切换标签），轮播是正常运行的；而当浏览器不可见的情况下（缩小, 切换标签），重新打开页面，轮播会出现几秒钟抽搐（真的很像）的现象，然后又恢复正常运行。</p>
 <p>排除了动画逻辑，定时器泄露的问题，偶然情况下，发现 IE 下居然没问题！</p>
 <p>看来崇拜的 chrome 也有抽筋的时候，**即 chrome 在浏览器不可见的情况下（缩小, 切换标签），会把定时器挂起（不会在后台运行），因此重新打开时，挂起的 n 个定时器突然运行，**所以 chrome 就抽风了！</p>
@@ -33,11 +151,36 @@
 <p>demo 展示在这：<a href="http://wynn719.github.io/study-baidu-ife/task0002/task0002_3/task0002_3.html">http://wynn719.github.io/study-baidu-ife/task0002/task0002_3/task0002_3.html</a></p>
 <p>（可恶，这个问题居然困惑了我好久，气煞我也，所以要记录下来……）</p>
 
-</article>
+                </div>
+            </article>
 
-  </main>
-  <footer>
-    <p>© 2026 伟神的博客</p>
-  </footer>
-</body>
+            <hr />
+
+            <div class="post-info">
+                
+                
+            </div>
+        </main>
+    </div>
+
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/blog/bundle.min.19d7885e5a4b0e5e2cd7238fc80b8b19888099cb78c032aedeb0b3b0010b8bb3dfb34849cf40a9e83f55f266aa32354528c10a24f2a42e6e8e21e813a26d9647.js" integrity="sha512-GdeIXlpLDl4s1yOPyAuLGYiAmct4wDKu3rCzsAELi7Pfs0hJz0Cp6D9V8maqMjVFKMEKJPKkLm6OIegTom2WRw=="></script>
+
+
+
+
+    </body>
 </html>

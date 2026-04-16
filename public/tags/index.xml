@@ -6,12 +6,21 @@
     <description>Recent content in Tags on 伟神的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 02 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <managingEditor>hi@kaorz.com (伟神)</managingEditor>
+    <webMaster>hi@kaorz.com (伟神)</webMaster>
+    <lastBuildDate>Thu, 16 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://kaorz.com/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>测试</title>
+      <link>https://kaorz.com/blog/tags/%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate><author>hi@kaorz.com (伟神)</author>
+      <guid>https://kaorz.com/blog/tags/%E6%B5%8B%E8%AF%95/</guid>
+      <description></description>
+    </item>
     <item>
       <title>随笔</title>
       <link>https://kaorz.com/blog/tags/%E9%9A%8F%E7%AC%94/</link>
-      <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate><author>hi@kaorz.com (伟神)</author>
       <guid>https://kaorz.com/blog/tags/%E9%9A%8F%E7%AC%94/</guid>
       <description></description>
     </item>

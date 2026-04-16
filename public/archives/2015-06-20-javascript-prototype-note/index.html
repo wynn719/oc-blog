@@ -1,22 +1,149 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>百度ife-javascript原型学习笔记 - 伟神的博客</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <header>
-    <nav>
-      <a href="/blog/">首页</a> | <a href="/blog/posts/">文章</a> | <a href="/blog/archives/">归档</a>
-    </nav>
-  </header>
-  <main>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="学习任务来自：百度 ife 前端技术学院
+学习资料参考自：
+JavaScript 探秘：强大的原型和原型链
+理解 JavaScript 原型
+深入理解 javascript 原型和闭包
+个人注：主要是区分Prototype,prototype,__proto__,[[Prototype]]，理解constructor
+Prototype：原型本尊 prototype：原型属性，指向Person，实例中不存在 __proto__：原型访问器，指向 创造该对象 的原型 [[Prototype]]：等同于__proto__ constructor：构造函数，指向函数本身（如 new Person)，constructor.prototype也指向Prototype javascript 原型和原型链 对象中的proto属性（隐式原型，javascript 并不希望我们访问到该属性） 每当创建一个对象，该对象就会有一个__proto__属性，该属性指向创建该对象的函数的原型
+如下代码中：
+var foo = { x: 10, y: 20, }; 当我们创建了一个 foo 对象，foo 对象的__proto__属性就会指向 foo 的原型Prototype；同时 foo 的Prototype也是一个对象，它也有__proto__，指向Object.prototype；在同时，Object.prototype的__proto__指向null。因此，可以说是个对象就有__proto__属性！
+而且，对象是沿着__proto__这条原型链来走的！！！
+constructor 属性 function Foo(y) { this.y = y; } Foo.prototype.x = 10; Foo.prototype.calculate = function (z) { return this.x &#43; this.y &#43; z; }; var b = new Foo(20); alert(b." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://kaorz.com/blog/archives/2015-06-20-javascript-prototype-note/" />
+
+
+    <title>
+        
+            百度ife-javascript原型学习笔记 :: 伟神的博客 
+        
+    </title>
+
+
+
+
+
+  <link rel="stylesheet" href="/blog/main.min.ebe3824dfa5345ef854f8b255c278f701966e9be3892354b588fb1650ecd358e.css" integrity="sha256-6&#43;OCTfpTRe&#43;FT4slXCePcBlm6b44kjVLWI&#43;xZQ7NNY4=" crossorigin="anonymous">
+
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+    <link rel="manifest" href="/blog/site.webmanifest">
+    <link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="百度ife-javascript原型学习笔记">
+<meta itemprop="description" content="学习任务来自：百度 ife 前端技术学院
+学习资料参考自：
+JavaScript 探秘：强大的原型和原型链
+理解 JavaScript 原型
+深入理解 javascript 原型和闭包
+个人注：主要是区分Prototype,prototype,__proto__,[[Prototype]]，理解constructor
+Prototype：原型本尊 prototype：原型属性，指向Person，实例中不存在 __proto__：原型访问器，指向 创造该对象 的原型 [[Prototype]]：等同于__proto__ constructor：构造函数，指向函数本身（如 new Person)，constructor.prototype也指向Prototype javascript 原型和原型链 对象中的proto属性（隐式原型，javascript 并不希望我们访问到该属性） 每当创建一个对象，该对象就会有一个__proto__属性，该属性指向创建该对象的函数的原型
+如下代码中：
+var foo = { x: 10, y: 20, }; 当我们创建了一个 foo 对象，foo 对象的__proto__属性就会指向 foo 的原型Prototype；同时 foo 的Prototype也是一个对象，它也有__proto__，指向Object.prototype；在同时，Object.prototype的__proto__指向null。因此，可以说是个对象就有__proto__属性！
+而且，对象是沿着__proto__这条原型链来走的！！！
+constructor 属性 function Foo(y) { this.y = y; } Foo.prototype.x = 10; Foo.prototype.calculate = function (z) { return this.x &#43; this.y &#43; z; }; var b = new Foo(20); alert(b.">
+
+<meta itemprop="wordCount" content="419">
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="百度ife-javascript原型学习笔记"/>
+<meta name="twitter:description" content="学习任务来自：百度 ife 前端技术学院
+学习资料参考自：
+JavaScript 探秘：强大的原型和原型链
+理解 JavaScript 原型
+深入理解 javascript 原型和闭包
+个人注：主要是区分Prototype,prototype,__proto__,[[Prototype]]，理解constructor
+Prototype：原型本尊 prototype：原型属性，指向Person，实例中不存在 __proto__：原型访问器，指向 创造该对象 的原型 [[Prototype]]：等同于__proto__ constructor：构造函数，指向函数本身（如 new Person)，constructor.prototype也指向Prototype javascript 原型和原型链 对象中的proto属性（隐式原型，javascript 并不希望我们访问到该属性） 每当创建一个对象，该对象就会有一个__proto__属性，该属性指向创建该对象的函数的原型
+如下代码中：
+var foo = { x: 10, y: 20, }; 当我们创建了一个 foo 对象，foo 对象的__proto__属性就会指向 foo 的原型Prototype；同时 foo 的Prototype也是一个对象，它也有__proto__，指向Object.prototype；在同时，Object.prototype的__proto__指向null。因此，可以说是个对象就有__proto__属性！
+而且，对象是沿着__proto__这条原型链来走的！！！
+constructor 属性 function Foo(y) { this.y = y; } Foo.prototype.x = 10; Foo.prototype.calculate = function (z) { return this.x &#43; this.y &#43; z; }; var b = new Foo(20); alert(b."/>
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="0001-01-01 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
     
-<article>
-  <h1>百度ife-javascript原型学习笔记</h1>
-  <time>0001-01-01</time>
-  <blockquote>
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/blog" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                hello</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+        </span>
+    </span>
+</header>
+
+
+            
+    <div class="content">
+        <main class="post">
+
+            <div class="post-info">
+                
+                </p>
+            </div>
+
+            <article>
+                <h2 class="post-title"><a href="https://kaorz.com/blog/archives/2015-06-20-javascript-prototype-note/">百度ife-javascript原型学习笔记</a></h2>
+
+                
+                
+                
+
+                <div class="post-content">
+                    <blockquote>
 <p>学习任务来自：<!-- raw HTML omitted -->百度 ife 前端技术学院<!-- raw HTML omitted --></p>
 <p>学习资料参考自：</p>
 <p><!-- raw HTML omitted -->JavaScript 探秘：强大的原型和原型链<!-- raw HTML omitted --></p>
@@ -183,11 +310,36 @@
 </span></span></span></code></pre></div><h4 id="原型通过原型链来继承">原型通过原型链来继承</h4>
 <p>原型的继承机制是发生在内部且是隐式的.当想要获得一个对象 a 的属性 foo 的值，javascript 会在原型链中查找 foo 的存在，如果找到则返回 foo 的值，否则 undefined 被返回。</p>
 
-</article>
+                </div>
+            </article>
 
-  </main>
-  <footer>
-    <p>© 2026 伟神的博客</p>
-  </footer>
-</body>
+            <hr />
+
+            <div class="post-info">
+                
+                
+            </div>
+        </main>
+    </div>
+
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/blog/bundle.min.19d7885e5a4b0e5e2cd7238fc80b8b19888099cb78c032aedeb0b3b0010b8bb3dfb34849cf40a9e83f55f266aa32354528c10a24f2a42e6e8e21e813a26d9647.js" integrity="sha512-GdeIXlpLDl4s1yOPyAuLGYiAmct4wDKu3rCzsAELi7Pfs0hJz0Cp6D9V8maqMjVFKMEKJPKkLm6OIegTom2WRw=="></script>
+
+
+
+
+    </body>
 </html>

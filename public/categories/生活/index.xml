@@ -6,12 +6,14 @@
     <description>Recent content in 生活 on 伟神的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
+    <managingEditor>hi@kaorz.com (伟神)</managingEditor>
+    <webMaster>hi@kaorz.com (伟神)</webMaster>
     <lastBuildDate>Mon, 02 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://kaorz.com/blog/categories/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>你好，世界</title>
       <link>https://kaorz.com/blog/posts/hello-world/</link>
-      <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate><author>hi@kaorz.com (伟神)</author>
       <guid>https://kaorz.com/blog/posts/hello-world/</guid>
       <description>欢迎来到我的博客 这是我的第一篇博客文章。&#xA;以后我会在这里记录：&#xA;生活感悟 有趣的事情 学习笔记 感谢访问！😊</description>
     </item>

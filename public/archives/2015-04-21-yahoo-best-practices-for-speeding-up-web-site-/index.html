@@ -1,22 +1,194 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Yahoo前端优化性能的十四条规则 - 伟神的博客</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <header>
-    <nav>
-      <a href="/blog/">首页</a> | <a href="/blog/posts/">文章</a> | <a href="/blog/archives/">归档</a>
-    </nav>
-  </header>
-  <main>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！
+规则1——减少HTTP请求（Minimize HTTP Requests） 只有10%～20%的最终用户响应时间花在接收请求的HTML文档上，剩下的80%～90%时间都花在HTML文档所引用的所有组件（图片、脚本、样式表、Flash等）进行的HTTP请求上。因此，改善响应时间最简单的办法就是减少组件数量并由此减少HTTP请求数。减少组件数量通常会和产品设计的初衷相矛盾，因此，此处给出了一些技术：
+图片地图（Image Maps）联合多个图片到一个单独的图片中。下载图片大小的总和保持不变，但是，通过减少HTTP请求数的方式加速了页面。图片地图适用于导航栏或其他超链接中使用多个图片的情形。但是，在定义图片地图上的区域坐标时，如果采用手工方式很难完成且容易出错，而且除了矩形外几乎无法定义其他形状。 CSS Sprites使用CSS background-image和background-position属性将多个图片联合成一个独立的图片来显示。它通过合并图片减少了HTTP请求，并且比图片地图更加灵活，同时也降低了图片的下载量。如果在页面中需要为背景、按钮、导航栏、链接等提供大量图片，CSS Sprites是一种优秀的解决方案。 内联图片（Inline images）使用data: URL scheme模式将图片嵌入到HTML文档中。通过此模式嵌入图片，不需要任何额外的HTTP请求开销。但是，目前的主流浏览器（主要是IE）不支持此种方式。 合并文件（Combined files）通过将所有JavaScript脚本合并到一个文件，所有CSS样式表合并到另一个文件的方式来减少HTTP请求的数量。但是简单的合并通常会遇到模块化、页面变化等问题，需要根据页面引用脚本和样式表来具体分析以确定具体的组合方式。 规则2——使用内容发布网络(CDN)（Use a Content Delivery Network） 用户同Web服务器的距离会对页面响应时间产生影响。网站最初通常将其所有服务器放在同一个地方，当用户群增加时，公司必须面对服务器放置地点不再合适的事实。因此，有必要在多个地理位置不同的服务器上部署内容。
+作为实现地理位置分离的第一步，不应当首先尝试使用分布式架构重新设计Web应用程序。这样的应用程序决定了重新设计将带来如同步会话状态、在服务器放置地点间复制数据库事务等复杂问题。重新设计会推迟甚至根本无法实现缩短用户和网站内容距离的愿望。
+如果应用程序Web服务器里用户更近，则一个HTTP请求的响应时间将被缩短；如果组件Web服务器离用户更近，则多个HTTP请求的响应时间将缩短。因此，与其重新开始设计应用程序，以便将应用程序Web服务器分散开，不如首先将组件Web服务器分散开。这不仅能达到响应时间大幅减少的目的，还很容易实现。
+内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效的向用户发布内容。向特定用户发布内容的服务器基于对网络可用度的测量，例如，CDN可能选择网络阶跃数最小的服务器，或者具有最短响应时间的服务器。
+除了缩短响应时间外，CDN还可以带来其他优势，包括备份、扩展存储能力和进行缓存；同时，CDN还有助于缓和Web流量峰值的压力，如在获取天气或股市新闻、浏览体育或娱乐事件时。依赖CDN的一个缺点是网站的响应时间会受到其他网站——甚至可能是竞争对手流量的影响；另一个缺点是无法直接控制组件服务器所带来的问题。
+CDN用于发布静态内容（如图片、脚本、样式表、Flash）。提供动态HTML页面会引入特殊的存储要求——数据库连接、状态管理、验证、硬件和OS优化等，这些复杂性超过了CDN的范围。另一方面，静态文件更容易存储并具有较少的依赖。
+规则3——添加Expires头（Add an Expires or a Cache-Control Header） Web页面包含大量组件，并且数量在不断增长。页面的初访者会进行很多的HTTP请求，但通过一个长久的Expires头，可以使这些组件被缓存下来，可以在后续的页面浏览中避免不必要的HTTP请求。长久的Expires头最长用于图片，但应该将其用于所有组件上，包括脚本、样式表和Flash。
+Web服务器使用Expires头告诉Web客户端它可以使用一个组件的当前副本，知道指定时间为止。HTTP规范中简要的称该头为“在这一日期/时间之后，响应将被认为是无效的”。例如：
+Expires: Thu, 15 Apr 2010 20:00:00 GMT
+告诉浏览器该响应的有效性持续到2010年4月15日。
+因为Expires头使用一个特定的时间，它要求服务端和客户端的时钟严格同步；另外，过期日期需要经常检查，一旦过期日期到了，需要在服务器中配置提供一个新的日期。所以，HTTP1.1引入了Cache-Control头来克服Exipres头的限制。Cache-Control使用max-age指令指定组件被缓存多久，它以秒为单位定义了一个更新窗。使用带有max-age的Cache-Control可以消除Expires的限制，但对于不支持HTTP1.1的应用，仍希望使用Expires头。可以同时制定这两个响应头，如果两者同时出现时，HTTP规范规定max-age指令将重写Expires头。
+当出现了Expires头时，直到过期时间为止一直会使用缓存的版本，浏览器不会检查任何更新，直到过了过期时间。为了确保用户能够获取组件的最新版本，需要在所有的HTML页面中修改组件的文件名。Yahoo在此使用了将版本号嵌入在组件的文件名中的方法。
+规则4——压缩组件（Gzip Components) 注意：在HTTP响应头中可以看到返回的内容通过Gzip算法进行了压缩
+压缩组件通过减少HTTP请求产生的响应包的大小，从而降低传输时间的方式来提高性能。从HTTP1.1开始，Web客户端可以通过HTTP请求中的Accept-Encoding头来标识对压缩的支持：
+Accept-Encoding: gzip, deflate
+如果Web服务器看到请求中的这个头，就会使用客户端列出的方法中的一种来压缩响应。Web服务器通过响应中的Content-Encoding头来通知Web客户端：
+Content-Encoding: gzip
+目前许多网站通常会压缩HTML文档，脚本和样式表的压缩也是值得的（包括XML和JSON在内的任何文本响应理论上都值得被压缩）。但是，图片和PDF文件不应该被压缩，因为它们本来已经被压缩了。
+压缩通常能将响应的数据量减少近70%，但是压缩通常情况下会带来服务端和客户端的CPU开销，要检测受益是否大于开销，需要综合考虑响应大小、连接的带宽和客户端也服务端直接的距离等因素。通常需要对大于1KB或2KB的文件进行压缩。
+当浏览器通过代理来发送请求时，有可能出现浏览器期望接受的压缩后内容和实际接收到的不一致的情况。解决这一问题的方法是在Web服务器的响应中添加Vary头。Web服务器可以告诉代理根据一个或多个请求头来改变缓存的响应。由于压缩的决定是基于Accept-Encoding请求头的，因此需要在服务器的Vary响应头中包含Accept-Encoding:
+Vary: Accept-Encoding
+目前大约90%的通过浏览器进行的Internet通信都需要使用gzip，使得服务端和客户端的对等性变得额外重要。无论是客户端还是服务端发送错误，都会造成页面被破坏。避免错误的一种方式是采用“浏览器白名单”方式，即只为经过证实支持压缩的浏览器提供压缩内容，但是当代理缓存加进来以后，处理边缘情形浏览器将变得更加复杂。另一种方式是使用Vary: *或Cache-Control: private头来禁用代理缓存。此种方式会为所有浏览器禁用代理缓存，从而增加带宽开销。如何平衡压缩和代理支持需要在加快响应时间、减小带宽开销和边缘情形浏览器缺陷之间进行权衡：
+如果网站的用户很少，并且他们处于一个小圈子中，边缘情形浏览器不需要太多关注，可以压缩内容并使用Vary: Accept-Encoding。
+如果更注重带宽开销，可以和前一种情形一样，压缩内容并使用Vary: Accept-Encoding。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://kaorz.com/blog/archives/2015-04-21-yahoo-best-practices-for-speeding-up-web-site-/" />
+
+
+    <title>
+        
+            Yahoo前端优化性能的十四条规则 :: 伟神的博客 
+        
+    </title>
+
+
+
+
+
+  <link rel="stylesheet" href="/blog/main.min.ebe3824dfa5345ef854f8b255c278f701966e9be3892354b588fb1650ecd358e.css" integrity="sha256-6&#43;OCTfpTRe&#43;FT4slXCePcBlm6b44kjVLWI&#43;xZQ7NNY4=" crossorigin="anonymous">
+
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+    <link rel="manifest" href="/blog/site.webmanifest">
+    <link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="Yahoo前端优化性能的十四条规则">
+<meta itemprop="description" content="看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！
+规则1——减少HTTP请求（Minimize HTTP Requests） 只有10%～20%的最终用户响应时间花在接收请求的HTML文档上，剩下的80%～90%时间都花在HTML文档所引用的所有组件（图片、脚本、样式表、Flash等）进行的HTTP请求上。因此，改善响应时间最简单的办法就是减少组件数量并由此减少HTTP请求数。减少组件数量通常会和产品设计的初衷相矛盾，因此，此处给出了一些技术：
+图片地图（Image Maps）联合多个图片到一个单独的图片中。下载图片大小的总和保持不变，但是，通过减少HTTP请求数的方式加速了页面。图片地图适用于导航栏或其他超链接中使用多个图片的情形。但是，在定义图片地图上的区域坐标时，如果采用手工方式很难完成且容易出错，而且除了矩形外几乎无法定义其他形状。 CSS Sprites使用CSS background-image和background-position属性将多个图片联合成一个独立的图片来显示。它通过合并图片减少了HTTP请求，并且比图片地图更加灵活，同时也降低了图片的下载量。如果在页面中需要为背景、按钮、导航栏、链接等提供大量图片，CSS Sprites是一种优秀的解决方案。 内联图片（Inline images）使用data: URL scheme模式将图片嵌入到HTML文档中。通过此模式嵌入图片，不需要任何额外的HTTP请求开销。但是，目前的主流浏览器（主要是IE）不支持此种方式。 合并文件（Combined files）通过将所有JavaScript脚本合并到一个文件，所有CSS样式表合并到另一个文件的方式来减少HTTP请求的数量。但是简单的合并通常会遇到模块化、页面变化等问题，需要根据页面引用脚本和样式表来具体分析以确定具体的组合方式。 规则2——使用内容发布网络(CDN)（Use a Content Delivery Network） 用户同Web服务器的距离会对页面响应时间产生影响。网站最初通常将其所有服务器放在同一个地方，当用户群增加时，公司必须面对服务器放置地点不再合适的事实。因此，有必要在多个地理位置不同的服务器上部署内容。
+作为实现地理位置分离的第一步，不应当首先尝试使用分布式架构重新设计Web应用程序。这样的应用程序决定了重新设计将带来如同步会话状态、在服务器放置地点间复制数据库事务等复杂问题。重新设计会推迟甚至根本无法实现缩短用户和网站内容距离的愿望。
+如果应用程序Web服务器里用户更近，则一个HTTP请求的响应时间将被缩短；如果组件Web服务器离用户更近，则多个HTTP请求的响应时间将缩短。因此，与其重新开始设计应用程序，以便将应用程序Web服务器分散开，不如首先将组件Web服务器分散开。这不仅能达到响应时间大幅减少的目的，还很容易实现。
+内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效的向用户发布内容。向特定用户发布内容的服务器基于对网络可用度的测量，例如，CDN可能选择网络阶跃数最小的服务器，或者具有最短响应时间的服务器。
+除了缩短响应时间外，CDN还可以带来其他优势，包括备份、扩展存储能力和进行缓存；同时，CDN还有助于缓和Web流量峰值的压力，如在获取天气或股市新闻、浏览体育或娱乐事件时。依赖CDN的一个缺点是网站的响应时间会受到其他网站——甚至可能是竞争对手流量的影响；另一个缺点是无法直接控制组件服务器所带来的问题。
+CDN用于发布静态内容（如图片、脚本、样式表、Flash）。提供动态HTML页面会引入特殊的存储要求——数据库连接、状态管理、验证、硬件和OS优化等，这些复杂性超过了CDN的范围。另一方面，静态文件更容易存储并具有较少的依赖。
+规则3——添加Expires头（Add an Expires or a Cache-Control Header） Web页面包含大量组件，并且数量在不断增长。页面的初访者会进行很多的HTTP请求，但通过一个长久的Expires头，可以使这些组件被缓存下来，可以在后续的页面浏览中避免不必要的HTTP请求。长久的Expires头最长用于图片，但应该将其用于所有组件上，包括脚本、样式表和Flash。
+Web服务器使用Expires头告诉Web客户端它可以使用一个组件的当前副本，知道指定时间为止。HTTP规范中简要的称该头为“在这一日期/时间之后，响应将被认为是无效的”。例如：
+Expires: Thu, 15 Apr 2010 20:00:00 GMT
+告诉浏览器该响应的有效性持续到2010年4月15日。
+因为Expires头使用一个特定的时间，它要求服务端和客户端的时钟严格同步；另外，过期日期需要经常检查，一旦过期日期到了，需要在服务器中配置提供一个新的日期。所以，HTTP1.1引入了Cache-Control头来克服Exipres头的限制。Cache-Control使用max-age指令指定组件被缓存多久，它以秒为单位定义了一个更新窗。使用带有max-age的Cache-Control可以消除Expires的限制，但对于不支持HTTP1.1的应用，仍希望使用Expires头。可以同时制定这两个响应头，如果两者同时出现时，HTTP规范规定max-age指令将重写Expires头。
+当出现了Expires头时，直到过期时间为止一直会使用缓存的版本，浏览器不会检查任何更新，直到过了过期时间。为了确保用户能够获取组件的最新版本，需要在所有的HTML页面中修改组件的文件名。Yahoo在此使用了将版本号嵌入在组件的文件名中的方法。
+规则4——压缩组件（Gzip Components) 注意：在HTTP响应头中可以看到返回的内容通过Gzip算法进行了压缩
+压缩组件通过减少HTTP请求产生的响应包的大小，从而降低传输时间的方式来提高性能。从HTTP1.1开始，Web客户端可以通过HTTP请求中的Accept-Encoding头来标识对压缩的支持：
+Accept-Encoding: gzip, deflate
+如果Web服务器看到请求中的这个头，就会使用客户端列出的方法中的一种来压缩响应。Web服务器通过响应中的Content-Encoding头来通知Web客户端：
+Content-Encoding: gzip
+目前许多网站通常会压缩HTML文档，脚本和样式表的压缩也是值得的（包括XML和JSON在内的任何文本响应理论上都值得被压缩）。但是，图片和PDF文件不应该被压缩，因为它们本来已经被压缩了。
+压缩通常能将响应的数据量减少近70%，但是压缩通常情况下会带来服务端和客户端的CPU开销，要检测受益是否大于开销，需要综合考虑响应大小、连接的带宽和客户端也服务端直接的距离等因素。通常需要对大于1KB或2KB的文件进行压缩。
+当浏览器通过代理来发送请求时，有可能出现浏览器期望接受的压缩后内容和实际接收到的不一致的情况。解决这一问题的方法是在Web服务器的响应中添加Vary头。Web服务器可以告诉代理根据一个或多个请求头来改变缓存的响应。由于压缩的决定是基于Accept-Encoding请求头的，因此需要在服务器的Vary响应头中包含Accept-Encoding:
+Vary: Accept-Encoding
+目前大约90%的通过浏览器进行的Internet通信都需要使用gzip，使得服务端和客户端的对等性变得额外重要。无论是客户端还是服务端发送错误，都会造成页面被破坏。避免错误的一种方式是采用“浏览器白名单”方式，即只为经过证实支持压缩的浏览器提供压缩内容，但是当代理缓存加进来以后，处理边缘情形浏览器将变得更加复杂。另一种方式是使用Vary: *或Cache-Control: private头来禁用代理缓存。此种方式会为所有浏览器禁用代理缓存，从而增加带宽开销。如何平衡压缩和代理支持需要在加快响应时间、减小带宽开销和边缘情形浏览器缺陷之间进行权衡：
+如果网站的用户很少，并且他们处于一个小圈子中，边缘情形浏览器不需要太多关注，可以压缩内容并使用Vary: Accept-Encoding。
+如果更注重带宽开销，可以和前一种情形一样，压缩内容并使用Vary: Accept-Encoding。">
+
+<meta itemprop="wordCount" content="194">
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Yahoo前端优化性能的十四条规则"/>
+<meta name="twitter:description" content="看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！
+规则1——减少HTTP请求（Minimize HTTP Requests） 只有10%～20%的最终用户响应时间花在接收请求的HTML文档上，剩下的80%～90%时间都花在HTML文档所引用的所有组件（图片、脚本、样式表、Flash等）进行的HTTP请求上。因此，改善响应时间最简单的办法就是减少组件数量并由此减少HTTP请求数。减少组件数量通常会和产品设计的初衷相矛盾，因此，此处给出了一些技术：
+图片地图（Image Maps）联合多个图片到一个单独的图片中。下载图片大小的总和保持不变，但是，通过减少HTTP请求数的方式加速了页面。图片地图适用于导航栏或其他超链接中使用多个图片的情形。但是，在定义图片地图上的区域坐标时，如果采用手工方式很难完成且容易出错，而且除了矩形外几乎无法定义其他形状。 CSS Sprites使用CSS background-image和background-position属性将多个图片联合成一个独立的图片来显示。它通过合并图片减少了HTTP请求，并且比图片地图更加灵活，同时也降低了图片的下载量。如果在页面中需要为背景、按钮、导航栏、链接等提供大量图片，CSS Sprites是一种优秀的解决方案。 内联图片（Inline images）使用data: URL scheme模式将图片嵌入到HTML文档中。通过此模式嵌入图片，不需要任何额外的HTTP请求开销。但是，目前的主流浏览器（主要是IE）不支持此种方式。 合并文件（Combined files）通过将所有JavaScript脚本合并到一个文件，所有CSS样式表合并到另一个文件的方式来减少HTTP请求的数量。但是简单的合并通常会遇到模块化、页面变化等问题，需要根据页面引用脚本和样式表来具体分析以确定具体的组合方式。 规则2——使用内容发布网络(CDN)（Use a Content Delivery Network） 用户同Web服务器的距离会对页面响应时间产生影响。网站最初通常将其所有服务器放在同一个地方，当用户群增加时，公司必须面对服务器放置地点不再合适的事实。因此，有必要在多个地理位置不同的服务器上部署内容。
+作为实现地理位置分离的第一步，不应当首先尝试使用分布式架构重新设计Web应用程序。这样的应用程序决定了重新设计将带来如同步会话状态、在服务器放置地点间复制数据库事务等复杂问题。重新设计会推迟甚至根本无法实现缩短用户和网站内容距离的愿望。
+如果应用程序Web服务器里用户更近，则一个HTTP请求的响应时间将被缩短；如果组件Web服务器离用户更近，则多个HTTP请求的响应时间将缩短。因此，与其重新开始设计应用程序，以便将应用程序Web服务器分散开，不如首先将组件Web服务器分散开。这不仅能达到响应时间大幅减少的目的，还很容易实现。
+内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效的向用户发布内容。向特定用户发布内容的服务器基于对网络可用度的测量，例如，CDN可能选择网络阶跃数最小的服务器，或者具有最短响应时间的服务器。
+除了缩短响应时间外，CDN还可以带来其他优势，包括备份、扩展存储能力和进行缓存；同时，CDN还有助于缓和Web流量峰值的压力，如在获取天气或股市新闻、浏览体育或娱乐事件时。依赖CDN的一个缺点是网站的响应时间会受到其他网站——甚至可能是竞争对手流量的影响；另一个缺点是无法直接控制组件服务器所带来的问题。
+CDN用于发布静态内容（如图片、脚本、样式表、Flash）。提供动态HTML页面会引入特殊的存储要求——数据库连接、状态管理、验证、硬件和OS优化等，这些复杂性超过了CDN的范围。另一方面，静态文件更容易存储并具有较少的依赖。
+规则3——添加Expires头（Add an Expires or a Cache-Control Header） Web页面包含大量组件，并且数量在不断增长。页面的初访者会进行很多的HTTP请求，但通过一个长久的Expires头，可以使这些组件被缓存下来，可以在后续的页面浏览中避免不必要的HTTP请求。长久的Expires头最长用于图片，但应该将其用于所有组件上，包括脚本、样式表和Flash。
+Web服务器使用Expires头告诉Web客户端它可以使用一个组件的当前副本，知道指定时间为止。HTTP规范中简要的称该头为“在这一日期/时间之后，响应将被认为是无效的”。例如：
+Expires: Thu, 15 Apr 2010 20:00:00 GMT
+告诉浏览器该响应的有效性持续到2010年4月15日。
+因为Expires头使用一个特定的时间，它要求服务端和客户端的时钟严格同步；另外，过期日期需要经常检查，一旦过期日期到了，需要在服务器中配置提供一个新的日期。所以，HTTP1.1引入了Cache-Control头来克服Exipres头的限制。Cache-Control使用max-age指令指定组件被缓存多久，它以秒为单位定义了一个更新窗。使用带有max-age的Cache-Control可以消除Expires的限制，但对于不支持HTTP1.1的应用，仍希望使用Expires头。可以同时制定这两个响应头，如果两者同时出现时，HTTP规范规定max-age指令将重写Expires头。
+当出现了Expires头时，直到过期时间为止一直会使用缓存的版本，浏览器不会检查任何更新，直到过了过期时间。为了确保用户能够获取组件的最新版本，需要在所有的HTML页面中修改组件的文件名。Yahoo在此使用了将版本号嵌入在组件的文件名中的方法。
+规则4——压缩组件（Gzip Components) 注意：在HTTP响应头中可以看到返回的内容通过Gzip算法进行了压缩
+压缩组件通过减少HTTP请求产生的响应包的大小，从而降低传输时间的方式来提高性能。从HTTP1.1开始，Web客户端可以通过HTTP请求中的Accept-Encoding头来标识对压缩的支持：
+Accept-Encoding: gzip, deflate
+如果Web服务器看到请求中的这个头，就会使用客户端列出的方法中的一种来压缩响应。Web服务器通过响应中的Content-Encoding头来通知Web客户端：
+Content-Encoding: gzip
+目前许多网站通常会压缩HTML文档，脚本和样式表的压缩也是值得的（包括XML和JSON在内的任何文本响应理论上都值得被压缩）。但是，图片和PDF文件不应该被压缩，因为它们本来已经被压缩了。
+压缩通常能将响应的数据量减少近70%，但是压缩通常情况下会带来服务端和客户端的CPU开销，要检测受益是否大于开销，需要综合考虑响应大小、连接的带宽和客户端也服务端直接的距离等因素。通常需要对大于1KB或2KB的文件进行压缩。
+当浏览器通过代理来发送请求时，有可能出现浏览器期望接受的压缩后内容和实际接收到的不一致的情况。解决这一问题的方法是在Web服务器的响应中添加Vary头。Web服务器可以告诉代理根据一个或多个请求头来改变缓存的响应。由于压缩的决定是基于Accept-Encoding请求头的，因此需要在服务器的Vary响应头中包含Accept-Encoding:
+Vary: Accept-Encoding
+目前大约90%的通过浏览器进行的Internet通信都需要使用gzip，使得服务端和客户端的对等性变得额外重要。无论是客户端还是服务端发送错误，都会造成页面被破坏。避免错误的一种方式是采用“浏览器白名单”方式，即只为经过证实支持压缩的浏览器提供压缩内容，但是当代理缓存加进来以后，处理边缘情形浏览器将变得更加复杂。另一种方式是使用Vary: *或Cache-Control: private头来禁用代理缓存。此种方式会为所有浏览器禁用代理缓存，从而增加带宽开销。如何平衡压缩和代理支持需要在加快响应时间、减小带宽开销和边缘情形浏览器缺陷之间进行权衡：
+如果网站的用户很少，并且他们处于一个小圈子中，边缘情形浏览器不需要太多关注，可以压缩内容并使用Vary: Accept-Encoding。
+如果更注重带宽开销，可以和前一种情形一样，压缩内容并使用Vary: Accept-Encoding。"/>
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="0001-01-01 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
     
-<article>
-  <h1>Yahoo前端优化性能的十四条规则</h1>
-  <time>0001-01-01</time>
-  <blockquote>
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/blog" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                hello</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+        </span>
+    </span>
+</header>
+
+
+            
+    <div class="content">
+        <main class="post">
+
+            <div class="post-info">
+                
+                </p>
+            </div>
+
+            <article>
+                <h2 class="post-title"><a href="https://kaorz.com/blog/archives/2015-04-21-yahoo-best-practices-for-speeding-up-web-site-/">Yahoo前端优化性能的十四条规则</a></h2>
+
+                
+                
+                
+
+                <div class="post-content">
+                    <blockquote>
 <p>看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！</p>
 </blockquote>
 <h2 id="规则1减少http请求minimize-http-requests">规则1——减少HTTP请求（Minimize HTTP Requests）</h2>
@@ -119,11 +291,36 @@ FileETag none</p>
 <p>Ajax的一个最重要的优点就是向用户提供即时反馈，因为它异步的从后台Web服务器请求信息。但是，使用Ajax并不保证用户不会等到异步的JavaScript和XML返回响应。在很多应用程序中，用户是否需要等待取决于如何使用Ajax。用户是否需要等待的关键因素在于Ajax请求是主动的还是被动的。主动请求是基于用户的当前操作而发起的，被动请求则是为了将来使用而预先发起的。我们需要注意的是，“异步”并没有暗示“实时”。</p>
 <p>为了提升性能，最重要的是优化Ajax响应。而改善这些主动Ajax请求的最重要的方式就是使响应可缓存。如同在“添加Expires头”中讨论的，一些其他规则也适用于Ajax，包括：压缩组件、减少DNS查找、精简JavaScript、避免重定向、配置Etag。</p>
 
-</article>
+                </div>
+            </article>
 
-  </main>
-  <footer>
-    <p>© 2026 伟神的博客</p>
-  </footer>
-</body>
+            <hr />
+
+            <div class="post-info">
+                
+                
+            </div>
+        </main>
+    </div>
+
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/blog/bundle.min.19d7885e5a4b0e5e2cd7238fc80b8b19888099cb78c032aedeb0b3b0010b8bb3dfb34849cf40a9e83f55f266aa32354528c10a24f2a42e6e8e21e813a26d9647.js" integrity="sha512-GdeIXlpLDl4s1yOPyAuLGYiAmct4wDKu3rCzsAELi7Pfs0hJz0Cp6D9V8maqMjVFKMEKJPKkLm6OIegTom2WRw=="></script>
+
+
+
+
+    </body>
 </html>

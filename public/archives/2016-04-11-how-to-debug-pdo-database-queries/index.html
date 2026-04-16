@@ -1,22 +1,122 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>PHP PDO参数绑定查询后，查看实际执行SQL的方法 - 伟神的博客</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <header>
-    <nav>
-      <a href="/blog/">首页</a> | <a href="/blog/posts/">文章</a> | <a href="/blog/archives/">归档</a>
-    </nav>
-  </header>
-  <main>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="PDO 提供了一个PDOStatement::debugDumpParams — 打印一条 SQL 预处理命令的调试方法，但是打印出来的结果有点鸡肋，比如说：
+&amp;lt;?php try { $pdo = new PDO(); $sql = &amp;#34;SELECT * FROM `users` WHERE `username` = ? AND `email` = ?&amp;#34;; $stmt = $pdo-&amp;gt;prepare($sql); $stmt-&amp;gt;bindParam(1, $username, PDO::PARAM_STR); $stmt-&amp;gt;bindParam(2, $email, PDO::PARAM_STR); $username = &amp;#39;Saul Goodman&amp;#39;; $email = &amp;#39;********@qq.com&amp;#39;; $stmt-&amp;gt;execute(); $stmt-&amp;gt;debugDumpParams(); } catch (PDOException $e) { echo $e-&amp;gt;getMessage(); } // 结果很感人： // SQL: [58] SELECT * FROM `users` WHERE `username` = ? AND `email` = ? // Params: 2 // Key: Position #0: // paramno=0 // name=[0] &amp;#34;&amp;#34; // is_param=1 // param_type=2 // Key: Position #1: // paramno=1 // name=[0] &amp;#34;&amp;#34; // is_param=1 // param_type=2 ?" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://kaorz.com/blog/archives/2016-04-11-how-to-debug-pdo-database-queries/" />
+
+
+    <title>
+        
+            PHP PDO参数绑定查询后，查看实际执行SQL的方法 :: 伟神的博客 
+        
+    </title>
+
+
+
+
+
+  <link rel="stylesheet" href="/blog/main.min.ebe3824dfa5345ef854f8b255c278f701966e9be3892354b588fb1650ecd358e.css" integrity="sha256-6&#43;OCTfpTRe&#43;FT4slXCePcBlm6b44kjVLWI&#43;xZQ7NNY4=" crossorigin="anonymous">
+
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+    <link rel="manifest" href="/blog/site.webmanifest">
+    <link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="PHP PDO参数绑定查询后，查看实际执行SQL的方法">
+<meta itemprop="description" content="PDO 提供了一个PDOStatement::debugDumpParams — 打印一条 SQL 预处理命令的调试方法，但是打印出来的结果有点鸡肋，比如说：
+&lt;?php try { $pdo = new PDO(); $sql = &#34;SELECT * FROM `users` WHERE `username` = ? AND `email` = ?&#34;; $stmt = $pdo-&gt;prepare($sql); $stmt-&gt;bindParam(1, $username, PDO::PARAM_STR); $stmt-&gt;bindParam(2, $email, PDO::PARAM_STR); $username = &#39;Saul Goodman&#39;; $email = &#39;********@qq.com&#39;; $stmt-&gt;execute(); $stmt-&gt;debugDumpParams(); } catch (PDOException $e) { echo $e-&gt;getMessage(); } // 结果很感人： // SQL: [58] SELECT * FROM `users` WHERE `username` = ? AND `email` = ? // Params: 2 // Key: Position #0: // paramno=0 // name=[0] &#34;&#34; // is_param=1 // param_type=2 // Key: Position #1: // paramno=1 // name=[0] &#34;&#34; // is_param=1 // param_type=2 ?">
+
+<meta itemprop="wordCount" content="229">
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="PHP PDO参数绑定查询后，查看实际执行SQL的方法"/>
+<meta name="twitter:description" content="PDO 提供了一个PDOStatement::debugDumpParams — 打印一条 SQL 预处理命令的调试方法，但是打印出来的结果有点鸡肋，比如说：
+&lt;?php try { $pdo = new PDO(); $sql = &#34;SELECT * FROM `users` WHERE `username` = ? AND `email` = ?&#34;; $stmt = $pdo-&gt;prepare($sql); $stmt-&gt;bindParam(1, $username, PDO::PARAM_STR); $stmt-&gt;bindParam(2, $email, PDO::PARAM_STR); $username = &#39;Saul Goodman&#39;; $email = &#39;********@qq.com&#39;; $stmt-&gt;execute(); $stmt-&gt;debugDumpParams(); } catch (PDOException $e) { echo $e-&gt;getMessage(); } // 结果很感人： // SQL: [58] SELECT * FROM `users` WHERE `username` = ? AND `email` = ? // Params: 2 // Key: Position #0: // paramno=0 // name=[0] &#34;&#34; // is_param=1 // param_type=2 // Key: Position #1: // paramno=1 // name=[0] &#34;&#34; // is_param=1 // param_type=2 ?"/>
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="0001-01-01 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
     
-<article>
-  <h1>PHP PDO参数绑定查询后，查看实际执行SQL的方法</h1>
-  <time>0001-01-01</time>
-  <p>PDO 提供了一个<code>PDOStatement::debugDumpParams</code> — 打印一条 SQL 预处理命令的调试方法，但是打印出来的结果有点鸡肋，比如说：</p>
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/blog" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                hello</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+        </span>
+    </span>
+</header>
+
+
+            
+    <div class="content">
+        <main class="post">
+
+            <div class="post-info">
+                
+                </p>
+            </div>
+
+            <article>
+                <h2 class="post-title"><a href="https://kaorz.com/blog/archives/2016-04-11-how-to-debug-pdo-database-queries/">PHP PDO参数绑定查询后，查看实际执行SQL的方法</a></h2>
+
+                
+                
+                
+
+                <div class="post-content">
+                    <p>PDO 提供了一个<code>PDOStatement::debugDumpParams</code> — 打印一条 SQL 预处理命令的调试方法，但是打印出来的结果有点鸡肋，比如说：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span> {
 </span></span><span style="display:flex;"><span>    $pdo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">PDO</span>();
@@ -79,11 +179,36 @@
 </span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">4</span> Query SELECT * FROM <span style="color:#e6db74">`</span>users<span style="color:#e6db74">`</span> WHERE <span style="color:#e6db74">`</span>username<span style="color:#e6db74">`</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Saul Goodman&#39;</span> AND <span style="color:#e6db74">`</span>email<span style="color:#e6db74">`</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;********@qq.com&#39;</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#ae81ff">4</span> Quit
 </span></span></code></pre></div>
-</article>
+                </div>
+            </article>
 
-  </main>
-  <footer>
-    <p>© 2026 伟神的博客</p>
-  </footer>
-</body>
+            <hr />
+
+            <div class="post-info">
+                
+                
+            </div>
+        </main>
+    </div>
+
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/blog/bundle.min.19d7885e5a4b0e5e2cd7238fc80b8b19888099cb78c032aedeb0b3b0010b8bb3dfb34849cf40a9e83f55f266aa32354528c10a24f2a42e6e8e21e813a26d9647.js" integrity="sha512-GdeIXlpLDl4s1yOPyAuLGYiAmct4wDKu3rCzsAELi7Pfs0hJz0Cp6D9V8maqMjVFKMEKJPKkLm6OIegTom2WRw=="></script>
+
+
+
+
+    </body>
 </html>
