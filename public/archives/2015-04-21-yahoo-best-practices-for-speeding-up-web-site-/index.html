@@ -1,197 +1,782 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!doctype html>
+<html
+  lang="zh-CN"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="zh-CN">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="">
-<meta name="description" content="看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！
-规则1——减少HTTP请求（Minimize HTTP Requests） 只有10%～20%的最终用户响应时间花在接收请求的HTML文档上，剩下的80%～90%时间都花在HTML文档所引用的所有组件（图片、脚本、样式表、Flash等）进行的HTTP请求上。因此，改善响应时间最简单的办法就是减少组件数量并由此减少HTTP请求数。减少组件数量通常会和产品设计的初衷相矛盾，因此，此处给出了一些技术：
-图片地图（Image Maps）联合多个图片到一个单独的图片中。下载图片大小的总和保持不变，但是，通过减少HTTP请求数的方式加速了页面。图片地图适用于导航栏或其他超链接中使用多个图片的情形。但是，在定义图片地图上的区域坐标时，如果采用手工方式很难完成且容易出错，而且除了矩形外几乎无法定义其他形状。 CSS Sprites使用CSS background-image和background-position属性将多个图片联合成一个独立的图片来显示。它通过合并图片减少了HTTP请求，并且比图片地图更加灵活，同时也降低了图片的下载量。如果在页面中需要为背景、按钮、导航栏、链接等提供大量图片，CSS Sprites是一种优秀的解决方案。 内联图片（Inline images）使用data: URL scheme模式将图片嵌入到HTML文档中。通过此模式嵌入图片，不需要任何额外的HTTP请求开销。但是，目前的主流浏览器（主要是IE）不支持此种方式。 合并文件（Combined files）通过将所有JavaScript脚本合并到一个文件，所有CSS样式表合并到另一个文件的方式来减少HTTP请求的数量。但是简单的合并通常会遇到模块化、页面变化等问题，需要根据页面引用脚本和样式表来具体分析以确定具体的组合方式。 规则2——使用内容发布网络(CDN)（Use a Content Delivery Network） 用户同Web服务器的距离会对页面响应时间产生影响。网站最初通常将其所有服务器放在同一个地方，当用户群增加时，公司必须面对服务器放置地点不再合适的事实。因此，有必要在多个地理位置不同的服务器上部署内容。
+  
+  
+    <title>Yahoo前端优化性能的十四条规则 &middot; 伟神的博客</title>
+    <meta name="title" content="Yahoo前端优化性能的十四条规则 &middot; 伟神的博客">
+  
+
+  
+  
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/blog/archives/2015-04-21-yahoo-best-practices-for-speeding-up-web-site-/">
+  
+  
+
+  
+  
+  
+
+  
+  <meta property="og:url" content="http://localhost:1313/blog/archives/2015-04-21-yahoo-best-practices-for-speeding-up-web-site-/">
+  <meta property="og:site_name" content="伟神的博客">
+  <meta property="og:title" content="Yahoo前端优化性能的十四条规则">
+  <meta property="og:description" content="看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！
+规则1——减少HTTP请求（Minimize HTTP Requests） # 只有10%～20%的最终用户响应时间花在接收请求的HTML文档上，剩下的80%～90%时间都花在HTML文档所引用的所有组件（图片、脚本、样式表、Flash等）进行的HTTP请求上。因此，改善响应时间最简单的办法就是减少组件数量并由此减少HTTP请求数。减少组件数量通常会和产品设计的初衷相矛盾，因此，此处给出了一些技术：
+图片地图（Image Maps）联合多个图片到一个单独的图片中。下载图片大小的总和保持不变，但是，通过减少HTTP请求数的方式加速了页面。图片地图适用于导航栏或其他超链接中使用多个图片的情形。但是，在定义图片地图上的区域坐标时，如果采用手工方式很难完成且容易出错，而且除了矩形外几乎无法定义其他形状。 CSS Sprites使用CSS background-image和background-position属性将多个图片联合成一个独立的图片来显示。它通过合并图片减少了HTTP请求，并且比图片地图更加灵活，同时也降低了图片的下载量。如果在页面中需要为背景、按钮、导航栏、链接等提供大量图片，CSS Sprites是一种优秀的解决方案。 内联图片（Inline images）使用data: URL scheme模式将图片嵌入到HTML文档中。通过此模式嵌入图片，不需要任何额外的HTTP请求开销。但是，目前的主流浏览器（主要是IE）不支持此种方式。 合并文件（Combined files）通过将所有JavaScript脚本合并到一个文件，所有CSS样式表合并到另一个文件的方式来减少HTTP请求的数量。但是简单的合并通常会遇到模块化、页面变化等问题，需要根据页面引用脚本和样式表来具体分析以确定具体的组合方式。 规则2——使用内容发布网络(CDN)（Use a Content Delivery Network） # 用户同Web服务器的距离会对页面响应时间产生影响。网站最初通常将其所有服务器放在同一个地方，当用户群增加时，公司必须面对服务器放置地点不再合适的事实。因此，有必要在多个地理位置不同的服务器上部署内容。
 作为实现地理位置分离的第一步，不应当首先尝试使用分布式架构重新设计Web应用程序。这样的应用程序决定了重新设计将带来如同步会话状态、在服务器放置地点间复制数据库事务等复杂问题。重新设计会推迟甚至根本无法实现缩短用户和网站内容距离的愿望。
 如果应用程序Web服务器里用户更近，则一个HTTP请求的响应时间将被缩短；如果组件Web服务器离用户更近，则多个HTTP请求的响应时间将缩短。因此，与其重新开始设计应用程序，以便将应用程序Web服务器分散开，不如首先将组件Web服务器分散开。这不仅能达到响应时间大幅减少的目的，还很容易实现。
 内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效的向用户发布内容。向特定用户发布内容的服务器基于对网络可用度的测量，例如，CDN可能选择网络阶跃数最小的服务器，或者具有最短响应时间的服务器。
 除了缩短响应时间外，CDN还可以带来其他优势，包括备份、扩展存储能力和进行缓存；同时，CDN还有助于缓和Web流量峰值的压力，如在获取天气或股市新闻、浏览体育或娱乐事件时。依赖CDN的一个缺点是网站的响应时间会受到其他网站——甚至可能是竞争对手流量的影响；另一个缺点是无法直接控制组件服务器所带来的问题。
 CDN用于发布静态内容（如图片、脚本、样式表、Flash）。提供动态HTML页面会引入特殊的存储要求——数据库连接、状态管理、验证、硬件和OS优化等，这些复杂性超过了CDN的范围。另一方面，静态文件更容易存储并具有较少的依赖。
-规则3——添加Expires头（Add an Expires or a Cache-Control Header） Web页面包含大量组件，并且数量在不断增长。页面的初访者会进行很多的HTTP请求，但通过一个长久的Expires头，可以使这些组件被缓存下来，可以在后续的页面浏览中避免不必要的HTTP请求。长久的Expires头最长用于图片，但应该将其用于所有组件上，包括脚本、样式表和Flash。
-Web服务器使用Expires头告诉Web客户端它可以使用一个组件的当前副本，知道指定时间为止。HTTP规范中简要的称该头为“在这一日期/时间之后，响应将被认为是无效的”。例如：
-Expires: Thu, 15 Apr 2010 20:00:00 GMT
-告诉浏览器该响应的有效性持续到2010年4月15日。
-因为Expires头使用一个特定的时间，它要求服务端和客户端的时钟严格同步；另外，过期日期需要经常检查，一旦过期日期到了，需要在服务器中配置提供一个新的日期。所以，HTTP1.1引入了Cache-Control头来克服Exipres头的限制。Cache-Control使用max-age指令指定组件被缓存多久，它以秒为单位定义了一个更新窗。使用带有max-age的Cache-Control可以消除Expires的限制，但对于不支持HTTP1.1的应用，仍希望使用Expires头。可以同时制定这两个响应头，如果两者同时出现时，HTTP规范规定max-age指令将重写Expires头。
-当出现了Expires头时，直到过期时间为止一直会使用缓存的版本，浏览器不会检查任何更新，直到过了过期时间。为了确保用户能够获取组件的最新版本，需要在所有的HTML页面中修改组件的文件名。Yahoo在此使用了将版本号嵌入在组件的文件名中的方法。
-规则4——压缩组件（Gzip Components) 注意：在HTTP响应头中可以看到返回的内容通过Gzip算法进行了压缩
-压缩组件通过减少HTTP请求产生的响应包的大小，从而降低传输时间的方式来提高性能。从HTTP1.1开始，Web客户端可以通过HTTP请求中的Accept-Encoding头来标识对压缩的支持：
-Accept-Encoding: gzip, deflate
-如果Web服务器看到请求中的这个头，就会使用客户端列出的方法中的一种来压缩响应。Web服务器通过响应中的Content-Encoding头来通知Web客户端：
-Content-Encoding: gzip
-目前许多网站通常会压缩HTML文档，脚本和样式表的压缩也是值得的（包括XML和JSON在内的任何文本响应理论上都值得被压缩）。但是，图片和PDF文件不应该被压缩，因为它们本来已经被压缩了。
-压缩通常能将响应的数据量减少近70%，但是压缩通常情况下会带来服务端和客户端的CPU开销，要检测受益是否大于开销，需要综合考虑响应大小、连接的带宽和客户端也服务端直接的距离等因素。通常需要对大于1KB或2KB的文件进行压缩。
-当浏览器通过代理来发送请求时，有可能出现浏览器期望接受的压缩后内容和实际接收到的不一致的情况。解决这一问题的方法是在Web服务器的响应中添加Vary头。Web服务器可以告诉代理根据一个或多个请求头来改变缓存的响应。由于压缩的决定是基于Accept-Encoding请求头的，因此需要在服务器的Vary响应头中包含Accept-Encoding:
-Vary: Accept-Encoding
-目前大约90%的通过浏览器进行的Internet通信都需要使用gzip，使得服务端和客户端的对等性变得额外重要。无论是客户端还是服务端发送错误，都会造成页面被破坏。避免错误的一种方式是采用“浏览器白名单”方式，即只为经过证实支持压缩的浏览器提供压缩内容，但是当代理缓存加进来以后，处理边缘情形浏览器将变得更加复杂。另一种方式是使用Vary: *或Cache-Control: private头来禁用代理缓存。此种方式会为所有浏览器禁用代理缓存，从而增加带宽开销。如何平衡压缩和代理支持需要在加快响应时间、减小带宽开销和边缘情形浏览器缺陷之间进行权衡：
-如果网站的用户很少，并且他们处于一个小圈子中，边缘情形浏览器不需要太多关注，可以压缩内容并使用Vary: Accept-Encoding。
-如果更注重带宽开销，可以和前一种情形一样，压缩内容并使用Vary: Accept-Encoding。" />
-<meta name="keywords" content="" />
-<meta name="robots" content="noodp" />
-<meta name="theme-color" content="" />
-<link rel="canonical" href="https://kaorz.com/blog/archives/2015-04-21-yahoo-best-practices-for-speeding-up-web-site-/" />
+规则3——添加Expires头（Add an Expires or a Cache-Control Header） # Web页面包含大量组件，并且数量在不断增长。页面的初访者会进行很多的HTTP请求，但通过一个长久的Expires头，可以使这些组件被缓存下来，可以在后续的页面浏览中避免不必要的HTTP请求。长久的Expires头最长用于图片，但应该将其用于所有组件上，包括脚本、样式表和Flash。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="archives">
+    <meta property="article:published_time" content="2015-04-21T00:00:00+08:00">
+    <meta property="article:modified_time" content="2015-04-21T00:00:00+08:00">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Yahoo前端优化性能的十四条规则">
+  <meta name="twitter:description" content="看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！
+规则1——减少HTTP请求（Minimize HTTP Requests） # 只有10%～20%的最终用户响应时间花在接收请求的HTML文档上，剩下的80%～90%时间都花在HTML文档所引用的所有组件（图片、脚本、样式表、Flash等）进行的HTTP请求上。因此，改善响应时间最简单的办法就是减少组件数量并由此减少HTTP请求数。减少组件数量通常会和产品设计的初衷相矛盾，因此，此处给出了一些技术：
+图片地图（Image Maps）联合多个图片到一个单独的图片中。下载图片大小的总和保持不变，但是，通过减少HTTP请求数的方式加速了页面。图片地图适用于导航栏或其他超链接中使用多个图片的情形。但是，在定义图片地图上的区域坐标时，如果采用手工方式很难完成且容易出错，而且除了矩形外几乎无法定义其他形状。 CSS Sprites使用CSS background-image和background-position属性将多个图片联合成一个独立的图片来显示。它通过合并图片减少了HTTP请求，并且比图片地图更加灵活，同时也降低了图片的下载量。如果在页面中需要为背景、按钮、导航栏、链接等提供大量图片，CSS Sprites是一种优秀的解决方案。 内联图片（Inline images）使用data: URL scheme模式将图片嵌入到HTML文档中。通过此模式嵌入图片，不需要任何额外的HTTP请求开销。但是，目前的主流浏览器（主要是IE）不支持此种方式。 合并文件（Combined files）通过将所有JavaScript脚本合并到一个文件，所有CSS样式表合并到另一个文件的方式来减少HTTP请求的数量。但是简单的合并通常会遇到模块化、页面变化等问题，需要根据页面引用脚本和样式表来具体分析以确定具体的组合方式。 规则2——使用内容发布网络(CDN)（Use a Content Delivery Network） # 用户同Web服务器的距离会对页面响应时间产生影响。网站最初通常将其所有服务器放在同一个地方，当用户群增加时，公司必须面对服务器放置地点不再合适的事实。因此，有必要在多个地理位置不同的服务器上部署内容。
+作为实现地理位置分离的第一步，不应当首先尝试使用分布式架构重新设计Web应用程序。这样的应用程序决定了重新设计将带来如同步会话状态、在服务器放置地点间复制数据库事务等复杂问题。重新设计会推迟甚至根本无法实现缩短用户和网站内容距离的愿望。
+如果应用程序Web服务器里用户更近，则一个HTTP请求的响应时间将被缩短；如果组件Web服务器离用户更近，则多个HTTP请求的响应时间将缩短。因此，与其重新开始设计应用程序，以便将应用程序Web服务器分散开，不如首先将组件Web服务器分散开。这不仅能达到响应时间大幅减少的目的，还很容易实现。
+内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效的向用户发布内容。向特定用户发布内容的服务器基于对网络可用度的测量，例如，CDN可能选择网络阶跃数最小的服务器，或者具有最短响应时间的服务器。
+除了缩短响应时间外，CDN还可以带来其他优势，包括备份、扩展存储能力和进行缓存；同时，CDN还有助于缓和Web流量峰值的压力，如在获取天气或股市新闻、浏览体育或娱乐事件时。依赖CDN的一个缺点是网站的响应时间会受到其他网站——甚至可能是竞争对手流量的影响；另一个缺点是无法直接控制组件服务器所带来的问题。
+CDN用于发布静态内容（如图片、脚本、样式表、Flash）。提供动态HTML页面会引入特殊的存储要求——数据库连接、状态管理、验证、硬件和OS优化等，这些复杂性超过了CDN的范围。另一方面，静态文件更容易存储并具有较少的依赖。
+规则3——添加Expires头（Add an Expires or a Cache-Control Header） # Web页面包含大量组件，并且数量在不断增长。页面的初访者会进行很多的HTTP请求，但通过一个长久的Expires头，可以使这些组件被缓存下来，可以在后续的页面浏览中避免不必要的HTTP请求。长久的Expires头最长用于图片，但应该将其用于所有组件上，包括脚本、样式表和Flash。">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/blog/css/main.bundle.min.07a8088c33086a4f22f8c0e9b9dd8b3d24774753ce35a341034d6f7c1e249b72e184af812c1341e6a62df443da9e4bb28feddf7f5c6f07b24a20a900ef559483.css"
+    integrity="sha512-B6gIjDMIak8i&#43;MDpud2LPSR3R1PONaNBA01vfB4km3LhhK&#43;BLBNB5qYt9EPankuyj&#43;3ff1xvB7JKIKkA71WUgw==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/blog/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+  
+    
+    <script src="/blog/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/blog/js/main.bundle.min.6f9e49850a316ceb9908ad4b153b391e55b41bbcee8b408b52410567544eeebe6776aa57d770d75952dc164e6071068a848bdc5cb48c4dbaef04d65b3f442667.js"
+      integrity="sha512-b55JhQoxbOuZCK1LFTs5HlW0G7zui0CLUkEFZ1RO7r5ndqpX13DXWVLcFk5gcQaKhIvcXLSMTbrvBNZbP0QmZw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
+  
+
+  
+  
 
 
-    <title>
-        
-            Yahoo前端优化性能的十四条规则 :: 伟神的博客 
-        
-    </title>
 
 
 
 
 
-  <link rel="stylesheet" href="/blog/main.min.ebe3824dfa5345ef854f8b255c278f701966e9be3892354b588fb1650ecd358e.css" integrity="sha256-6&#43;OCTfpTRe&#43;FT4slXCePcBlm6b44kjVLWI&#43;xZQ7NNY4=" crossorigin="anonymous">
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
     <link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
     <link rel="manifest" href="/blog/site.webmanifest">
-    <link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="">
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-    <meta name="msapplication-TileColor" content="">
+  
 
-
-<meta itemprop="name" content="Yahoo前端优化性能的十四条规则">
-<meta itemprop="description" content="看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！
-规则1——减少HTTP请求（Minimize HTTP Requests） 只有10%～20%的最终用户响应时间花在接收请求的HTML文档上，剩下的80%～90%时间都花在HTML文档所引用的所有组件（图片、脚本、样式表、Flash等）进行的HTTP请求上。因此，改善响应时间最简单的办法就是减少组件数量并由此减少HTTP请求数。减少组件数量通常会和产品设计的初衷相矛盾，因此，此处给出了一些技术：
-图片地图（Image Maps）联合多个图片到一个单独的图片中。下载图片大小的总和保持不变，但是，通过减少HTTP请求数的方式加速了页面。图片地图适用于导航栏或其他超链接中使用多个图片的情形。但是，在定义图片地图上的区域坐标时，如果采用手工方式很难完成且容易出错，而且除了矩形外几乎无法定义其他形状。 CSS Sprites使用CSS background-image和background-position属性将多个图片联合成一个独立的图片来显示。它通过合并图片减少了HTTP请求，并且比图片地图更加灵活，同时也降低了图片的下载量。如果在页面中需要为背景、按钮、导航栏、链接等提供大量图片，CSS Sprites是一种优秀的解决方案。 内联图片（Inline images）使用data: URL scheme模式将图片嵌入到HTML文档中。通过此模式嵌入图片，不需要任何额外的HTTP请求开销。但是，目前的主流浏览器（主要是IE）不支持此种方式。 合并文件（Combined files）通过将所有JavaScript脚本合并到一个文件，所有CSS样式表合并到另一个文件的方式来减少HTTP请求的数量。但是简单的合并通常会遇到模块化、页面变化等问题，需要根据页面引用脚本和样式表来具体分析以确定具体的组合方式。 规则2——使用内容发布网络(CDN)（Use a Content Delivery Network） 用户同Web服务器的距离会对页面响应时间产生影响。网站最初通常将其所有服务器放在同一个地方，当用户群增加时，公司必须面对服务器放置地点不再合适的事实。因此，有必要在多个地理位置不同的服务器上部署内容。
-作为实现地理位置分离的第一步，不应当首先尝试使用分布式架构重新设计Web应用程序。这样的应用程序决定了重新设计将带来如同步会话状态、在服务器放置地点间复制数据库事务等复杂问题。重新设计会推迟甚至根本无法实现缩短用户和网站内容距离的愿望。
-如果应用程序Web服务器里用户更近，则一个HTTP请求的响应时间将被缩短；如果组件Web服务器离用户更近，则多个HTTP请求的响应时间将缩短。因此，与其重新开始设计应用程序，以便将应用程序Web服务器分散开，不如首先将组件Web服务器分散开。这不仅能达到响应时间大幅减少的目的，还很容易实现。
-内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效的向用户发布内容。向特定用户发布内容的服务器基于对网络可用度的测量，例如，CDN可能选择网络阶跃数最小的服务器，或者具有最短响应时间的服务器。
-除了缩短响应时间外，CDN还可以带来其他优势，包括备份、扩展存储能力和进行缓存；同时，CDN还有助于缓和Web流量峰值的压力，如在获取天气或股市新闻、浏览体育或娱乐事件时。依赖CDN的一个缺点是网站的响应时间会受到其他网站——甚至可能是竞争对手流量的影响；另一个缺点是无法直接控制组件服务器所带来的问题。
-CDN用于发布静态内容（如图片、脚本、样式表、Flash）。提供动态HTML页面会引入特殊的存储要求——数据库连接、状态管理、验证、硬件和OS优化等，这些复杂性超过了CDN的范围。另一方面，静态文件更容易存储并具有较少的依赖。
-规则3——添加Expires头（Add an Expires or a Cache-Control Header） Web页面包含大量组件，并且数量在不断增长。页面的初访者会进行很多的HTTP请求，但通过一个长久的Expires头，可以使这些组件被缓存下来，可以在后续的页面浏览中避免不必要的HTTP请求。长久的Expires头最长用于图片，但应该将其用于所有组件上，包括脚本、样式表和Flash。
-Web服务器使用Expires头告诉Web客户端它可以使用一个组件的当前副本，知道指定时间为止。HTTP规范中简要的称该头为“在这一日期/时间之后，响应将被认为是无效的”。例如：
-Expires: Thu, 15 Apr 2010 20:00:00 GMT
-告诉浏览器该响应的有效性持续到2010年4月15日。
-因为Expires头使用一个特定的时间，它要求服务端和客户端的时钟严格同步；另外，过期日期需要经常检查，一旦过期日期到了，需要在服务器中配置提供一个新的日期。所以，HTTP1.1引入了Cache-Control头来克服Exipres头的限制。Cache-Control使用max-age指令指定组件被缓存多久，它以秒为单位定义了一个更新窗。使用带有max-age的Cache-Control可以消除Expires的限制，但对于不支持HTTP1.1的应用，仍希望使用Expires头。可以同时制定这两个响应头，如果两者同时出现时，HTTP规范规定max-age指令将重写Expires头。
-当出现了Expires头时，直到过期时间为止一直会使用缓存的版本，浏览器不会检查任何更新，直到过了过期时间。为了确保用户能够获取组件的最新版本，需要在所有的HTML页面中修改组件的文件名。Yahoo在此使用了将版本号嵌入在组件的文件名中的方法。
-规则4——压缩组件（Gzip Components) 注意：在HTTP响应头中可以看到返回的内容通过Gzip算法进行了压缩
-压缩组件通过减少HTTP请求产生的响应包的大小，从而降低传输时间的方式来提高性能。从HTTP1.1开始，Web客户端可以通过HTTP请求中的Accept-Encoding头来标识对压缩的支持：
-Accept-Encoding: gzip, deflate
-如果Web服务器看到请求中的这个头，就会使用客户端列出的方法中的一种来压缩响应。Web服务器通过响应中的Content-Encoding头来通知Web客户端：
-Content-Encoding: gzip
-目前许多网站通常会压缩HTML文档，脚本和样式表的压缩也是值得的（包括XML和JSON在内的任何文本响应理论上都值得被压缩）。但是，图片和PDF文件不应该被压缩，因为它们本来已经被压缩了。
-压缩通常能将响应的数据量减少近70%，但是压缩通常情况下会带来服务端和客户端的CPU开销，要检测受益是否大于开销，需要综合考虑响应大小、连接的带宽和客户端也服务端直接的距离等因素。通常需要对大于1KB或2KB的文件进行压缩。
-当浏览器通过代理来发送请求时，有可能出现浏览器期望接受的压缩后内容和实际接收到的不一致的情况。解决这一问题的方法是在Web服务器的响应中添加Vary头。Web服务器可以告诉代理根据一个或多个请求头来改变缓存的响应。由于压缩的决定是基于Accept-Encoding请求头的，因此需要在服务器的Vary响应头中包含Accept-Encoding:
-Vary: Accept-Encoding
-目前大约90%的通过浏览器进行的Internet通信都需要使用gzip，使得服务端和客户端的对等性变得额外重要。无论是客户端还是服务端发送错误，都会造成页面被破坏。避免错误的一种方式是采用“浏览器白名单”方式，即只为经过证实支持压缩的浏览器提供压缩内容，但是当代理缓存加进来以后，处理边缘情形浏览器将变得更加复杂。另一种方式是使用Vary: *或Cache-Control: private头来禁用代理缓存。此种方式会为所有浏览器禁用代理缓存，从而增加带宽开销。如何平衡压缩和代理支持需要在加快响应时间、减小带宽开销和边缘情形浏览器缺陷之间进行权衡：
-如果网站的用户很少，并且他们处于一个小圈子中，边缘情形浏览器不需要太多关注，可以压缩内容并使用Vary: Accept-Encoding。
-如果更注重带宽开销，可以和前一种情形一样，压缩内容并使用Vary: Accept-Encoding。">
-
-<meta itemprop="wordCount" content="194">
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Yahoo前端优化性能的十四条规则"/>
-<meta name="twitter:description" content="看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！
-规则1——减少HTTP请求（Minimize HTTP Requests） 只有10%～20%的最终用户响应时间花在接收请求的HTML文档上，剩下的80%～90%时间都花在HTML文档所引用的所有组件（图片、脚本、样式表、Flash等）进行的HTTP请求上。因此，改善响应时间最简单的办法就是减少组件数量并由此减少HTTP请求数。减少组件数量通常会和产品设计的初衷相矛盾，因此，此处给出了一些技术：
-图片地图（Image Maps）联合多个图片到一个单独的图片中。下载图片大小的总和保持不变，但是，通过减少HTTP请求数的方式加速了页面。图片地图适用于导航栏或其他超链接中使用多个图片的情形。但是，在定义图片地图上的区域坐标时，如果采用手工方式很难完成且容易出错，而且除了矩形外几乎无法定义其他形状。 CSS Sprites使用CSS background-image和background-position属性将多个图片联合成一个独立的图片来显示。它通过合并图片减少了HTTP请求，并且比图片地图更加灵活，同时也降低了图片的下载量。如果在页面中需要为背景、按钮、导航栏、链接等提供大量图片，CSS Sprites是一种优秀的解决方案。 内联图片（Inline images）使用data: URL scheme模式将图片嵌入到HTML文档中。通过此模式嵌入图片，不需要任何额外的HTTP请求开销。但是，目前的主流浏览器（主要是IE）不支持此种方式。 合并文件（Combined files）通过将所有JavaScript脚本合并到一个文件，所有CSS样式表合并到另一个文件的方式来减少HTTP请求的数量。但是简单的合并通常会遇到模块化、页面变化等问题，需要根据页面引用脚本和样式表来具体分析以确定具体的组合方式。 规则2——使用内容发布网络(CDN)（Use a Content Delivery Network） 用户同Web服务器的距离会对页面响应时间产生影响。网站最初通常将其所有服务器放在同一个地方，当用户群增加时，公司必须面对服务器放置地点不再合适的事实。因此，有必要在多个地理位置不同的服务器上部署内容。
-作为实现地理位置分离的第一步，不应当首先尝试使用分布式架构重新设计Web应用程序。这样的应用程序决定了重新设计将带来如同步会话状态、在服务器放置地点间复制数据库事务等复杂问题。重新设计会推迟甚至根本无法实现缩短用户和网站内容距离的愿望。
-如果应用程序Web服务器里用户更近，则一个HTTP请求的响应时间将被缩短；如果组件Web服务器离用户更近，则多个HTTP请求的响应时间将缩短。因此，与其重新开始设计应用程序，以便将应用程序Web服务器分散开，不如首先将组件Web服务器分散开。这不仅能达到响应时间大幅减少的目的，还很容易实现。
-内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效的向用户发布内容。向特定用户发布内容的服务器基于对网络可用度的测量，例如，CDN可能选择网络阶跃数最小的服务器，或者具有最短响应时间的服务器。
-除了缩短响应时间外，CDN还可以带来其他优势，包括备份、扩展存储能力和进行缓存；同时，CDN还有助于缓和Web流量峰值的压力，如在获取天气或股市新闻、浏览体育或娱乐事件时。依赖CDN的一个缺点是网站的响应时间会受到其他网站——甚至可能是竞争对手流量的影响；另一个缺点是无法直接控制组件服务器所带来的问题。
-CDN用于发布静态内容（如图片、脚本、样式表、Flash）。提供动态HTML页面会引入特殊的存储要求——数据库连接、状态管理、验证、硬件和OS优化等，这些复杂性超过了CDN的范围。另一方面，静态文件更容易存储并具有较少的依赖。
-规则3——添加Expires头（Add an Expires or a Cache-Control Header） Web页面包含大量组件，并且数量在不断增长。页面的初访者会进行很多的HTTP请求，但通过一个长久的Expires头，可以使这些组件被缓存下来，可以在后续的页面浏览中避免不必要的HTTP请求。长久的Expires头最长用于图片，但应该将其用于所有组件上，包括脚本、样式表和Flash。
-Web服务器使用Expires头告诉Web客户端它可以使用一个组件的当前副本，知道指定时间为止。HTTP规范中简要的称该头为“在这一日期/时间之后，响应将被认为是无效的”。例如：
-Expires: Thu, 15 Apr 2010 20:00:00 GMT
-告诉浏览器该响应的有效性持续到2010年4月15日。
-因为Expires头使用一个特定的时间，它要求服务端和客户端的时钟严格同步；另外，过期日期需要经常检查，一旦过期日期到了，需要在服务器中配置提供一个新的日期。所以，HTTP1.1引入了Cache-Control头来克服Exipres头的限制。Cache-Control使用max-age指令指定组件被缓存多久，它以秒为单位定义了一个更新窗。使用带有max-age的Cache-Control可以消除Expires的限制，但对于不支持HTTP1.1的应用，仍希望使用Expires头。可以同时制定这两个响应头，如果两者同时出现时，HTTP规范规定max-age指令将重写Expires头。
-当出现了Expires头时，直到过期时间为止一直会使用缓存的版本，浏览器不会检查任何更新，直到过了过期时间。为了确保用户能够获取组件的最新版本，需要在所有的HTML页面中修改组件的文件名。Yahoo在此使用了将版本号嵌入在组件的文件名中的方法。
-规则4——压缩组件（Gzip Components) 注意：在HTTP响应头中可以看到返回的内容通过Gzip算法进行了压缩
-压缩组件通过减少HTTP请求产生的响应包的大小，从而降低传输时间的方式来提高性能。从HTTP1.1开始，Web客户端可以通过HTTP请求中的Accept-Encoding头来标识对压缩的支持：
-Accept-Encoding: gzip, deflate
-如果Web服务器看到请求中的这个头，就会使用客户端列出的方法中的一种来压缩响应。Web服务器通过响应中的Content-Encoding头来通知Web客户端：
-Content-Encoding: gzip
-目前许多网站通常会压缩HTML文档，脚本和样式表的压缩也是值得的（包括XML和JSON在内的任何文本响应理论上都值得被压缩）。但是，图片和PDF文件不应该被压缩，因为它们本来已经被压缩了。
-压缩通常能将响应的数据量减少近70%，但是压缩通常情况下会带来服务端和客户端的CPU开销，要检测受益是否大于开销，需要综合考虑响应大小、连接的带宽和客户端也服务端直接的距离等因素。通常需要对大于1KB或2KB的文件进行压缩。
-当浏览器通过代理来发送请求时，有可能出现浏览器期望接受的压缩后内容和实际接收到的不一致的情况。解决这一问题的方法是在Web服务器的响应中添加Vary头。Web服务器可以告诉代理根据一个或多个请求头来改变缓存的响应。由于压缩的决定是基于Accept-Encoding请求头的，因此需要在服务器的Vary响应头中包含Accept-Encoding:
-Vary: Accept-Encoding
-目前大约90%的通过浏览器进行的Internet通信都需要使用gzip，使得服务端和客户端的对等性变得额外重要。无论是客户端还是服务端发送错误，都会造成页面被破坏。避免错误的一种方式是采用“浏览器白名单”方式，即只为经过证实支持压缩的浏览器提供压缩内容，但是当代理缓存加进来以后，处理边缘情形浏览器将变得更加复杂。另一种方式是使用Vary: *或Cache-Control: private头来禁用代理缓存。此种方式会为所有浏览器禁用代理缓存，从而增加带宽开销。如何平衡压缩和代理支持需要在加快响应时间、减小带宽开销和边缘情形浏览器缺陷之间进行权衡：
-如果网站的用户很少，并且他们处于一个小圈子中，边缘情形浏览器不需要太多关注，可以压缩内容并使用Vary: Accept-Encoding。
-如果更注重带宽开销，可以和前一种情形一样，压缩内容并使用Vary: Accept-Encoding。"/>
-
-
-
-
-
-
-
-    <meta property="article:published_time" content="0001-01-01 00:00:00 &#43;0000 UTC" />
-
-
-
-
-
-
-
-
-
-
-
-
-    </head>
-
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Archives",
+    "name": "Yahoo前端优化性能的十四条规则",
+    "headline": "Yahoo前端优化性能的十四条规则",
     
-        <body>
+    "inLanguage": "zh-CN",
+    "url" : "http://localhost:1313/blog/archives/2015-04-21-yahoo-best-practices-for-speeding-up-web-site-/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2015",
+    "dateCreated": "2015-04-21T00:00:00\u002b08:00",
+    "datePublished": "2015-04-21T00:00:00\u002b08:00",
+    
+    "dateModified": "2015-04-21T00:00:00\u002b08:00",
     
     
-        <div class="container">
-            <header class="header">
-    <span class="header__inner">
-        <a href="/blog" style="text-decoration: none;">
-    <div class="logo">
-        
-            <span class="logo__mark">></span>
-            <span class="logo__text ">
-                hello</span>
-            <span class="logo__cursor" style=
-                  "
-                   
-                   ">
-            </span>
-        
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "208"
+  }]
+  </script>
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral bf-scrollbar">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        跳过正文
+      </a>
     </div>
-</a>
-
-
-        <span class="header__right">
+    
+    
+      <div class="main-menu flex items-center w-full gap-2 p-1 pl-0">
+  
+  
+    <a href="/blog/" class="text-base font-medium truncate min-w-0 shrink">
+      伟神的博客
+    </a>
+  
+  <div class="flex items-center ms-auto">
+    <div class="hidden md:flex">
+      <nav class="flex items-center gap-x-5 h-12">
+  
+    
+      
+  
+    <a
+      href="/blog/posts/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="文章"
+      title="Posts">
+      
+      
+        <span class="text-base font-medium break-normal">
+          文章
         </span>
-    </span>
-</header>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/blog/tags/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="标签"
+      title="Tags">
+      
+      
+        <span class="text-base font-medium break-normal">
+          标签
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/blog/archives/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="归档"
+      title="Archives">
+      
+      
+        <span class="text-base font-medium break-normal">
+          归档
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="https://github.com/wynn719"
+      
+        target="_blank"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="github"
+      title="">
+      
+        <span >
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+        </span>
+      
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="mailto:hi@kaorz.com"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="envelope"
+      title="">
+      
+        <span >
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></span>
+        </span>
+      
+      
+    </a>
+  
+
+    
+  
+
+  
+
+  
+
+  
+    <button
+      id="search-button"
+      aria-label="Search"
+      class="text-base bf-icon-color-hover"
+      title="搜索 (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <div class="flex items-center">
+      <button
+        id="appearance-switcher"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base bf-icon-color-hover">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    </div>
+  
+</nav>
 
 
-            
-    <div class="content">
-        <main class="post">
 
-            <div class="post-info">
-                
-                </p>
-            </div>
+    </div>
+    <div class="flex md:hidden">
+      <div class="flex items-center h-14 gap-4">
+  
+    <button
+      id="search-button-mobile"
+      aria-label="Search"
+      class="flex items-center justify-center bf-icon-color-hover"
+      title="搜索 (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
 
-            <article>
-                <h2 class="post-title"><a href="https://kaorz.com/blog/archives/2015-04-21-yahoo-best-practices-for-speeding-up-web-site-/">Yahoo前端优化性能的十四条规则</a></h2>
+  
+    <button
+      id="appearance-switcher-mobile"
+      type="button"
+      aria-label="Dark mode switcher"
+      class="flex items-center justify-center text-neutral-900 hover:text-primary-600 dark:text-neutral-200 dark:hover:text-primary-400">
+      <div class="dark:hidden">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+      </div>
+      <div class="hidden dark:block">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+      </div>
+    </button>
+  
 
-                
-                
-                
+  
+    <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
+    <label for="mobile-menu-toggle" class="flex items-center justify-center cursor-pointer bf-icon-color-hover">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+    </label>
 
-                <div class="post-content">
-                    <blockquote>
-<p>看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！</p>
+    <div
+      role="dialog"
+      aria-modal="true"
+      style="scrollbar-gutter: stable;"
+      class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
+      bf-scrollbar">
+      <label
+        for="mobile-menu-toggle"
+        class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-900">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </label>
+      <nav class="mx-auto max-w-md space-y-6">
+        
+  
+    
+    <div class="px-2">
+      <a
+        href="/blog/posts/"
+        aria-label="文章"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Posts" class="text-2xl font-bold tracking-tight">
+          文章
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/blog/tags/"
+        aria-label="标签"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Tags" class="text-2xl font-bold tracking-tight">
+          标签
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/blog/archives/"
+        aria-label="归档"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Archives" class="text-2xl font-bold tracking-tight">
+          归档
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="https://github.com/wynn719"
+        aria-label="github"
+        
+          target="_blank"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+          </span>
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="mailto:hi@kaorz.com"
+        aria-label="envelope"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></span>
+          </span>
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+
+        
+  
+
+        
+  
+    <div
+      class="flex flex-wrap items-center [&_span]:text-2xl [&_.translation_button_.icon]:text-4xl! [&_.translation_button_span]:text-base! [&_.translation_.menuhide_span]:text-sm! gap-x-6 ps-2 mt-8 pt-8 border-t bf-border-color">
+      
+
+
+      
+    </div>
+  
+
+      </nav>
+    </div>
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/blog/"
+      >伟神的博客</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/blog/archives/"
+      >Archives</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/blog/archives/2015-04-21-yahoo-best-practices-for-speeding-up-web-site-/"
+      >Yahoo前端优化性能的十四条规则</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Yahoo前端优化性能的十四条规则
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2015-04-21T00:00:00&#43;08:00">April 21, 2015</time><span class="px-2 text-primary-500">&middot;</span><span>208 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-5"></div>
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          <blockquote><p>看完之后很多还是似懂非懂，估计等到有相应的项目做的时候，遇到某些点就会恍然大悟吧！</p>
 </blockquote>
-<h2 id="规则1减少http请求minimize-http-requests">规则1——减少HTTP请求（Minimize HTTP Requests）</h2>
+<h2 class="relative group">规则1——减少HTTP请求（Minimize HTTP Requests）
+    <div id="规则1减少http请求minimize-http-requests" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%991%e5%87%8f%e5%b0%91http%e8%af%b7%e6%b1%82minimize-http-requests" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>只有10%～20%的最终用户响应时间花在接收请求的HTML文档上，剩下的80%～90%时间都花在HTML文档所引用的所有组件（图片、脚本、样式表、Flash等）进行的HTTP请求上。因此，改善响应时间最简单的办法就是减少组件数量并由此减少HTTP请求数。减少组件数量通常会和产品设计的初衷相矛盾，因此，此处给出了一些技术：</p>
 <ul>
 <li>图片地图（Image Maps）联合多个图片到一个单独的图片中。下载图片大小的总和保持不变，但是，通过减少HTTP请求数的方式加速了页面。图片地图适用于导航栏或其他超链接中使用多个图片的情形。但是，在定义图片地图上的区域坐标时，如果采用手工方式很难完成且容易出错，而且<strong>除了矩形外几乎无法定义其他形状。</strong></li>
@@ -199,21 +784,48 @@ Vary: Accept-Encoding
 <li>内联图片（Inline images）使用data: URL scheme模式将图片嵌入到HTML文档中。通过此模式嵌入图片，不需要任何额外的HTTP请求开销。<strong>但是，目前的主流浏览器（主要是IE）不支持此种方式。</strong></li>
 <li>合并文件（Combined files）通过将所有JavaScript脚本合并到一个文件，所有CSS样式表合并到另一个文件的方式来减少HTTP请求的数量。但是简单的合并通常会遇到<strong>模块化、页面变化</strong>等问题，<strong>需要根据页面引用脚本和样式表来具体分析以确定具体的组合方式。</strong></li>
 </ul>
-<h2 id="规则2使用内容发布网络cdnuse-a-content-delivery-network">规则2——使用内容发布网络(CDN)（Use a Content Delivery Network）</h2>
+
+<h2 class="relative group">规则2——使用内容发布网络(CDN)（Use a Content Delivery Network）
+    <div id="规则2使用内容发布网络cdnuse-a-content-delivery-network" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%992%e4%bd%bf%e7%94%a8%e5%86%85%e5%ae%b9%e5%8f%91%e5%b8%83%e7%bd%91%e7%bb%9ccdnuse-a-content-delivery-network" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>用户同Web服务器的距离会对页面响应时间产生影响。网站最初通常将其所有服务器放在同一个地方，当用户群增加时，公司必须面对服务器放置地点不再合适的事实。因此，有必要在多个地理位置不同的服务器上部署内容。</p>
 <p>作为实现地理位置分离的第一步，不应当首先尝试使用分布式架构重新设计Web应用程序。这样的应用程序决定了重新设计将带来如同步会话状态、在服务器放置地点间复制数据库事务等复杂问题。重新设计会推迟甚至根本无法实现缩短用户和网站内容距离的愿望。</p>
 <p>如果应用程序Web服务器里用户更近，则一个HTTP请求的响应时间将被缩短；如果组件Web服务器离用户更近，则多个HTTP请求的响应时间将缩短。因此，与其重新开始设计应用程序，以便将应用程序Web服务器分散开，不如首先将组件Web服务器分散开。这不仅能达到响应时间大幅减少的目的，还很容易实现。</p>
 <p>内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效的向用户发布内容。向特定用户发布内容的服务器基于对网络可用度的测量，例如，CDN可能选择网络阶跃数最小的服务器，或者具有最短响应时间的服务器。</p>
 <p>除了缩短响应时间外，CDN还可以带来其他优势，包括备份、扩展存储能力和进行缓存；同时，CDN还有助于缓和Web流量峰值的压力，如在获取天气或股市新闻、浏览体育或娱乐事件时。依赖CDN的一个缺点是网站的响应时间会受到其他网站——甚至可能是竞争对手流量的影响；另一个缺点是无法直接控制组件服务器所带来的问题。</p>
 <p>CDN用于发布静态内容（如图片、脚本、样式表、Flash）。提供动态HTML页面会引入特殊的存储要求——数据库连接、状态管理、验证、硬件和OS优化等，这些复杂性超过了CDN的范围。另一方面，静态文件更容易存储并具有较少的依赖。</p>
-<h2 id="规则3添加expires头add-an-expires-or-a-cache-control-header">规则3——添加Expires头（Add an Expires or a Cache-Control Header）</h2>
+
+<h2 class="relative group">规则3——添加Expires头（Add an Expires or a Cache-Control Header）
+    <div id="规则3添加expires头add-an-expires-or-a-cache-control-header" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%993%e6%b7%bb%e5%8a%a0expires%e5%a4%b4add-an-expires-or-a-cache-control-header" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>Web页面包含大量组件，并且数量在不断增长。页面的初访者会进行很多的HTTP请求，但通过一个长久的Expires头，可以使这些组件被缓存下来，可以在后续的页面浏览中避免不必要的HTTP请求。长久的Expires头最长用于图片，但应该将其用于所有组件上，包括脚本、样式表和Flash。</p>
 <p>Web服务器使用Expires头告诉Web客户端它可以使用一个组件的当前副本，知道指定时间为止。HTTP规范中简要的称该头为“在这一日期/时间之后，响应将被认为是无效的”。例如：</p>
 <p>Expires: Thu, 15 Apr 2010 20:00:00 GMT</p>
 <p>告诉浏览器该响应的有效性持续到2010年4月15日。</p>
 <p>因为Expires头使用一个特定的时间，它要求服务端和客户端的时钟严格同步；另外，过期日期需要经常检查，一旦过期日期到了，需要在服务器中配置提供一个新的日期。所以，HTTP1.1引入了Cache-Control头来克服Exipres头的限制。Cache-Control使用max-age指令指定组件被缓存多久，它以秒为单位定义了一个更新窗。使用带有max-age的Cache-Control可以消除Expires的限制，但对于不支持HTTP1.1的应用，仍希望使用Expires头。可以同时制定这两个响应头，如果两者同时出现时，HTTP规范规定max-age指令将重写Expires头。</p>
 <p>当出现了Expires头时，直到过期时间为止一直会使用缓存的版本，浏览器不会检查任何更新，直到过了过期时间。为了确保用户能够获取组件的最新版本，需要在所有的HTML页面中修改组件的文件名。Yahoo在此使用了将版本号嵌入在组件的文件名中的方法。</p>
-<h2 id="规则4压缩组件gzip-components">规则4——压缩组件（Gzip Components)</h2>
+
+<h2 class="relative group">规则4——压缩组件（Gzip Components)
+    <div id="规则4压缩组件gzip-components" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%994%e5%8e%8b%e7%bc%a9%e7%bb%84%e4%bb%b6gzip-components" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>注意：在HTTP响应头中可以看到返回的内容通过Gzip算法进行了压缩</p>
 <p>压缩组件通过减少HTTP请求产生的响应包的大小，从而降低传输时间的方式来提高性能。从HTTP1.1开始，Web客户端可以通过HTTP请求中的Accept-Encoding头来标识对压缩的支持：</p>
 <p>Accept-Encoding: gzip, deflate</p>
@@ -227,41 +839,113 @@ Vary: Accept-Encoding
 <p>如果网站的用户很少，并且他们处于一个小圈子中，边缘情形浏览器不需要太多关注，可以压缩内容并使用Vary: Accept-Encoding。</p>
 <p>如果更注重带宽开销，可以和前一种情形一样，压缩内容并使用Vary: Accept-Encoding。</p>
 <p>如果网站拥有大量的、多变的用户群，能够应付较高的带宽开销，并且享有高质量的名声，需要压缩内容并使用Cache-Control: Private。（Google和Yahoo都使用这种方式）</p>
-<h2 id="规则5将样式表放在顶部put-stylesheets-at-the-top">规则5——将样式表放在顶部（Put Stylesheets at the Top）</h2>
+
+<h2 class="relative group">规则5——将样式表放在顶部（Put Stylesheets at the Top）
+    <div id="规则5将样式表放在顶部put-stylesheets-at-the-top" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%995%e5%b0%86%e6%a0%b7%e5%bc%8f%e8%a1%a8%e6%94%be%e5%9c%a8%e9%a1%b6%e9%83%a8put-stylesheets-at-the-top" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>我们都希望页面能够逐步加载，也就是说，我们希望浏览器能够尽快显示内容。当浏览器逐步加载页面时，页头、导航栏、顶端logo等所有这些都会等待页面的用户提供视觉反馈，这改善了用户体验。将样式表放在底部，为避免当样式变化时重绘页面中的元素，浏览器会阻塞内容逐步呈现。</p>
 <p>样式表在页面中的位置并不影响下载时间，但是会影响页面的呈现。根据HTML规范“和A不一样，[LINK]只能出现在文档的HEAD节中，但其出现次数是任意的”。因此，问题的解决方式应该是遵循HTML规范，使用LINK标签将样式表放在文档的HEAD中。</p>
-<h2 id="规则6将脚本放在底部put-scripts-at-the-bottom">规则6——将脚本放在底部（Put Scripts at the Bottom）</h2>
+
+<h2 class="relative group">规则6——将脚本放在底部（Put Scripts at the Bottom）
+    <div id="规则6将脚本放在底部put-scripts-at-the-bottom" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%996%e5%b0%86%e8%84%9a%e6%9c%ac%e6%94%be%e5%9c%a8%e5%ba%95%e9%83%a8put-scripts-at-the-bottom" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>对响应时间影响最大的是页面中的组件数量，而脚本会阻塞组件的并行下载，带来性能上的问题。HTTP1.1规范建议浏览器从每个主机名并行下载两个组件。如果一个Web页面平均将其组件分别放在两个主机名下，整体响应时间可以减少大约一半。我们可以通过对浏览器默认设置的修改来增加每个主机名并行下载组件的数量，也可以使用CNAME（DNS别名）将组件分别放到多个主机名下。但是，增加并行下载数量通常会带来性能上的开销，过多的并行下载有时反而会降低性能。Yahoo!研究表明，使用两个主机名比使用1、4或10个主机名能带来更好的性能。</p>
 <p>需要我们注意的是，下载脚本时并行下载实际上是被禁用的，即使此时使用了不同的主机名，浏览器也不会启动其他下载。因此，如果将脚本放在顶部，脚本会阻塞后面内容的呈现，也会阻塞后面组件的下载。因此，放置脚本最好的地方是页面底部，这不会阻止页面内容呈现，而且页面中的可视组件可以尽早下载。</p>
-<h2 id="规则7避免css表达式avoid-css-expressions">规则7——避免CSS表达式(Avoid CSS Expressions)</h2>
+
+<h2 class="relative group">规则7——避免CSS表达式(Avoid CSS Expressions)
+    <div id="规则7避免css表达式avoid-css-expressions" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%997%e9%81%bf%e5%85%8dcss%e8%a1%a8%e8%be%be%e5%bc%8favoid-css-expressions" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>CSS表达式是动态设置CSS属性的一种强大（并且危险）的方式。它从IE5以后的版本被支持，在IE8中已经被废弃。
 表达式的问题在于对其进行的求值频率比人们期望的要高。它们不只在呈现页面和大小改变时求值，当页面滚动，甚至用户鼠标在页面上移过时都要进行求值。</p>
 <p>减少CSS表达式求值次数的一种方式是使用一次性表达式，如果CSS表达式必须被求值一次，可以在这一次中执行重写它本身。除此之外，还可以使用事件处理器来为特定的事件提供所期望的动态行为。</p>
-<h2 id="规则8使用外部javascript和cssmake-javascript-and-css-external">规则8——使用外部JavaScript和CSS（Make JavaScript and CSS External）</h2>
+
+<h2 class="relative group">规则8——使用外部JavaScript和CSS（Make JavaScript and CSS External）
+    <div id="规则8使用外部javascript和cssmake-javascript-and-css-external" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%998%e4%bd%bf%e7%94%a8%e5%a4%96%e9%83%a8javascript%e5%92%8ccssmake-javascript-and-css-external" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>在现实环境中使用外部文件通常会产生较快的页面，因为JavaScript和CSS有机会被浏览器缓存起来。对于内联的情况，由于HTML文档通常不会被配置为可以进行缓存的，所以每次请求HTML文档都要下载JavaScript和CSS。所以，如果JavaScript和CSS在外部文件中，浏览器可以缓存它们，HTML文档的大小会被减少而不必增加HTTP请求数量。</p>
 <p>决定是否使用外部文件的关键在于被缓存的外部文件占请求的HTML文档数的比重。如果网站用户在每次会话中进行多次页面访问，同时页面重用了多个脚本和样式表，使用外部文件时很好的选择。</p>
 <p>对于大多数网站而言，难以精确度量以判断是否使用内联或外部文件，此时建议是使用外部文件的方式。对于这个问题的一个例外是网站主页，由于主页对于响应时间要求更高，因此更加倾向于内联而不是外部文件。</p>
 <p>对于内联文件而言，由于无法利用浏览器缓存，因此给人感觉依然比较低效。我们可以通过加载后下载和动态内联的方式来使得网站主页既可以获得内联的优势，同时也能缓存外部文件。</p>
-<h2 id="规则9减少dns查找reduce-dns-lookups">规则9——减少DNS查找（Reduce DNS Lookups）</h2>
+
+<h2 class="relative group">规则9——减少DNS查找（Reduce DNS Lookups）
+    <div id="规则9减少dns查找reduce-dns-lookups" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%999%e5%87%8f%e5%b0%91dns%e6%9f%a5%e6%89%bereduce-dns-lookups" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>注意：从输入网址到呈现网页这一过程也涉及到了DNS定向查找ip的问题</p>
 <p>DNS对于网站来说会带来开销。通常浏览器查找一个给定主机名的IP要花费20～120毫秒的时间。在DNS查找完成之前，浏览器不能从此主机下载任何东西。</p>
 <p>DNS查找可以被缓存起来以提高性能，这种缓存可以发生在ISP或局域网中的一台特殊的缓存服务器上，同时，缓存也会发生在独立的用户机器上。在用户请求一个主机名后，DNS信息会留在操作系统的DNS缓存中，大多数浏览器也拥有自己的缓存，和操作系统缓存相分离。只要浏览器在其缓存中保留了DNS记录，就不会通过操作系统来请求这个记录。</p>
 <p>当客户端浏览器和操作系统中DNS缓存同时为空时，DNS查询的数量等于页面中唯一主机名的数量，这些主机名包括了页面的URL、图片、脚本、样式表、Flash等。所以，<strong>减少唯一主机名数量，可以减少DNS查询数。</strong></p>
 <p>减少唯一主机名数量会潜在的减少页面中并行下载的数量。避免DNS查找降低了响应时间，但减少并行下载可能会增加响应时间。对于这种情形，建议将这些组件放在至少2个，但不要超过4个主机名下。</p>
-<h2 id="规则10精简javascript和cssminify-javascript-and-css">规则10——精简JavaScript和CSS（Minify JavaScript and CSS）</h2>
+
+<h2 class="relative group">规则10——精简JavaScript和CSS（Minify JavaScript and CSS）
+    <div id="规则10精简javascript和cssminify-javascript-and-css" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%9910%e7%b2%be%e7%ae%80javascript%e5%92%8ccssminify-javascript-and-css" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>精简是从代码中移除不必要的字符以减小其大小，进而改善加载时间。在代码被精简后，所有注释以及不必要的空白字符（空格、换行和制表符）都将被移除。对于JavaScript而言，因为需要下载的文件大小减小了，可以改善响应时间。</p>
 <p>混淆是可以应用在源代码上的另一种优化方式。相比较于精简，混淆更加复杂，因此更容易产生bug。混淆可以更大程度上压缩源代码，但是也存在着一定的风险。</p>
 <p>除了外部JavaScript外，内联在<code>&lt;script&gt;</code>和<code>&lt;style&gt;</code>块中的源代码也需要被精简。即使使用了gzip来压缩JavaScript和CSS，<strong>使用精简能够将代码大小再减少5%或者更多。</strong></p>
-<h2 id="规则11避免重定向avoid-redirects">规则11——避免重定向（Avoid Redirects）</h2>
+
+<h2 class="relative group">规则11——避免重定向（Avoid Redirects）
+    <div id="规则11避免重定向avoid-redirects" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%9911%e9%81%bf%e5%85%8d%e9%87%8d%e5%ae%9a%e5%90%91avoid-redirects" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>重定向用于将用户从一个URL路由到另一个URL。重定向有很多种，其中301和302是最常用的两种。下面是一个301响应头的示例：</p>
 <p>HTTP/1.1 301 Moved Permanently</p>
-<p>Location: <a href="http://example.com/newuri">http://example.com/newuri</a></p>
+<p>Location: <a href="http://example.com/newuri"  target="_blank" rel="noreferrer">http://example.com/newuri</a></p>
 <p>Content-Type: text/html</p>
 <p>浏览器会自动将用户带到Location字段给出的URL。重定向所必需的所有信息都包含在这个头中，响应体通常是空的。不管叫什么名字，301或者302响应在实际中都不会被缓存，除非有附加的头（如Expires或Cache-Control等）要求它这么做。meta refresh标签和JavaScript也可以用于重定向，但是最好的技术是使用标准的3xx状态码，以<strong>保证后退按钮能够正常工作。</strong></p>
 <p>需要我们记住的是重定向会使页面变慢。在用户和HTML文档间插入一个重定向后，在此HTML文档到达之前页面上不会描绘任何东西，任何组件也不会被下载。</p>
 <p>有一种重定向最为浪费，发生的也很频繁，但是Web开发人员通常都没有意识到它，它发生在URL的结尾必须出现斜线（/）而没有出现的情形。例如访问地址http://astrology.yahoo.com/astrology将导致一个301响应包含重定向至http://astrology.yahoo.com/astrology/。当主机名后缺少结尾斜线时不会发生重定向。在Apache中，我们可以通过Alias指令或者mod_rewrite模块或者DirectorySlash指令来处理缺少结尾斜线时的重定向问题。</p>
 <p>从一个旧的站点链接到新的站点是使用重定向的另一种常见场景。其他形式还包括将一个网站的不同部分连接起来，以及基于一些条件（浏览器类型、用户帐户类型等）来引导用户。使用重定向来连接两个网站很简单而且只需要很少的额外代码。但是，虽然重定向降低了开发的复杂性，也损害了用户体验，通常可以进行其他的选择：如果两个代码的路径在同一台服务器上，可以使用Alias和mod_rewrite；如果域名由于重定向发生改变，可以使用一个CNAME（一条DNS记录，用于创建一个域名指向另一个域名的别名）让两个主机名指向相同的服务器，然后使用Alias和mod_rewrite。</p>
-<h2 id="规则12移除重复脚本remove-duplicate-scripts">规则12——移除重复脚本（Remove Duplicate Scripts）</h2>
+
+<h2 class="relative group">规则12——移除重复脚本（Remove Duplicate Scripts）
+    <div id="规则12移除重复脚本remove-duplicate-scripts" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%9912%e7%a7%bb%e9%99%a4%e9%87%8d%e5%a4%8d%e8%84%9a%e6%9c%acremove-duplicate-scripts" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>在一个页面中两次保护同一个JavaScript文件会损伤性能。导致一个脚本重复的因素主要有两个——团队大小和脚本数量。</p>
 <p>当重复脚本的现象发生时，将产生不必要的HTTP请求和浪费执行JavaScript的时间。不必要的HTTP请求会发生在IE中，而不会发生在Firefox中。在IE中，如果脚本被包含两次且没有被缓存，浏览器会在页面加载期间产生两个HTTP请求；即使脚本可以缓存，当用户重新加载页面时也会产生额外的HTTP请求。对JavaScript进行的多余的执行从而浪费时间的现象在IE和Firefox中都存在，与脚本是否被缓存无关。</p>
 <p>避免意外包含同一脚本两次的一种方法是在你的模块系统中实现一个脚本管理模块。包含脚本的典型方式是在HTML页面中使用SCRIPT标签：</p>
@@ -269,7 +953,16 @@ Vary: Accept-Encoding
 <p>另一种选择是在PHP中创建一个函数：</p>
 <p><code>&lt;?php insertScript(“menu.js”) ?&gt;</code></p>
 <p>为了防止统一个脚本被重复添加多次，insertScript函数需要添加处理脚本的依赖性和版本的功能。</p>
-<h2 id="规则13配置etagconfigure-etags好难懂">规则13——配置Etag（Configure ETags）(好难懂~)</h2>
+
+<h2 class="relative group">规则13——配置Etag（Configure ETags）(好难懂~)
+    <div id="规则13配置etagconfigure-etags好难懂" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%9913%e9%85%8d%e7%bd%aeetagconfigure-etags%e5%a5%bd%e9%9a%be%e6%87%82" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>实体标签（Entity Tag，ETag）是Web服务器和浏览器用于确认缓存组件的有效性的一种机制。ETag在HTTP1.1中引入，用于检测浏览器缓存中的组件与原始服务器上的组件是否匹配。ETag是唯一标识了一个组件的一个特定版本字符串。唯一的约束是该字符串必须用引号引起来。原始服务器使用Etag响应头来指定组件的ETag。</p>
 <p>HTTP/1.1 200 OK</p>
 <p>Last-Modified: Tue, 12 Dec 2006 03:03:59 GMT</p>
@@ -287,40 +980,205 @@ IIS5.0和6.0在ETag上有着类似的问题。IIS上ETag的格式是Filetimestam
 <p>最终的结果是，对于完全相同的组件，从一台服务器到另一台，Apache和IIS产生的ETag是不会匹配的。如果ETag不匹配，用户就不会按照ETag的设计计划那样接收到更小更快的304响应；相反，它们会收到普通的200响应以及组件的所有数据。如果只在一台服务器上部署网站，这通常不会产生问题；但如果使用了服务器集群，同时使用Apache或者IIS进行默认的ETag配置，用户响应将变慢，服务器负载将变高，将消耗更多的带宽，同时代理缓存的效率也会下降。即使组件具有长久的Expires头，一旦用户单击了Reload或Refresh按钮，依然会产生条件GET请求。</p>
 <p>如果组件必须通过最新修改日期之外的一些东西来进行验证，则ETag是一种强大的方法；如果无须自定义ETag，则最好将其移除。Last-Modified头基于组件的时间戳进行验证，可以提供完全等价的信息，而且移除ETag可以减少响应和后续请求的HTTP头的大小。在Apache中，只要向Apache配置文件中简单地添加下面一行配置就能移除ETag：
 FileETag none</p>
-<h2 id="规则14使ajax可缓存make-ajax-cacheable">规则14——使Ajax可缓存（Make Ajax Cacheable）</h2>
+
+<h2 class="relative group">规则14——使Ajax可缓存（Make Ajax Cacheable）
+    <div id="规则14使ajax可缓存make-ajax-cacheable" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%a7%84%e5%88%9914%e4%bd%bfajax%e5%8f%af%e7%bc%93%e5%ad%98make-ajax-cacheable" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>Ajax的一个最重要的优点就是向用户提供即时反馈，因为它异步的从后台Web服务器请求信息。但是，使用Ajax并不保证用户不会等到异步的JavaScript和XML返回响应。在很多应用程序中，用户是否需要等待取决于如何使用Ajax。用户是否需要等待的关键因素在于Ajax请求是主动的还是被动的。主动请求是基于用户的当前操作而发起的，被动请求则是为了将来使用而预先发起的。我们需要注意的是，“异步”并没有暗示“实时”。</p>
 <p>为了提升性能，最重要的是优化Ajax响应。而改善这些主动Ajax请求的最重要的方式就是使响应可缓存。如同在“添加Expires头”中讨论的，一些其他规则也适用于Ajax，包括：压缩组件、减少DNS查找、精简JavaScript、避免重定向、配置Etag。</p>
 
-                </div>
-            </article>
-
-            <hr />
-
-            <div class="post-info">
-                
-                
-            </div>
-        </main>
-    </div>
-
-
-            
-                <footer class="footer">
-    
-    
-</footer>
-
-            
+          
+          
+          
         </div>
+        
+        
+
+        
+
+        
+
+      </div>
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/blog/archives/2015-04-06-html-css2-note/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;HTML-CSS的细节与注意事项
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2015-04-06T00:00:00&#43;08:00">April 6, 2015</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/blog/archives/2015-04-26-about-css-layout/">
+              <span class="leading-6">
+                css常用布局总结&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2015-04-26T00:00:00&#43;08:00">April 26, 2015</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
 
         
 
 
-
-<script type="text/javascript" src="/blog/bundle.min.19d7885e5a4b0e5e2cd7238fc80b8b19888099cb78c032aedeb0b3b0010b8bb3dfb34849cf40a9e83f55f266aa32354528c10a24f2a42e6e8e21e813a26d9647.js" integrity="sha512-GdeIXlpLDl4s1yOPyAuLGYiAmct4wDKu3rCzsAELi7Pfs0hJz0Cp6D9V8maqMjVFKMEKJPKkLm6OIegTom2WRw=="></script>
-
+  
 
 
 
-    </body>
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-6 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部"
+    title="返回顶部">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+      
+      
+        
+          
+          
+      
+      
+      
+      <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400 ">
+        <ul class="flex list-none flex-col sm:flex-row">
+          
+            <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 ">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
+                href="/blog/tags/"
+                title="Tags">
+                
+                标签
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2026
+          
+      </p>
+    
+
+    
+    
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        
+        
+        由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+      </p>
+    
+  </div>
+  
+    <script>
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    </script>
+  
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="http://localhost:1313/blog/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
 </html>

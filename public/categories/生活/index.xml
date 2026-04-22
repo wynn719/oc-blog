@@ -2,20 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>生活 on 伟神的博客</title>
-    <link>https://kaorz.com/blog/categories/%E7%94%9F%E6%B4%BB/</link>
+    <link>http://localhost:59239/blog/categories/%E7%94%9F%E6%B4%BB/</link>
     <description>Recent content in 生活 on 伟神的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <managingEditor>hi@kaorz.com (伟神)</managingEditor>
-    <webMaster>hi@kaorz.com (伟神)</webMaster>
-    <lastBuildDate>Mon, 02 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://kaorz.com/blog/categories/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2026 </copyright>
+    <lastBuildDate>Mon, 02 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:59239/blog/categories/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>你好，世界</title>
-      <link>https://kaorz.com/blog/posts/hello-world/</link>
-      <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate><author>hi@kaorz.com (伟神)</author>
-      <guid>https://kaorz.com/blog/posts/hello-world/</guid>
-      <description>欢迎来到我的博客 这是我的第一篇博客文章。&#xA;以后我会在这里记录：&#xA;生活感悟 有趣的事情 学习笔记 感谢访问！😊</description>
+      <link>http://localhost:59239/blog/posts/hello-world/</link>
+      <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:59239/blog/posts/hello-world/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;欢迎来到我的博客&#xA;    &lt;div id=&#34;欢迎来到我的博客&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;&#xA;    &#xA;    &lt;span&#xA;        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;&#xA;        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#%e6%ac%a2%e8%bf%8e%e6%9d%a5%e5%88%b0%e6%88%91%e7%9a%84%e5%8d%9a%e5%ae%a2&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;&#xA;    &lt;/span&gt;&#xA;    &#xA;&lt;/h2&gt;&#xA;&lt;p&gt;这是我的第一篇博客文章。&lt;/p&gt;&#xA;&lt;p&gt;以后我会在这里记录：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;生活感悟&lt;/li&gt;&#xA;&lt;li&gt;有趣的事情&lt;/li&gt;&#xA;&lt;li&gt;学习笔记&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;感谢访问！😊&lt;/p&gt;</description>
+      
     </item>
+    
   </channel>
 </rss>

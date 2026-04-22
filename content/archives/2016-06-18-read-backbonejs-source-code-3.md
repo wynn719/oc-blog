@@ -1,6 +1,6 @@
 ---
 title: "阅读backbone源码——订阅-发布模式（pub/sub）"
-date: 2016-06-1813:55:00T00:00:00+08:00
+date: 2016-06-18T00:00:00+08:00
 tags:
 categories:
 ---

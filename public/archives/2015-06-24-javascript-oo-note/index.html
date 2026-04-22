@@ -1,560 +1,1493 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!doctype html>
+<html
+  lang="zh-CN"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"><head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="zh-CN">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="">
-<meta name="description" content="javascript 不具有其他语言的类，继承等的特性，因此 javascript 的面向对象编程更多的是基于构造函数和原型的方式实现类的功能；基于原型链来实现类的继承；基于闭包的原理来实现私有化；
+  
+  
+    <title>百度ife-javascript面向对象学习笔记 &middot; 伟神的博客</title>
+    <meta name="title" content="百度ife-javascript面向对象学习笔记 &middot; 伟神的博客">
+  
+
+  
+  
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/blog/archives/2015-06-24-javascript-oo-note/">
+  
+  
+
+  
+  
+  
+
+  
+  <meta property="og:url" content="http://localhost:1313/blog/archives/2015-06-24-javascript-oo-note/">
+  <meta property="og:site_name" content="伟神的博客">
+  <meta property="og:title" content="百度ife-javascript面向对象学习笔记">
+  <meta property="og:description" content="javascript 不具有其他语言的类，继承等的特性，因此 javascript 的面向对象编程更多的是基于构造函数和原型的方式实现类的功能；基于原型链来实现类的继承；基于闭包的原理来实现私有化；
 当然也有非原型链的继承，如 jquery 中使用的对象拓展(extend)，通过对对象的 深度复制来实现。
-javascript 面向对象编程 javascript 本身不具有类的特征，那如何模拟类的特征呢？
-一些好的尝试，但不够完美 在此之前，有工厂模式，有构造函数模式，但都存在着一些大的问题：
-工厂模式的问题：无法识别对象是由谁创建的 构造函数的问题：在创建每个实例时，构造函数给每个实例的新建了方法，即使该方法本身是一模一样的，而面向对象的思想并不希望方法是一样的但是却要重复的创建，这本身浪费内存空间 原型模式 为了解决工厂模式和构造函数模式的问题，于是有了原型模式
+javascript 面向对象编程 # javascript 本身不具有类的特征，那如何模拟类的特征呢？
+一些好的尝试，但不够完美 # 在此之前，有工厂模式，有构造函数模式，但都存在着一些大的问题：
+工厂模式的问题：无法识别对象是由谁创建的 构造函数的问题：在创建每个实例时，构造函数给每个实例的新建了方法，即使该方法本身是一模一样的，而面向对象的思想并不希望方法是一样的但是却要重复的创建，这本身浪费内存空间 原型模式 # 为了解决工厂模式和构造函数模式的问题，于是有了原型模式
 把共享的变量和方法都放到原型上，然后让子类的原型与父类的原型建立关系，就实现了原型式继承
 代码如下：
-function Person(){} // 定义要共享的方法 Person.prototype.name = &amp;#39;Jimmy&amp;#39;; Person.prototype.sayName = function(){ console.log(this.name); } // 或者另一种写法 Person.prototype = { constructor: Person, // 不要忘记修正constructor指向 name : &amp;#39;Jimmy&amp;#39;, sayName = function() { console.log(this.name); } } 但是原型模式也存在着一些问题：
-function Person() {} // 定义要共享的方法 Person.prototype.name = &amp;#34;Jimmy&amp;#34;; Person.prototype.sayName = function () { console.log(this.name); }; // 或者另一种写法 Person.prototype = { constructor: Person, // 不要忘记修正constructor指向 name: &amp;#34;Jimmy&amp;#34;, sayName: function () { console." />
-<meta name="keywords" content="" />
-<meta name="robots" content="noodp" />
-<meta name="theme-color" content="" />
-<link rel="canonical" href="https://kaorz.com/blog/archives/2015-06-24-javascript-oo-note/" />
+function Person(){} // 定义要共享的方法 Person.prototype.name = &#39;Jimmy&#39;; Person.prototype.sayName = function(){ console.log(this.name); } // 或者另一种写法 Person.prototype = { constructor: Person, // 不要忘记修正constructor指向 name : &#39;Jimmy&#39;, sayName = function() { console.log(this.name); } } 但是原型模式也存在着一些问题：">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="archives">
+    <meta property="article:published_time" content="2015-06-25T00:00:00+08:00">
+    <meta property="article:modified_time" content="2015-06-25T00:00:00+08:00">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="百度ife-javascript面向对象学习笔记">
+  <meta name="twitter:description" content="javascript 不具有其他语言的类，继承等的特性，因此 javascript 的面向对象编程更多的是基于构造函数和原型的方式实现类的功能；基于原型链来实现类的继承；基于闭包的原理来实现私有化；
+当然也有非原型链的继承，如 jquery 中使用的对象拓展(extend)，通过对对象的 深度复制来实现。
+javascript 面向对象编程 # javascript 本身不具有类的特征，那如何模拟类的特征呢？
+一些好的尝试，但不够完美 # 在此之前，有工厂模式，有构造函数模式，但都存在着一些大的问题：
+工厂模式的问题：无法识别对象是由谁创建的 构造函数的问题：在创建每个实例时，构造函数给每个实例的新建了方法，即使该方法本身是一模一样的，而面向对象的思想并不希望方法是一样的但是却要重复的创建，这本身浪费内存空间 原型模式 # 为了解决工厂模式和构造函数模式的问题，于是有了原型模式
+把共享的变量和方法都放到原型上，然后让子类的原型与父类的原型建立关系，就实现了原型式继承
+代码如下：
+function Person(){} // 定义要共享的方法 Person.prototype.name = &#39;Jimmy&#39;; Person.prototype.sayName = function(){ console.log(this.name); } // 或者另一种写法 Person.prototype = { constructor: Person, // 不要忘记修正constructor指向 name : &#39;Jimmy&#39;, sayName = function() { console.log(this.name); } } 但是原型模式也存在着一些问题：">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+  
+    
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/blog/css/main.bundle.min.07a8088c33086a4f22f8c0e9b9dd8b3d24774753ce35a341034d6f7c1e249b72e184af812c1341e6a62df443da9e4bb28feddf7f5c6f07b24a20a900ef559483.css"
+    integrity="sha512-B6gIjDMIak8i&#43;MDpud2LPSR3R1PONaNBA01vfB4km3LhhK&#43;BLBNB5qYt9EPankuyj&#43;3ff1xvB7JKIKkA71WUgw==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/blog/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+  
+  
+  
+  
+    
+    <script src="/blog/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/blog/js/main.bundle.min.6f9e49850a316ceb9908ad4b153b391e55b41bbcee8b408b52410567544eeebe6776aa57d770d75952dc164e6071068a848bdc5cb48c4dbaef04d65b3f442667.js"
+      integrity="sha512-b55JhQoxbOuZCK1LFTs5HlW0G7zui0CLUkEFZ1RO7r5ndqpX13DXWVLcFk5gcQaKhIvcXLSMTbrvBNZbP0QmZw=="
+      data-copy="复制"
+      data-copied="已复制"></script>
+  
+
+  
+  
 
 
-    <title>
-        
-            百度ife-javascript面向对象学习笔记 :: 伟神的博客 
-        
-    </title>
 
 
 
 
 
-  <link rel="stylesheet" href="/blog/main.min.ebe3824dfa5345ef854f8b255c278f701966e9be3892354b588fb1650ecd358e.css" integrity="sha256-6&#43;OCTfpTRe&#43;FT4slXCePcBlm6b44kjVLWI&#43;xZQ7NNY4=" crossorigin="anonymous">
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
     <link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
     <link rel="manifest" href="/blog/site.webmanifest">
-    <link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="">
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-    <meta name="msapplication-TileColor" content="">
+  
 
-
-<meta itemprop="name" content="百度ife-javascript面向对象学习笔记">
-<meta itemprop="description" content="javascript 不具有其他语言的类，继承等的特性，因此 javascript 的面向对象编程更多的是基于构造函数和原型的方式实现类的功能；基于原型链来实现类的继承；基于闭包的原理来实现私有化；
-当然也有非原型链的继承，如 jquery 中使用的对象拓展(extend)，通过对对象的 深度复制来实现。
-javascript 面向对象编程 javascript 本身不具有类的特征，那如何模拟类的特征呢？
-一些好的尝试，但不够完美 在此之前，有工厂模式，有构造函数模式，但都存在着一些大的问题：
-工厂模式的问题：无法识别对象是由谁创建的 构造函数的问题：在创建每个实例时，构造函数给每个实例的新建了方法，即使该方法本身是一模一样的，而面向对象的思想并不希望方法是一样的但是却要重复的创建，这本身浪费内存空间 原型模式 为了解决工厂模式和构造函数模式的问题，于是有了原型模式
-把共享的变量和方法都放到原型上，然后让子类的原型与父类的原型建立关系，就实现了原型式继承
-代码如下：
-function Person(){} // 定义要共享的方法 Person.prototype.name = &#39;Jimmy&#39;; Person.prototype.sayName = function(){ console.log(this.name); } // 或者另一种写法 Person.prototype = { constructor: Person, // 不要忘记修正constructor指向 name : &#39;Jimmy&#39;, sayName = function() { console.log(this.name); } } 但是原型模式也存在着一些问题：
-function Person() {} // 定义要共享的方法 Person.prototype.name = &#34;Jimmy&#34;; Person.prototype.sayName = function () { console.log(this.name); }; // 或者另一种写法 Person.prototype = { constructor: Person, // 不要忘记修正constructor指向 name: &#34;Jimmy&#34;, sayName: function () { console.">
-
-<meta itemprop="wordCount" content="901">
-<meta itemprop="keywords" content="" />
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="百度ife-javascript面向对象学习笔记"/>
-<meta name="twitter:description" content="javascript 不具有其他语言的类，继承等的特性，因此 javascript 的面向对象编程更多的是基于构造函数和原型的方式实现类的功能；基于原型链来实现类的继承；基于闭包的原理来实现私有化；
-当然也有非原型链的继承，如 jquery 中使用的对象拓展(extend)，通过对对象的 深度复制来实现。
-javascript 面向对象编程 javascript 本身不具有类的特征，那如何模拟类的特征呢？
-一些好的尝试，但不够完美 在此之前，有工厂模式，有构造函数模式，但都存在着一些大的问题：
-工厂模式的问题：无法识别对象是由谁创建的 构造函数的问题：在创建每个实例时，构造函数给每个实例的新建了方法，即使该方法本身是一模一样的，而面向对象的思想并不希望方法是一样的但是却要重复的创建，这本身浪费内存空间 原型模式 为了解决工厂模式和构造函数模式的问题，于是有了原型模式
-把共享的变量和方法都放到原型上，然后让子类的原型与父类的原型建立关系，就实现了原型式继承
-代码如下：
-function Person(){} // 定义要共享的方法 Person.prototype.name = &#39;Jimmy&#39;; Person.prototype.sayName = function(){ console.log(this.name); } // 或者另一种写法 Person.prototype = { constructor: Person, // 不要忘记修正constructor指向 name : &#39;Jimmy&#39;, sayName = function() { console.log(this.name); } } 但是原型模式也存在着一些问题：
-function Person() {} // 定义要共享的方法 Person.prototype.name = &#34;Jimmy&#34;; Person.prototype.sayName = function () { console.log(this.name); }; // 或者另一种写法 Person.prototype = { constructor: Person, // 不要忘记修正constructor指向 name: &#34;Jimmy&#34;, sayName: function () { console."/>
-
-
-
-
-
-
-
-    <meta property="article:published_time" content="0001-01-01 00:00:00 &#43;0000 UTC" />
-
-
-
-
-
-
-
-
-
-
-
-
-    </head>
-
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Archives",
+    "name": "百度ife-javascript面向对象学习笔记",
+    "headline": "百度ife-javascript面向对象学习笔记",
     
-        <body>
+    "inLanguage": "zh-CN",
+    "url" : "http://localhost:1313/blog/archives/2015-06-24-javascript-oo-note/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2015",
+    "dateCreated": "2015-06-25T00:00:00\u002b08:00",
+    "datePublished": "2015-06-25T00:00:00\u002b08:00",
+    
+    "dateModified": "2015-06-25T00:00:00\u002b08:00",
     
     
-        <div class="container">
-            <header class="header">
-    <span class="header__inner">
-        <a href="/blog" style="text-decoration: none;">
-    <div class="logo">
-        
-            <span class="logo__mark">></span>
-            <span class="logo__text ">
-                hello</span>
-            <span class="logo__cursor" style=
-                  "
-                   
-                   ">
-            </span>
-        
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "916"
+  }]
+  </script>
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral bf-scrollbar">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        跳过正文
+      </a>
     </div>
-</a>
-
-
-        <span class="header__right">
+    
+    
+      <div class="main-menu flex items-center w-full gap-2 p-1 pl-0">
+  
+  
+    <a href="/blog/" class="text-base font-medium truncate min-w-0 shrink">
+      伟神的博客
+    </a>
+  
+  <div class="flex items-center ms-auto">
+    <div class="hidden md:flex">
+      <nav class="flex items-center gap-x-5 h-12">
+  
+    
+      
+  
+    <a
+      href="/blog/posts/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="文章"
+      title="Posts">
+      
+      
+        <span class="text-base font-medium break-normal">
+          文章
         </span>
-    </span>
-</header>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/blog/tags/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="标签"
+      title="Tags">
+      
+      
+        <span class="text-base font-medium break-normal">
+          标签
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/blog/archives/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="归档"
+      title="Archives">
+      
+      
+        <span class="text-base font-medium break-normal">
+          归档
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="https://github.com/wynn719"
+      
+        target="_blank"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="github"
+      title="">
+      
+        <span >
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+        </span>
+      
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="mailto:hi@kaorz.com"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="envelope"
+      title="">
+      
+        <span >
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></span>
+        </span>
+      
+      
+    </a>
+  
+
+    
+  
+
+  
+
+  
+
+  
+    <button
+      id="search-button"
+      aria-label="Search"
+      class="text-base bf-icon-color-hover"
+      title="搜索 (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <div class="flex items-center">
+      <button
+        id="appearance-switcher"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base bf-icon-color-hover">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    </div>
+  
+</nav>
 
 
-            
-    <div class="content">
-        <main class="post">
 
-            <div class="post-info">
-                
-                </p>
-            </div>
+    </div>
+    <div class="flex md:hidden">
+      <div class="flex items-center h-14 gap-4">
+  
+    <button
+      id="search-button-mobile"
+      aria-label="Search"
+      class="flex items-center justify-center bf-icon-color-hover"
+      title="搜索 (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
 
-            <article>
-                <h2 class="post-title"><a href="https://kaorz.com/blog/archives/2015-06-24-javascript-oo-note/">百度ife-javascript面向对象学习笔记</a></h2>
+  
+    <button
+      id="appearance-switcher-mobile"
+      type="button"
+      aria-label="Dark mode switcher"
+      class="flex items-center justify-center text-neutral-900 hover:text-primary-600 dark:text-neutral-200 dark:hover:text-primary-400">
+      <div class="dark:hidden">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+      </div>
+      <div class="hidden dark:block">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+      </div>
+    </button>
+  
 
-                
-                
-                
+  
+    <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
+    <label for="mobile-menu-toggle" class="flex items-center justify-center cursor-pointer bf-icon-color-hover">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+    </label>
 
-                <div class="post-content">
-                    <p>javascript 不具有其他语言的类，继承等的特性，因此 javascript 的面向对象编程更多的是基于构造函数和原型的方式实现类的功能；基于原型链来实现类的继承；基于闭包的原理来实现私有化；</p>
+    <div
+      role="dialog"
+      aria-modal="true"
+      style="scrollbar-gutter: stable;"
+      class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
+      bf-scrollbar">
+      <label
+        for="mobile-menu-toggle"
+        class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-900">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </label>
+      <nav class="mx-auto max-w-md space-y-6">
+        
+  
+    
+    <div class="px-2">
+      <a
+        href="/blog/posts/"
+        aria-label="文章"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Posts" class="text-2xl font-bold tracking-tight">
+          文章
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/blog/tags/"
+        aria-label="标签"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Tags" class="text-2xl font-bold tracking-tight">
+          标签
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/blog/archives/"
+        aria-label="归档"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="Archives" class="text-2xl font-bold tracking-tight">
+          归档
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="https://github.com/wynn719"
+        aria-label="github"
+        
+          target="_blank"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span>
+          </span>
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="mailto:hi@kaorz.com"
+        aria-label="envelope"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg></span>
+          </span>
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+
+        
+  
+
+        
+  
+    <div
+      class="flex flex-wrap items-center [&_span]:text-2xl [&_.translation_button_.icon]:text-4xl! [&_.translation_button_span]:text-base! [&_.translation_.menuhide_span]:text-sm! gap-x-6 ps-2 mt-8 pt-8 border-t bf-border-color">
+      
+
+
+      
+    </div>
+  
+
+      </nav>
+    </div>
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/blog/"
+      >伟神的博客</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/blog/archives/"
+      >Archives</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/blog/archives/2015-06-24-javascript-oo-note/"
+      >百度ife-javascript面向对象学习笔记</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        百度ife-javascript面向对象学习笔记
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2015-06-25T00:00:00&#43;08:00">June 25, 2015</time><span class="px-2 text-primary-500">&middot;</span><span>916 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">5 分钟</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-5"></div>
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          <p>javascript 不具有其他语言的类，继承等的特性，因此 javascript 的面向对象编程更多的是基于构造函数和原型的方式实现类的功能；基于原型链来实现类的继承；基于闭包的原理来实现私有化；</p>
 <p>当然也有非原型链的继承，如 jquery 中使用的对象拓展(extend)，通过对对象的 <strong>深度</strong>复制来实现。</p>
-<h2 id="javascript-面向对象编程">javascript 面向对象编程</h2>
+
+<h2 class="relative group">javascript 面向对象编程
+    <div id="javascript-面向对象编程" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#javascript-%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e7%bc%96%e7%a8%8b" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
 <p>javascript 本身不具有类的特征，那如何模拟类的特征呢？</p>
-<h3 id="一些好的尝试但不够完美">一些好的尝试，但不够完美</h3>
+
+<h3 class="relative group">一些好的尝试，但不够完美
+    <div id="一些好的尝试但不够完美" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%80%e4%ba%9b%e5%a5%bd%e7%9a%84%e5%b0%9d%e8%af%95%e4%bd%86%e4%b8%8d%e5%a4%9f%e5%ae%8c%e7%be%8e" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
 <p>在此之前，有工厂模式，有构造函数模式，但都存在着一些大的问题：</p>
 <ul>
 <li>工厂模式的问题：无法识别对象是由谁创建的</li>
 <li>构造函数的问题：在创建每个实例时，构造函数给每个实例的新建了方法，即使该方法本身是一模一样的，而面向对象的思想并不希望方法是一样的但是却要重复的创建，这本身浪费内存空间</li>
 </ul>
-<h3 id="原型模式">原型模式</h3>
+
+<h3 class="relative group">原型模式
+    <div id="原型模式" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%8e%9f%e5%9e%8b%e6%a8%a1%e5%bc%8f" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
 <p>为了解决工厂模式和构造函数模式的问题，于是有了原型模式</p>
 <p>把共享的变量和方法都放到原型上，然后让子类的原型与父类的原型建立关系，就实现了原型式继承</p>
 <p>代码如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(){}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 定义要共享的方法
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Jimmy&#39;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 或者另一种写法
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Person</span>, <span style="color:#75715e">// 不要忘记修正constructor指向
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">name</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Jimmy&#39;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>但是原型模式也存在着一些问题：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>() {}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 定义要共享的方法
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Jimmy&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 或者另一种写法
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Person</span>, <span style="color:#75715e">// 不要忘记修正constructor指向
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Jimmy&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sayName</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">sayName</span>(); <span style="color:#75715e">// &#39;Jimmy&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">sayName</span>(); <span style="color:#75715e">// &#39;Jimmy&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">sayName</span>); <span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">job</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;student&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">job</span>); <span style="color:#75715e">// student
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">job</span>); <span style="color:#75715e">// undefined
-</span></span></span></code></pre></div><p>这段代码是没有什么问题的，p1 和 p2 已经分离开了，而且也共享着属性和方法，但是，如果 Person 的属性为对象或者数组呢？</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>() {}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 定义要共享的方法
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Jimmy&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">hobby</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;basketball&#34;</span>, <span style="color:#e6db74">&#34;running&#34;</span>, <span style="color:#e6db74">&#34;code&#34;</span>];
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">hobby</span>); <span style="color:#75715e">// [&#39;basketball&#39;, &#39;running&#39;, &#39;code&#39;]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">hobby</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;girl&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">hobby</span>); <span style="color:#75715e">// [&#34;basketball&#34;, &#34;running&#34;, &#34;code&#34;, &#34;girl&#34;]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">hobby</span>); <span style="color:#75715e">// [&#34;basketball&#34;, &#34;running&#34;, &#34;code&#34;, &#34;girl&#34;]
-</span></span></span></code></pre></div><p>咦，p2.hobby 并没有&rsquo;girl&rsquo;这个爱好啊，可是 p1 的爱好居然影响了它，这就是原型模式的问题了，原因很简单，p1 和 p2 的<code>__proto__</code>都指向了 Person 的原型，导致在实例上的修改都改变 Person 的原型的方法</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>); <span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>); <span style="color:#75715e">// true
-</span></span></span></code></pre></div><p>还有另一个问题，类的构造函数不是可以传递参数吗，定义在 prototype 上还怎么传参数呢？</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(){}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义要共享的方法
+</span></span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Jimmy&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 或者另一种写法
+</span></span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">constructor</span><span class="o">:</span> <span class="nx">Person</span><span class="p">,</span> <span class="c1">// 不要忘记修正constructor指向
+</span></span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="o">:</span> <span class="s1">&#39;Jimmy&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>但是原型模式也存在着一些问题：</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Person</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义要共享的方法
+</span></span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Jimmy&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 或者另一种写法
+</span></span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="o">:</span> <span class="nx">Person</span><span class="p">,</span> <span class="c1">// 不要忘记修正constructor指向
+</span></span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Jimmy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sayName</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">p1</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span> <span class="c1">// &#39;Jimmy&#39;
+</span></span></span><span class="line"><span class="cl"><span class="nx">p2</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span> <span class="c1">// &#39;Jimmy&#39;
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p1</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">===</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">sayName</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="nx">p1</span><span class="p">.</span><span class="nx">job</span> <span class="o">=</span> <span class="s2">&#34;student&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p1</span><span class="p">.</span><span class="nx">job</span><span class="p">);</span> <span class="c1">// student
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p2</span><span class="p">.</span><span class="nx">job</span><span class="p">);</span> <span class="c1">// undefined
+</span></span></span></code></pre></div></div>
+<p>这段代码是没有什么问题的，p1 和 p2 已经分离开了，而且也共享着属性和方法，但是，如果 Person 的属性为对象或者数组呢？</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Person</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义要共享的方法
+</span></span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Jimmy&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hobby</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;basketball&#34;</span><span class="p">,</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span> <span class="s2">&#34;code&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p2</span><span class="p">.</span><span class="nx">hobby</span><span class="p">);</span> <span class="c1">// [&#39;basketball&#39;, &#39;running&#39;, &#39;code&#39;]
+</span></span></span><span class="line"><span class="cl"><span class="nx">p1</span><span class="p">.</span><span class="nx">hobby</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;girl&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p1</span><span class="p">.</span><span class="nx">hobby</span><span class="p">);</span> <span class="c1">// [&#34;basketball&#34;, &#34;running&#34;, &#34;code&#34;, &#34;girl&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p2</span><span class="p">.</span><span class="nx">hobby</span><span class="p">);</span> <span class="c1">// [&#34;basketball&#34;, &#34;running&#34;, &#34;code&#34;, &#34;girl&#34;]
+</span></span></span></code></pre></div></div>
+<p>咦，p2.hobby 并没有&rsquo;girl&rsquo;这个爱好啊，可是 p1 的爱好居然影响了它，这就是原型模式的问题了，原因很简单，p1 和 p2 的<code>__proto__</code>都指向了 Person 的原型，导致在实例上的修改都改变 Person 的原型的方法</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p1</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p2</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span> <span class="c1">// true
+</span></span></span></code></pre></div></div>
+<p>还有另一个问题，类的构造函数不是可以传递参数吗，定义在 prototype 上还怎么传参数呢？</p>
 <hr>
-<h3 id="组合使用构造函数和原型-推荐">组合使用构造函数和原型 （推荐）</h3>
+
+<h3 class="relative group">组合使用构造函数和原型 （推荐）
+    <div id="组合使用构造函数和原型-推荐" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bb%84%e5%90%88%e4%bd%bf%e7%94%a8%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e5%92%8c%e5%8e%9f%e5%9e%8b-%e6%8e%a8%e8%8d%90" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
 <p>为了解决上面的问题，将构造函数模式和原型模式做个组合就解决了问题：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">hobby</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;basketball&#34;</span>, <span style="color:#e6db74">&#34;running&#34;</span>, <span style="color:#e6db74">&#34;code&#34;</span>];
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Person</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sayName</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#34;Jimmy&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#34;king&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">hobby</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">hobby</span>); <span style="color:#75715e">// false
-</span></span></span></code></pre></div><p>构造函数模式用来定义实例属性，原型模式用来定义定义共享的属性和方法，这下解决了这个问题！</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">hobby</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;basketball&#34;</span><span class="p">,</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span> <span class="s2">&#34;code&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="o">:</span> <span class="nx">Person</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sayName</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&#34;Jimmy&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&#34;king&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p1</span><span class="p">.</span><span class="nx">hobby</span> <span class="o">===</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">hobby</span><span class="p">);</span> <span class="c1">// false
+</span></span></span></code></pre></div></div>
+<p>构造函数模式用来定义实例属性，原型模式用来定义定义共享的属性和方法，这下解决了这个问题！</p>
 <p>这是使用最为广泛的创建自定义类型的方法！</p>
 <hr>
-<h3 id="动态原型模式">动态原型模式</h3>
+
+<h3 class="relative group">动态原型模式
+    <div id="动态原型模式" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%8a%a8%e6%80%81%e5%8e%9f%e5%9e%8b%e6%a8%a1%e5%bc%8f" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
 <p>组合使用构造函数和原型，使得与其他语言存在不同的地方，构造函数和原型独立了。如果是 java 代码，它定义是这样的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> age;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Person</span>(String name, <span style="color:#66d9ef">int</span> age){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getName</span>(){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setAge</span>(age){
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>可以看到构造函数和方法都是在 Person 类中定义的，而 javascript 的构造函数和原型则分离开了，而动态原型模式就是解决这一问题的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;function&#34;</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">alert</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>    };
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>通过检测 sayName 函数是否存在，在去定义原型上的函数，使得函数得一统一</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Person</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Person</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getName</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setAge</span><span class="p">(</span><span class="n">age</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>可以看到构造函数和方法都是在 Person 类中定义的，而 javascript 的构造函数和原型则分离开了，而动态原型模式就是解决这一问题的：</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="k">this</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">!=</span> <span class="s2">&#34;function&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>通过检测 sayName 函数是否存在，在去定义原型上的函数，使得函数得一统一</p>
 <hr>
-<h3 id="寄生构造函数模式">寄生构造函数模式</h3>
+
+<h3 class="relative group">寄生构造函数模式
+    <div id="寄生构造函数模式" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%af%84%e7%94%9f%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e6%a8%a1%e5%bc%8f" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
 <p>在前面几种模式都不适合时，寄生构造函数是一个不错的选择</p>
 <p>基本思想：创建一个函数 Fn，Fn 的作用仅仅是封装创建对象的代码，然后再返回新创建的对象</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>, <span style="color:#a6e22e">job</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object();
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">job</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">job</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">o</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#34;Jimmy&#34;</span>, <span style="color:#ae81ff">22</span>, <span style="color:#e6db74">&#34;student&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">sayName</span>(); <span style="color:#75715e">// &#39;Jimmy&#39;
-</span></span></span></code></pre></div><p><code>return o</code>其实重写了使用<code>new</code>操作符隐式返回的<code>this</code>，因此重写了调用构造函数时返回的值</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">,</span> <span class="nx">job</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">o</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">o</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">o</span><span class="p">.</span><span class="nx">job</span> <span class="o">=</span> <span class="nx">job</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">o</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">o</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&#34;Jimmy&#34;</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="s2">&#34;student&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">p</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span> <span class="c1">// &#39;Jimmy&#39;
+</span></span></span></code></pre></div></div>
+<p><code>return o</code>其实重写了使用<code>new</code>操作符隐式返回的<code>this</code>，因此重写了调用构造函数时返回的值</p>
 <p>一个很好的例子，拓展一个 Array 的自定义方法，产生一个特殊 Array，而不会修改到原生 Array</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SpecialArray</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Array();
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">push</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">arr</span>, <span style="color:#a6e22e">arguments</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">toInterestString</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#34;^_^&#34;</span>);
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">arr</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SpecialArray</span>(<span style="color:#e6db74">&#34;first&#34;</span>, <span style="color:#e6db74">&#34;second&#34;</span>, <span style="color:#e6db74">&#34;third&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">toInterestString</span>()); <span style="color:#75715e">// first^_^second^_^third
-</span></span></span></code></pre></div><p>可是存在着构造函数的问题：无法识别对象类型</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span> <span style="color:#66d9ef">instanceof</span> Array); <span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">constructor</span>); <span style="color:#75715e">// Array
-</span></span></span></code></pre></div><p>试图手动修改 constructor 的值也是徒劳的&hellip;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">SpecialArray</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">SpecialArray</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SpecialArray</span>(<span style="color:#e6db74">&#34;first&#34;</span>, <span style="color:#e6db74">&#34;second&#34;</span>, <span style="color:#e6db74">&#34;third&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span> <span style="color:#66d9ef">instanceof</span> Array); <span style="color:#75715e">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">constructor</span>); <span style="color:#75715e">// Array
-</span></span></span></code></pre></div><hr>
-<h2 id="继承">继承</h2>
-<h3 id="深度复制实现继承extend">深度复制实现继承（extend）</h3>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SpecialArray</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">arr</span><span class="p">.</span><span class="nx">toInterestString</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&#34;^_^&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">arr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SpecialArray</span><span class="p">(</span><span class="s2">&#34;first&#34;</span><span class="p">,</span> <span class="s2">&#34;second&#34;</span><span class="p">,</span> <span class="s2">&#34;third&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">toInterestString</span><span class="p">());</span> <span class="c1">// first^_^second^_^third
+</span></span></span></code></pre></div></div>
+<p>可是存在着构造函数的问题：无法识别对象类型</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">constructor</span><span class="p">);</span> <span class="c1">// Array
+</span></span></span></code></pre></div></div>
+<p>试图手动修改 constructor 的值也是徒劳的&hellip;</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">SpecialArray</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">SpecialArray</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SpecialArray</span><span class="p">(</span><span class="s2">&#34;first&#34;</span><span class="p">,</span> <span class="s2">&#34;second&#34;</span><span class="p">,</span> <span class="s2">&#34;third&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span> <span class="k">instanceof</span> <span class="nb">Array</span><span class="p">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">constructor</span><span class="p">);</span> <span class="c1">// Array
+</span></span></span></code></pre></div></div>
+<hr>
+
+<h2 class="relative group">继承
+    <div id="继承" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bb%a7%e6%89%bf" aria-label="锚点">#</a>
+    </span>
+    
+</h2>
+
+<h3 class="relative group">深度复制实现继承（extend）
+    <div id="深度复制实现继承extend" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%b7%b1%e5%ba%a6%e5%a4%8d%e5%88%b6%e5%ae%9e%e7%8e%b0%e7%bb%a7%e6%89%bfextend" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
 <p>其实就是把父对象的所有属性，全部都拷贝给子对象，然后再在子对象上做拓展，实现继承（不能叫继承吧，我觉得叫对象的拓展比较适合）</p>
 <p>先明白什么是浅复制：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">extend</span>(<span style="color:#a6e22e">p</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> {};
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">p</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>];
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">o</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>这样虽然实现了简单的拷贝，但是，这样的拷贝只对基本类型有用，如果<code>p</code>中存在一个属性是数组或者对象，它可能是这样的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Zheng&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">secondName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Jimmy&#34;</span>,
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div><p>此时<code>o</code>只是引用了<code>p.obj</code>的地址，而没有复制到里面的<code>firstName</code>的什么鬼……，所以此时要使用的就是深复制啦，而深复制也就是把数组与对象做一个递归复制而已~</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">extend</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">o</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">o</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>这样虽然实现了简单的拷贝，但是，这样的拷贝只对基本类型有用，如果<code>p</code>中存在一个属性是数组或者对象，它可能是这样的：</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">p</span><span class="p">.</span><span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">firstName</span><span class="o">:</span> <span class="s2">&#34;Zheng&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">secondName</span><span class="o">:</span> <span class="s2">&#34;Jimmy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>此时<code>o</code>只是引用了<code>p.obj</code>的地址，而没有复制到里面的<code>firstName</code>的什么鬼……，所以此时要使用的就是深复制啦，而深复制也就是把数组与对象做一个递归复制而已~</p>
 <p>如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deepExtend</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">o</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">||</span> {};
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">p</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;object&#39;</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> (<span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">===</span> Array) <span style="color:#f92672">?</span> [] <span style="color:#f92672">:</span> {};
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">deepExtend</span>(<span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span>]);
-</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>];
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">o</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>而 jquery 中用的就是这种方法来实现继承的。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">deepExtend</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="nx">o</span> <span class="o">||</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="nx">p</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">o</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nx">p</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">constructor</span> <span class="o">===</span> <span class="nb">Array</span><span class="p">)</span> <span class="o">?</span> <span class="p">[]</span> <span class="o">:</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">deepExtend</span><span class="p">(</span><span class="nx">p</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">o</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">o</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">p</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">o</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>而 jquery 中用的就是这种方法来实现继承的。</p>
 <hr>
-<h3 id="构造函数和原型链继承">构造函数和原型链继承</h3>
+
+<h3 class="relative group">构造函数和原型链继承
+    <div id="构造函数和原型链继承" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e5%92%8c%e5%8e%9f%e5%9e%8b%e9%93%be%e7%bb%a7%e6%89%bf" aria-label="锚点">#</a>
+    </span>
+    
+</h3>
 <p>通过构造函数和原型链可以实现继承，其实 javascript 本身就是使用这种方式来实现继承的，如 Array 继承于 Object</p>
-<h4 id="原型链继承">原型链继承</h4>
+
+<h4 class="relative group">原型链继承
+    <div id="原型链继承" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%8e%9f%e5%9e%8b%e9%93%be%e7%bb%a7%e6%89%bf" aria-label="锚点">#</a>
+    </span>
+    
+</h4>
 <p>通过让子类的原型指向父类的创建的实例，实现子类共享父类的属性和方法</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SuperType</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">property</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">getSuperValue</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">property</span>;
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SubType</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">subProperty</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 子类的原型指向父类原型的引用，实现原型方法的共享
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SuperType</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">getSubValue</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">subProperty</span>;
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">getSuperValue</span>()); <span style="color:#75715e">// true
-</span></span></span></code></pre></div><p>这样就实现了简单的继承了，但是这样的继承却存在着很大的问题：</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SuperType</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">property</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">SuperType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getSuperValue</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">property</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SubType</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">subProperty</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 子类的原型指向父类原型的引用，实现原型方法的共享
+</span></span></span><span class="line"><span class="cl"><span class="nx">SubType</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SuperType</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">SubType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getSubValue</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">subProperty</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SubType</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">getSuperValue</span><span class="p">());</span> <span class="c1">// true
+</span></span></span></code></pre></div></div>
+<p>这样就实现了简单的继承了，但是这样的继承却存在着很大的问题：</p>
 <ul>
 <li>生成的子类实例的 constructor 属性指向了父类（因为子类的原型指向了父类的原型，所以子类的原型上的 constructor 属性就指向了父类的构造函数）</li>
 <li>每次继承时，都调用了父类（别忘了父类本质也是函数）</li>
 <li>创建子类的实例时，不能向超类型的构造函数传递参数</li>
 <li>如果属性中包含一个引用类型，那么子类实例对数组的操作会影响到另一个子类实例，看下面例子：</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SuperType</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">colors</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>];
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SubType</span>() {}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 子类的原型指向父类原型的引用，实现原型方法的共享
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SuperType</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">instance1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">colors</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;black&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">instance2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 另一个子类被影响到了
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance2</span>.<span style="color:#a6e22e">colors</span>); <span style="color:#75715e">// [&#39;red&#39;, &#39;blue&#39;, &#39;green&#39;, &#39;black&#39;]
-</span></span></span></code></pre></div><p>为什么会影响到父类呢？因为子类的原型指向了父类的原型的引用，因此子类原型实际上是父类的实例，引用类型实际上只是把地址给了实例，实例之间就会共享所有的引用类型</p>
-<h4 id="借用构造函数">借用构造函数</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SuperType</span>(<span style="color:#a6e22e">name</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">colors</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>];
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SubType</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 在子类中调用父类的方法，当做是执行函数更好理解
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;name&#34;</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">29</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sub1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sub1</span>.<span style="color:#a6e22e">colors</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;black&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">sub1</span>.<span style="color:#a6e22e">colors</span>); <span style="color:#75715e">// [&#39;red&#39;, &#39;blue&#39;, &#39;green&#39;, &#39;black&#39;]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sub2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>();
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">sub2</span>.<span style="color:#a6e22e">colors</span>); <span style="color:#75715e">// [&#39;red&#39;, &#39;blue&#39;, &#39;green&#39;]
-</span></span></span></code></pre></div><p>借用构造函数虽然解决了原型链继承的实例共享和参数传递的问题，但是却出现了新的问题：</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SuperType</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SubType</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 子类的原型指向父类原型的引用，实现原型方法的共享
+</span></span></span><span class="line"><span class="cl"><span class="nx">SubType</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SuperType</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">instance1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SubType</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">instance1</span><span class="p">.</span><span class="nx">colors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;black&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">instance2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SubType</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 另一个子类被影响到了
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">colors</span><span class="p">);</span> <span class="c1">// [&#39;red&#39;, &#39;blue&#39;, &#39;green&#39;, &#39;black&#39;]
+</span></span></span></code></pre></div></div>
+<p>为什么会影响到父类呢？因为子类的原型指向了父类的原型的引用，因此子类原型实际上是父类的实例，引用类型实际上只是把地址给了实例，实例之间就会共享所有的引用类型</p>
+
+<h4 class="relative group">借用构造函数
+    <div id="借用构造函数" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%80%9f%e7%94%a8%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0" aria-label="锚点">#</a>
+    </span>
+    
+</h4>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SuperType</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SubType</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 在子类中调用父类的方法，当做是执行函数更好理解
+</span></span></span><span class="line"><span class="cl">  <span class="nx">SuperType</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">29</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">sub1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SubType</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">sub1</span><span class="p">.</span><span class="nx">colors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;black&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sub1</span><span class="p">.</span><span class="nx">colors</span><span class="p">);</span> <span class="c1">// [&#39;red&#39;, &#39;blue&#39;, &#39;green&#39;, &#39;black&#39;]
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">sub2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SubType</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sub2</span><span class="p">.</span><span class="nx">colors</span><span class="p">);</span> <span class="c1">// [&#39;red&#39;, &#39;blue&#39;, &#39;green&#39;]
+</span></span></span></code></pre></div></div>
+<p>借用构造函数虽然解决了原型链继承的实例共享和参数传递的问题，但是却出现了新的问题：</p>
 <ul>
 <li>由于只能在构造函数上定义，函数复用失效了</li>
 <li>在超类型原型中定义的方法，子类也不能拥有（没有继承原型链）</li>
 </ul>
-<h4 id="组合继承">组合继承</h4>
+
+<h4 class="relative group">组合继承
+    <div id="组合继承" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bb%84%e5%90%88%e7%bb%a7%e6%89%bf" aria-label="锚点">#</a>
+    </span>
+    
+</h4>
 <p>那么把原型继承和借用构造函数组合一下各取所长，就有了新的继承方式啦：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SuperType</span>(<span style="color:#a6e22e">name</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">colors</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>];
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SubType</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SuperType</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayAge</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span>);
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">instance1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>(<span style="color:#e6db74">&#34;Nicholas&#34;</span>, <span style="color:#ae81ff">29</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">colors</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;black&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">colors</span>); <span style="color:#75715e">//&#34;red,blue,green,black&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">sayName</span>(); <span style="color:#75715e">//&#34;Nicholas&#34;;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">sayAge</span>(); <span style="color:#75715e">//29
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">instance2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SubType</span>(<span style="color:#e6db74">&#34;Greg&#34;</span>, <span style="color:#ae81ff">27</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">instance2</span>.<span style="color:#a6e22e">colors</span>); <span style="color:#75715e">//&#34;red,blue,green&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">instance2</span>.<span style="color:#a6e22e">sayName</span>(); <span style="color:#75715e">//&#34;Greg&#34;;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">instance2</span>.<span style="color:#a6e22e">sayAge</span>(); <span style="color:#75715e">//27
-</span></span></span></code></pre></div><p>可是又特么有问题啦！</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance1</span>.<span style="color:#a6e22e">constructor</span>); <span style="color:#75715e">// SuperType
-</span></span></span></code></pre></div><p><code>instance1</code>的<code>constructor</code>属性应该是指向创建它的构造函数的，但这里却指向了<code>SuperType</code></p>
-<h4 id="原型式继承">原型式继承</h4>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SuperType</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">SuperType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SubType</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">SuperType</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">SubType</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SuperType</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">SubType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayAge</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">instance1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SubType</span><span class="p">(</span><span class="s2">&#34;Nicholas&#34;</span><span class="p">,</span> <span class="mi">29</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">instance1</span><span class="p">.</span><span class="nx">colors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;black&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">alert</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">colors</span><span class="p">);</span> <span class="c1">//&#34;red,blue,green,black&#34;
+</span></span></span><span class="line"><span class="cl"><span class="nx">instance1</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span> <span class="c1">//&#34;Nicholas&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="nx">instance1</span><span class="p">.</span><span class="nx">sayAge</span><span class="p">();</span> <span class="c1">//29
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">instance2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SubType</span><span class="p">(</span><span class="s2">&#34;Greg&#34;</span><span class="p">,</span> <span class="mi">27</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">alert</span><span class="p">(</span><span class="nx">instance2</span><span class="p">.</span><span class="nx">colors</span><span class="p">);</span> <span class="c1">//&#34;red,blue,green&#34;
+</span></span></span><span class="line"><span class="cl"><span class="nx">instance2</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span> <span class="c1">//&#34;Greg&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="nx">instance2</span><span class="p">.</span><span class="nx">sayAge</span><span class="p">();</span> <span class="c1">//27
+</span></span></span></code></pre></div></div>
+<p>可是又特么有问题啦！</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance1</span><span class="p">.</span><span class="nx">constructor</span><span class="p">);</span> <span class="c1">// SuperType
+</span></span></span></code></pre></div></div>
+<p><code>instance1</code>的<code>constructor</code>属性应该是指向创建它的构造函数的，但这里却指向了<code>SuperType</code></p>
+
+<h4 class="relative group">原型式继承
+    <div id="原型式继承" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%8e%9f%e5%9e%8b%e5%bc%8f%e7%bb%a7%e6%89%bf" aria-label="锚点">#</a>
+    </span>
+    
+</h4>
 <p>道格拉斯.克罗克福德实现的继承方法，不适用构造函数，而是借助原型可以基于已有的对象创建对象，同时还不必因此创建自定义类型。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">object</span>(<span style="color:#a6e22e">o</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">F</span>() {} <span style="color:#75715e">// 创建临时构造函数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">F</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">o</span>; <span style="color:#75715e">// 将传入的对象作为临时函数的原型
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">F</span>(); <span style="color:#75715e">// 返回临时函数的实例
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Nicholas&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">friends</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;Shelby&#34;</span>, <span style="color:#e6db74">&#34;Court&#34;</span>, <span style="color:#e6db74">&#34;Van&#34;</span>],
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">anotherPerson</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">object</span>(<span style="color:#a6e22e">person</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">anotherPerson</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Greg&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">anotherPerson</span>.<span style="color:#a6e22e">friends</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;Rob&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">yetAnotherPerson</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">object</span>(<span style="color:#a6e22e">person</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">yetAnotherPerson</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Linda&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">yetAnotherPerson</span>.<span style="color:#a6e22e">friends</span>.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#34;Barbie&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">friends</span>); <span style="color:#75715e">//&#34;Shelby,Court,Van,Rob,Barbie&#34;
-</span></span></span></code></pre></div><p>本质上是执行了一次浅复制，因此<code>anotherPerson</code>和<code>yetAnotherPerson</code>都共享了<code>person</code>的方法（其实我不知道这种继承的意义是啥……）</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">object</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">F</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// 创建临时构造函数
+</span></span></span><span class="line"><span class="cl">  <span class="nx">F</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">o</span><span class="p">;</span> <span class="c1">// 将传入的对象作为临时函数的原型
+</span></span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nx">F</span><span class="p">();</span> <span class="c1">// 返回临时函数的实例
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Nicholas&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">friends</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;Shelby&#34;</span><span class="p">,</span> <span class="s2">&#34;Court&#34;</span><span class="p">,</span> <span class="s2">&#34;Van&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">anotherPerson</span> <span class="o">=</span> <span class="nx">object</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">anotherPerson</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Greg&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">anotherPerson</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;Rob&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">yetAnotherPerson</span> <span class="o">=</span> <span class="nx">object</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">yetAnotherPerson</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Linda&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">yetAnotherPerson</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;Barbie&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">alert</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">friends</span><span class="p">);</span> <span class="c1">//&#34;Shelby,Court,Van,Rob,Barbie&#34;
+</span></span></span></code></pre></div></div>
+<p>本质上是执行了一次浅复制，因此<code>anotherPerson</code>和<code>yetAnotherPerson</code>都共享了<code>person</code>的方法（其实我不知道这种继承的意义是啥……）</p>
 <p>ECMAScript 中实现了该方法 Object.create()，<!-- raw HTML omitted -->Object.create()<!-- raw HTML omitted --> ，这与原型式继承是一样的</p>
-<h4 id="寄生式继承">寄生式继承</h4>
+
+<h4 class="relative group">寄生式继承
+    <div id="寄生式继承" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%af%84%e7%94%9f%e5%bc%8f%e7%bb%a7%e6%89%bf" aria-label="锚点">#</a>
+    </span>
+    
+</h4>
 <p>与原型式继承类似，增强对象，返回新的对象：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createAnother</span>(<span style="color:#a6e22e">original</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">clone</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">object</span>(<span style="color:#a6e22e">original</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">clone</span>.<span style="color:#a6e22e">sayHi</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(){
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;hi&#39;</span>);
-</span></span><span style="display:flex;"><span>    };
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">clone</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Jimmy&#39;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">friend</span> <span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;king&#39;</span>, <span style="color:#e6db74">&#39;steve&#39;</span>];
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">anotherPerson</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createAnother</span>(<span style="color:#a6e22e">person</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">anotherPerson</span>.<span style="color:#a6e22e">sayHi</span>(); <span style="color:#75715e">// hi
-</span></span></span></code></pre></div><p>与构造函数模式相似，使用寄生式继承不能做到函数复用</p>
-<h4 id="寄生式组合继承大-boss前面的都是铺垫">寄生式组合继承（大 BOSS，前面的都是铺垫）</h4>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">createAnother</span><span class="p">(</span><span class="nx">original</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">clone</span> <span class="o">=</span> <span class="nx">object</span><span class="p">(</span><span class="nx">original</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">clone</span><span class="p">.</span><span class="nx">sayHi</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">clone</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="o">:</span> <span class="s1">&#39;Jimmy&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">friend</span> <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;king&#39;</span><span class="p">,</span> <span class="s1">&#39;steve&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">anotherPerson</span> <span class="o">=</span> <span class="nx">createAnother</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">anotherPerson</span><span class="p">.</span><span class="nx">sayHi</span><span class="p">();</span> <span class="c1">// hi
+</span></span></span></code></pre></div></div>
+<p>与构造函数模式相似，使用寄生式继承不能做到函数复用</p>
+
+<h4 class="relative group">寄生式组合继承（大 BOSS，前面的都是铺垫）
+    <div id="寄生式组合继承大-boss前面的都是铺垫" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%af%84%e7%94%9f%e5%bc%8f%e7%bb%84%e5%90%88%e7%bb%a7%e6%89%bf%e5%a4%a7-boss%e5%89%8d%e9%9d%a2%e7%9a%84%e9%83%bd%e6%98%af%e9%93%ba%e5%9e%ab" aria-label="锚点">#</a>
+    </span>
+    
+</h4>
 <ul>
 <li>组合继承存在构造函数被多次调用的问题</li>
 <li>子类的 constructor 被修改</li>
 </ul>
 <p>寄生式组合继承就解决了这两个问题，并结合其他继承的特性：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">object</span>(<span style="color:#a6e22e">o</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">F</span>() {}
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">F</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">o</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">F</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 用中间对象来过渡，避免调用父类的构造函数，浪费资源
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 接收子类和父类的构造函数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">inheritPrototype</span>(<span style="color:#a6e22e">subType</span>, <span style="color:#a6e22e">superType</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">object</span>(<span style="color:#a6e22e">superType</span>.<span style="color:#a6e22e">prototype</span>); <span style="color:#75715e">// 得到父类对象，存入副本
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">subType</span>; <span style="color:#75715e">// 修正constructor指向
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">subType</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prototype</span>; <span style="color:#75715e">// 子类继承父类
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SuperType</span>(<span style="color:#a6e22e">name</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">color</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;blue&#34;</span>, <span style="color:#e6db74">&#34;green&#34;</span>];
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">SubType</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">SuperType</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">name</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">inheritPrototype</span>(<span style="color:#a6e22e">SubType</span>, <span style="color:#a6e22e">SuperType</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SubType</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayName</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span>);
-</span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div><p>一切问题都解决了，这就是最理想的继承了，当然，为了避免把变量暴露在全局环境下，最好对寄生式组合继承做一个封装！</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">object</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">F</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">F</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">o</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nx">F</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 用中间对象来过渡，避免调用父类的构造函数，浪费资源
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 接收子类和父类的构造函数
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">inheritPrototype</span><span class="p">(</span><span class="nx">subType</span><span class="p">,</span> <span class="nx">superType</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">prototype</span> <span class="o">=</span> <span class="nx">object</span><span class="p">(</span><span class="nx">superType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span> <span class="c1">// 得到父类对象，存入副本
+</span></span></span><span class="line"><span class="cl">  <span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">subType</span><span class="p">;</span> <span class="c1">// 修正constructor指向
+</span></span></span><span class="line"><span class="cl">  <span class="nx">subType</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">prototype</span><span class="p">;</span> <span class="c1">// 子类继承父类
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SuperType</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">SuperType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">SubType</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">SuperType</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">this</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">inheritPrototype</span><span class="p">(</span><span class="nx">SubType</span><span class="p">,</span> <span class="nx">SuperType</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">SubType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div></div>
+<p>一切问题都解决了，这就是最理想的继承了，当然，为了避免把变量暴露在全局环境下，最好对寄生式组合继承做一个封装！</p>
 
-                </div>
-            </article>
-
-            <hr />
-
-            <div class="post-info">
-                
-                
-            </div>
-        </main>
-    </div>
-
-
-            
-                <footer class="footer">
-    
-    
-</footer>
-
-            
+          
+          
+          
         </div>
+        
+        
+
+        
+
+        
+
+      </div>
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/blog/archives/2015-06-22-javascript-closure-note/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;百度ife-javascript闭包学习笔记
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2015-06-23T00:00:00&#43;08:00">June 23, 2015</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/blog/archives/2015-06-24-javascript-constructor-note/">
+              <span class="leading-6">
+                百度ife-javascript构造函数学习笔记&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2015-06-25T00:00:00&#43;08:00">June 25, 2015</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
 
         
 
 
-
-<script type="text/javascript" src="/blog/bundle.min.19d7885e5a4b0e5e2cd7238fc80b8b19888099cb78c032aedeb0b3b0010b8bb3dfb34849cf40a9e83f55f266aa32354528c10a24f2a42e6e8e21e813a26d9647.js" integrity="sha512-GdeIXlpLDl4s1yOPyAuLGYiAmct4wDKu3rCzsAELi7Pfs0hJz0Cp6D9V8maqMjVFKMEKJPKkLm6OIegTom2WRw=="></script>
-
+  
 
 
 
-    </body>
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-6 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部"
+    title="返回顶部">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+      
+      
+        
+          
+          
+      
+      
+      
+      <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400 ">
+        <ul class="flex list-none flex-col sm:flex-row">
+          
+            <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 ">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
+                href="/blog/tags/"
+                title="Tags">
+                
+                标签
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2026
+          
+      </p>
+    
+
+    
+    
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        
+        
+        由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+      </p>
+    
+  </div>
+  
+    <script>
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    </script>
+  
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="http://localhost:1313/blog/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
 </html>

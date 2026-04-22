@@ -1,6 +1,6 @@
 ---
 title: "sticky footer"
-date: 2015-9-510:19:38T00:00:00+08:00
+date: 2015-09-05T00:00:00+08:00
 tags:
 categories:
 ---
