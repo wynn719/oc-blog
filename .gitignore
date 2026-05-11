@@ -1,3 +1,20 @@
-themes/
+# Hugo 构建输出
 public/
+
+# Hugo 资源缓存
+resources/_gen/
+
+# Hugo 构建锁文件
+.hugo_build.lock
+
+# 主题（通过 git submodule 管理）
+themes/
+
+# macOS
 .DS_Store
+
+# 编辑器
+.idea/
+.vscode/
+*.swp
+*.swo

@@ -15,8 +15,8 @@
 
   
   
-    <title>PHP PDO参数绑定查询后，查看实际执行SQL的方法 &middot; 伟神的博客</title>
-    <meta name="title" content="PHP PDO参数绑定查询后，查看实际执行SQL的方法 &middot; 伟神的博客">
+    <title>PHP PDO参数绑定查询后，查看实际执行SQL的方法 &middot; 阿伟的博客</title>
+    <meta name="title" content="PHP PDO参数绑定查询后，查看实际执行SQL的方法 &middot; 阿伟的博客">
   
 
   
@@ -34,7 +34,7 @@
 
   
   <meta property="og:url" content="http://localhost:1313/blog/archives/2016-04-11-how-to-debug-pdo-database-queries/">
-  <meta property="og:site_name" content="伟神的博客">
+  <meta property="og:site_name" content="阿伟的博客">
   <meta property="og:title" content="PHP PDO参数绑定查询后，查看实际执行SQL的方法">
   <meta property="og:description" content="PDO 提供了一个PDOStatement::debugDumpParams — 打印一条 SQL 预处理命令的调试方法，但是打印出来的结果有点鸡肋，比如说：
 &lt;?php try { $pdo = new PDO(); $sql = &#34;SELECT * FROM `users` WHERE `username` = ? AND `email` = ?&#34;; $stmt = $pdo-&gt;prepare($sql); $stmt-&gt;bindParam(1, $username, PDO::PARAM_STR); $stmt-&gt;bindParam(2, $email, PDO::PARAM_STR); $username = &#39;Saul Goodman&#39;; $email = &#39;********@qq.com&#39;; $stmt-&gt;execute(); $stmt-&gt;debugDumpParams(); } catch (PDOException $e) { echo $e-&gt;getMessage(); } // 结果很感人： // SQL: [58] SELECT * FROM `users` WHERE `username` = ? AND `email` = ? // Params: 2 // Key: Position #0: // paramno=0 // name=[0] &#34;&#34; // is_param=1 // param_type=2 // Key: Position #1: // paramno=1 // name=[0] &#34;&#34; // is_param=1 // param_type=2 ?&gt; 要是 SQL 语句一复杂这根本就阅读不了嘛！">
@@ -271,7 +271,7 @@
   
   
     <a href="/blog/" class="text-base font-medium truncate min-w-0 shrink">
-      伟神的博客
+      阿伟的博客
     </a>
   
   <div class="flex items-center ms-auto">
@@ -615,7 +615,7 @@
   
   <li class="hidden">
     <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/blog/"
-      >伟神的博客</a
+      >阿伟的博客</a
     ><span class="px-1 text-primary-500">/</span>
   </li>
 

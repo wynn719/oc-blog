@@ -1,6 +1,6 @@
 baseURL = 'https://kaorz.com/blog/'
 languageCode = 'zh-CN'
-title = '伟神的博客'
+title = '阿伟的博客'
 theme = 'blowfish'
 defaultContentLanguage = 'zh-cn'
 enableRobotsTXT = true
@@ -30,7 +30,7 @@ enableRobotsTXT = true
     showRecent = true
     showRecentItems = 5
     showMoreLink = true
-    showMoreLinkDest = '/posts/'
+    showMoreLinkDest = 'posts'
     cardView = false
 
   [params.article]

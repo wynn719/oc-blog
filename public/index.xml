@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>伟神的博客</title>
+    <title>阿伟的博客</title>
     <link>http://localhost:1313/blog/</link>
-    <description>Recent content on 伟神的博客</description>
+    <description>Recent content on 阿伟的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <copyright>© 2026 </copyright>
-    <lastBuildDate>Thu, 15 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>typescript 类型挑战</title>
-      <link>http://localhost:1313/blog/posts/2024-08-15-typescript-type-challenge/</link>
-      <pubDate>Thu, 15 Aug 2024 00:00:00 +0800</pubDate>
-      
-      <guid>http://localhost:1313/blog/posts/2024-08-15-typescript-type-challenge/</guid>
-      <description>&lt;p&gt;post content&lt;/p&gt;</description>
-      
-    </item>
+    <lastBuildDate>Wed, 09 Aug 2023 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>这个 blog 又回来了</title>
