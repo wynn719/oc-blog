@@ -1,0 +1,4 @@
+/* 隐藏首页 hero 区域中的大标题（作者名） */
+.relative .mb-2.text-4xl {
+  visibility: hidden;
+}
