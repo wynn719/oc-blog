@@ -11,8 +11,7 @@ enableRobotsTXT = true
     contentDir = 'content'
     weight = 1
     title = '阿伟的博客'
-    [languages.zh-cn.params]
-      locale = 'zh-CN'
+    locale = 'zh-CN'
 
 [pagination]
   pagerSize = 20
