@@ -7,9 +7,6 @@ resources/_gen/
 # Hugo 构建锁文件
 .hugo_build.lock
 
-# 主题（通过 git submodule 管理）
-themes/
-
 # macOS
 .DS_Store
 
