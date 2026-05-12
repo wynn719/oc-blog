@@ -7,11 +7,11 @@ enableRobotsTXT = true
 
 [languages]
   [languages.zh-cn]
-    languageCode = 'zh-cn'
+    languageCode = 'zh-CN'
     contentDir = 'content'
     weight = 1
     title = '阿伟的博客'
-    params = {}
+    [languages.zh-cn.params]
       locale = 'zh-CN'
 
 [pagination]
