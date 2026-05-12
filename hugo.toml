@@ -1,6 +1,6 @@
 baseURL = 'https://kaorz.com/blog/'
 languageCode = 'zh-CN'
-title = '阿伟的博客'
+title = '阿伟的部落格'
 theme = 'blowfish'
 defaultContentLanguage = 'zh-cn'
 enableRobotsTXT = true
@@ -10,7 +10,7 @@ enableRobotsTXT = true
     languageCode = 'zh-CN'
     contentDir = 'content'
     weight = 1
-    title = '阿伟的博客'
+    title = '阿伟的部落格'
     locale = 'zh-CN'
 
 [pagination]
@@ -34,12 +34,14 @@ enableRobotsTXT = true
     showScrollToTop = true
 
   [params.homepage]
-    layout = 'profile'
+    layout = 'hero'
+    homepageImage = 'img/hero.jpg'
     showRecent = true
-    showRecentItems = 5
+    showRecentItems = 3
     showMoreLink = true
     showMoreLinkDest = 'posts'
     cardView = false
+    disableHeroImageFilter = false
 
   [params.article]
     showDate = true
@@ -48,10 +50,17 @@ enableRobotsTXT = true
     showWordCount = true
     showPagination = true
     showBreadcrumbs = true
+    showTableOfContents = true   # 显示目录
+    showTaxonomies = true        # 显示标签/分类
+    showAuthorsBadges = true     # 显示作者徽章
+    heroStyle = "thumbAndBackground"          # big, basic, background, thumbAndBackground
 
   [params.list]
     showSummary = true
+    showHero = true          # 列表页不需要大图
     groupByYear = true
+    showBreadcrumbs = true
+    orderByWeight = true     # 按日期排序
 
 [[menu.main]]
   name = '文章'
@@ -69,3 +78,12 @@ enableRobotsTXT = true
 
 [outputs]
   home = ['HTML', 'RSS', 'JSON']
+
+[params.authors]
+  [params.authors.wynne]
+    name = "wynne"
+    image = "img/avatar.jpg"
+    bio = "Hi, there~"
+    links = [
+      ["github", "https://github.com/wynn719"],
+    ]

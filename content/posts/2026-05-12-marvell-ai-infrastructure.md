@@ -2,7 +2,6 @@
 title: "Marvell：AI 基础设施时代的隐形卖铲人"
 date: 2026-05-12
 tags: ["股票研究"]
-categories: ["分析"]
 ---
 
 ## 一、公司定位
