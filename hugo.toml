@@ -5,6 +5,15 @@ theme = 'blowfish'
 defaultContentLanguage = 'zh-cn'
 enableRobotsTXT = true
 
+[languages]
+  [languages.zh-cn]
+    languageCode = 'zh-cn'
+    contentDir = 'content'
+    weight = 1
+    title = '阿伟的博客'
+    params = {}
+      locale = 'zh-CN'
+
 [pagination]
   pagerSize = 20
 
